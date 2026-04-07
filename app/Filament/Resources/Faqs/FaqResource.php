@@ -7,7 +7,7 @@ use App\Filament\Resources\Faqs\Pages\EditFaq;
 use App\Filament\Resources\Faqs\Pages\ListFaqs;
 use App\Models\Faq;
 use BackedEnum;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -55,10 +55,9 @@ class FaqResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),
-                        Textarea::make('answer')
+                        RichEditor::make('answer')
                             ->label('Odpowiedź')
                             ->required()
-                            ->rows(6)
                             ->columnSpanFull(),
                         Toggle::make('is_active')
                             ->label('Aktywne')
@@ -79,10 +78,6 @@ class FaqResource extends Resource
                     ->label('Pytanie')
                     ->searchable()
                     ->limit(70),
-                TextColumn::make('answer')
-                    ->label('Odpowiedź')
-                    ->limit(90)
-                    ->searchable(),
                 ToggleColumn::make('is_active')
                     ->label('Aktywne'),
                 TextColumn::make('sort_order')
