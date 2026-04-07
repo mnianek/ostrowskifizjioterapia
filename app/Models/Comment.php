@@ -51,4 +51,9 @@ class Comment extends Model
     {
         return $this->hasMany(CommentGuestLike::class, 'comment_id');
     }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(CommentReport::class, 'comment_id');
+    }
 }

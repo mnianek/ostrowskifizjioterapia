@@ -37,4 +37,19 @@ class PageController extends Controller
             'locations' => $locations,
         ]);
     }
+
+    public function privacyPolicy()
+    {
+        return view('pages.privacy-policy');
+    }
+
+    public function cookies()
+    {
+        return view('pages.cookies');
+    }
+
+    public function terms()
+    {
+        return view('pages.terms');
+    }
 }

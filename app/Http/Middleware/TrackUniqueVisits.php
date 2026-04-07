@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\SiteStat;
+use App\Services\AnalyticsService;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +15,17 @@ class TrackUniqueVisits
             return $next($request);
         }
 
+        $analytics = app(AnalyticsService::class);
+
         if (! $request->session()->has('site_visited')) {
-            SiteStat::query()->firstOrCreate(
-                ['key' => 'unique_visits'],
-                ['value' => 0],
-            )->increment('value');
+            $analytics->increment('unique_visits');
+
+            $sourceKey = $analytics->sourceKey(
+                $request->query('utm_source'),
+                $request->headers->get('referer'),
+            );
+
+            $analytics->increment($sourceKey);
 
             $request->session()->put('site_visited', true);
         }

@@ -56,14 +56,14 @@ Data: 2026-04-07
 - [ ] Core Web Vitals sa monitorowane po wdrozeniu.
 
 ## 7. Analityka i produkt
-- [ ] Analityka (Plausible/GA) z eventami dla CTA, komentarzy i newslettera.
-- [ ] Widocznosc najpopularniejszych tresci i zrodel ruchu.
-- [ ] Prosty dashboard KPI (odslony, CTR, newsletter conversion).
+- [x] Analityka (Plausible/GA) z eventami dla CTA, komentarzy i newslettera.
+- [x] Widocznosc najpopularniejszych tresci i zrodel ruchu.
+- [x] Prosty dashboard KPI (odslony, CTR, newsletter conversion).
 
 ## 8. Zaufanie i legal
-- [ ] Strony: Polityka prywatnosci, Cookies, Kontakt, opcjonalnie Regulamin.
-- [ ] Zgody tam, gdzie sa wymagane prawnie.
-- [ ] Informacja o przetwarzaniu danych przy formularzach.
+- [x] Strony: Polityka prywatnosci, Cookies, Kontakt, opcjonalnie Regulamin.
+- [x] Zgody tam, gdzie sa wymagane prawnie.
+- [x] Informacja o przetwarzaniu danych przy formularzach.
 
 ## 9. Niezawodnosc i operacje
 - [ ] Backup bazy i mediow (automatyczny) + test odtworzenia.

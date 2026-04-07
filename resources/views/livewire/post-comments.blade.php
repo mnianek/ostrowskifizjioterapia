@@ -59,6 +59,11 @@
                         Odpowiedz
                     </button>
 
+                    <button type="button" wire:click="reportComment({{ $comment->id }})"
+                        class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-amber-700 dark:hover:text-amber-300">
+                        Zgłoś
+                    </button>
+
                     @if ($this->canPinComments())
                         <button type="button" wire:click="pinComment({{ $comment->id }})"
                             class="inline-flex items-center rounded-lg border border-amber-300 bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-800 transition hover:bg-amber-200 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200 dark:hover:bg-amber-900/60">
@@ -141,6 +146,11 @@
                                             class="{{ $this->userLikedComment($reply) ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500' }}">♥</span>
                                         <span>Lubię to ({{ $reply->likes_count + $reply->guest_likes_count }})</span>
                                     </button>
+
+                                    <button type="button" wire:click="reportComment({{ $reply->id }})"
+                                        class="ml-2 inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-amber-700 dark:hover:text-amber-300">
+                                        Zgłoś
+                                    </button>
                                 </div>
                             </article>
                         @endforeach
@@ -155,6 +165,10 @@
 
     <div class="mt-8 border-t border-slate-100 pt-6 dark:border-slate-800">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dodaj komentarz</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Zasady moderacji: nie publikujemy treści obraźliwych, reklamowych i niezgodnych z tematem. Użyj opcji
+            „Zgłoś”, jeśli komentarz narusza zasady.
+        </p>
 
         <form wire:submit="addComment" class="mt-4 space-y-4">
             <input type="text" wire:model="website" tabindex="-1" autocomplete="off" class="hidden"

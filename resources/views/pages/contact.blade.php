@@ -66,7 +66,32 @@
                                     <p class="mt-2 text-xs text-rose-600">{{ $message }}</p>
                                 @enderror
                             </label>
+
+                            <label class="block sm:col-span-2">
+                                <span class="inline-flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300">
+                                    <input type="checkbox" name="privacy_consent" value="1" required
+                                        @checked(old('privacy_consent'))
+                                        class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#3498db] focus:ring-[#3498db]/30 dark:border-slate-700 dark:bg-slate-900 dark:text-sky-400">
+                                    <span>
+                                        Akceptuję przetwarzanie moich danych osobowych zgodnie z
+                                        <a href="{{ route('pages.privacy-policy') }}"
+                                            class="font-semibold text-[#3498db] underline-offset-2 hover:underline dark:text-sky-300">Polityką
+                                            prywatności</a>.
+                                    </span>
+                                </span>
+                                @error('privacy_consent')
+                                    <p class="mt-2 text-xs text-rose-600">{{ $message }}</p>
+                                @enderror
+                            </label>
                         </div>
+
+                        <p class="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                            Administratorem danych jest właściciel serwisu. Dane z formularza kontaktowego przetwarzamy
+                            wyłącznie w celu odpowiedzi na zapytanie. Szczegóły znajdziesz w
+                            <a href="{{ route('pages.privacy-policy') }}"
+                                class="font-semibold text-[#3498db] underline-offset-2 hover:underline dark:text-sky-300">Polityce
+                                prywatności</a>.
+                        </p>
 
                         <div class="mt-6 flex flex-wrap items-center gap-3">
                             <button type="submit"

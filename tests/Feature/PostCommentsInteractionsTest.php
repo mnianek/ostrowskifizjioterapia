@@ -265,3 +265,71 @@ it('blocks reply submission when honeypot is filled', function () {
         'content' => 'Spam odpowiedz',
     ]);
 });
+
+it('allows guest to report approved comment only once', function () {
+    $post = Post::query()->create([
+        'title' => 'Post do zgloszen',
+        'slug' => 'post-do-zgloszen',
+        'content' => 'Tresc',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    $comment = Comment::query()->create([
+        'post_id' => $post->id,
+        'user_name' => 'Jan',
+        'content' => 'Komentarz do zgloszenia',
+        'is_approved' => true,
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('reportComment', $comment->id)
+        ->assertSee('Zgłoszenie zostało przekazane do moderacji.');
+
+    $guestToken = session('comment_guest_report_token');
+
+    assertDatabaseHas('comment_reports', [
+        'comment_id' => $comment->id,
+        'guest_token' => $guestToken,
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('reportComment', $comment->id)
+        ->assertSee('Ten komentarz został już przez Ciebie zgłoszony.');
+
+    expect(
+        \App\Models\CommentReport::query()
+            ->where('comment_id', $comment->id)
+            ->count()
+    )->toBe(1);
+});
+
+it('allows authenticated user to report approved comment', function () {
+    $user = User::factory()->create();
+
+    $post = Post::query()->create([
+        'title' => 'Post do zgloszenia user',
+        'slug' => 'post-do-zgloszenia-user',
+        'content' => 'Tresc',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    $comment = Comment::query()->create([
+        'post_id' => $post->id,
+        'user_name' => 'Jan',
+        'content' => 'Komentarz do zgloszenia user',
+        'is_approved' => true,
+    ]);
+
+    actingAs($user);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('reportComment', $comment->id)
+        ->assertSee('Zgłoszenie zostało przekazane do moderacji.');
+
+    assertDatabaseHas('comment_reports', [
+        'comment_id' => $comment->id,
+        'user_id' => $user->id,
+    ]);
+});

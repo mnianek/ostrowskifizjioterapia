@@ -8,6 +8,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
@@ -38,6 +39,12 @@ class CommentsTable
                         'success' => fn (bool $state): bool => $state,
                         'danger' => fn (bool $state): bool => ! $state,
                     ]),
+                TextColumn::make('reports_count')
+                    ->label('Zgłoszenia')
+                    ->counts('reports')
+                    ->badge()
+                    ->color(fn (int $state): string => $state > 0 ? 'warning' : 'gray')
+                    ->sortable(),
             ])
             ->filters([
                 TernaryFilter::make('is_approved')
@@ -45,6 +52,9 @@ class CommentsTable
                     ->placeholder('Wszystkie')
                     ->trueLabel('Zatwierdzone')
                     ->falseLabel('Do zatwierdzenia'),
+                Filter::make('reported')
+                    ->label('Tylko zgłoszone')
+                    ->query(fn ($query) => $query->whereHas('reports')),
             ])
             ->recordActions([
                 EditAction::make(),

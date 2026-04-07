@@ -27,9 +27,18 @@ class ContactController extends Controller
             'email' => ['required', 'email:rfc', 'max:255'],
             'phone' => ['nullable', 'string', 'max:30'],
             'content' => ['required', 'string', 'max:5000'],
+            'privacy_consent' => ['accepted'],
         ]);
 
-        Message::create($validated);
+        Message::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'content' => $validated['content'],
+            'privacy_consent' => true,
+            'privacy_consent_at' => now(),
+            'privacy_consent_ip' => $request->ip(),
+        ]);
 
         return redirect()
             ->route('pages.contact')

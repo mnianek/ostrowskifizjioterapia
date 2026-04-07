@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
@@ -31,6 +32,10 @@ Route::get('/sitemap.xml', function () {
 
 Route::get('/o-mnie', [PageController::class, 'about'])->name('pages.about');
 Route::get('/youtube', [PageController::class, 'youtube'])->name('pages.youtube');
+Route::get('/polityka-prywatnosci', [PageController::class, 'privacyPolicy'])->name('pages.privacy-policy');
+Route::get('/cookies', [PageController::class, 'cookies'])->name('pages.cookies');
+Route::get('/regulamin', [PageController::class, 'terms'])->name('pages.terms');
+Route::get('/go/youtube-channel', [AnalyticsController::class, 'youtubeChannel'])->name('analytics.youtube-channel');
 Route::get('/kontakt', [ContactController::class, 'index'])->name('pages.contact');
 Route::post('/kontakt', [ContactController::class, 'store'])
     ->middleware('throttle:5,1')

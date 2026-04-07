@@ -50,12 +50,31 @@
                     <div class="flex-1">
                         <x-ui.input type="email" name="email" label="Adres e-mail" required
                             placeholder="twoj@email.com" value="{{ old('email') }}" />
+
+                        <label class="mt-2 inline-flex items-start gap-2 text-xs leading-5 text-slate-600 dark:text-slate-300">
+                            <input type="checkbox" name="privacy_consent" value="1" required @checked(old('privacy_consent'))
+                                class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#3498db] focus:ring-[#3498db]/30 dark:border-slate-700 dark:bg-slate-900 dark:text-sky-400">
+                            <span>
+                                Zgadzam się na przetwarzanie danych zgodnie z
+                                <a href="{{ route('pages.privacy-policy') }}"
+                                    class="font-semibold text-[#3498db] underline-offset-2 hover:underline dark:text-sky-300">Polityką
+                                    prywatności</a>.
+                            </span>
+                        </label>
+                        @error('privacy_consent')
+                            <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <x-ui.button type="submit" variant="primary" class="sm:mb-px">
                         Zapisz się
                     </x-ui.button>
                 </form>
+
+                <p class="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                    Administratorem danych jest właściciel serwisu. Dane podane przy zapisie do newslettera
+                    wykorzystujemy tylko do wysyłki treści edukacyjnych.
+                </p>
             </div>
         </div>
 
@@ -63,5 +82,12 @@
             class="mt-10 border-t border-slate-200/70 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-500">
             © 2026. Wszelkie prawa zastrzeżone.
         </p>
+        <div class="mt-3 flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400">
+            <a href="{{ route('pages.privacy-policy') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Polityka
+                prywatności</a>
+            <a href="{{ route('pages.cookies') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Cookies</a>
+            <a href="{{ route('pages.terms') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Regulamin</a>
+            <a href="{{ route('pages.contact') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Kontakt</a>
+        </div>
     </div>
 </footer>

@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\Comments\CommentResource;
 use App\Models\Comment;
+use App\Models\NewsletterSubscriber;
 use App\Models\Post;
 use App\Models\SiteStat;
 use Filament\Widgets\StatsOverviewWidget;
@@ -28,6 +29,28 @@ class StatsOverview extends StatsOverviewWidget
         $draftPosts = Post::query()
             ->where('status', 'draft')
             ->count();
+
+        $ctaClicks = (int) (SiteStat::query()->where('key', 'cta_youtube_channel_clicks')->value('value') ?? 0);
+
+        $newsletterSubmissions = (int) (SiteStat::query()->where('key', 'newsletter_submissions')->value('value') ?? 0);
+        $newsletterNewSubscribers = (int) (SiteStat::query()->where('key', 'newsletter_new_subscribers')->value('value') ?? 0);
+
+        $topSourceStat = SiteStat::query()
+            ->where('key', 'like', 'source:%')
+            ->orderByDesc('value')
+            ->first();
+
+        $topSource = $topSourceStat ? str_replace('source:', '', $topSourceStat->key) : 'brak danych';
+
+        $newsletterConversion = $newsletterSubmissions > 0
+            ? round(($newsletterNewSubscribers / $newsletterSubmissions) * 100, 1)
+            : 0.0;
+
+        $ctaCtr = $uniqueVisits > 0
+            ? round(($ctaClicks / $uniqueVisits) * 100, 1)
+            : 0.0;
+
+        $subscribersCount = NewsletterSubscriber::query()->count();
 
         return [
             Stat::make('Unikalni Pacjenci', number_format((int) $uniqueVisits, 0, ',', ' '))
@@ -55,6 +78,26 @@ class StatsOverview extends StatsOverviewWidget
                     ],
                 ]))
                 ->color('warning'),
+            Stat::make('CTR CTA YouTube', number_format($ctaCtr, 1, ',', ' ').'%')
+                ->description('Kliknięcia CTA / unikalne sesje')
+                ->descriptionIcon('heroicon-s-cursor-arrow-rays')
+                ->icon('heroicon-s-arrow-top-right-on-square')
+                ->color('info'),
+            Stat::make('Konwersja newslettera', number_format($newsletterConversion, 1, ',', ' ').'%')
+                ->description(number_format($newsletterNewSubscribers, 0, ',', ' ').' nowych / '.number_format($newsletterSubmissions, 0, ',', ' ').' zapisów')
+                ->descriptionIcon('heroicon-s-envelope')
+                ->icon('heroicon-s-megaphone')
+                ->color('success'),
+            Stat::make('Top źródło ruchu', ucfirst($topSource))
+                ->description($topSourceStat ? number_format((int) $topSourceStat->value, 0, ',', ' ').' sesji' : 'Brak zebranych danych')
+                ->descriptionIcon('heroicon-s-globe-alt')
+                ->icon('heroicon-s-chart-bar')
+                ->color('gray'),
+            Stat::make('Subskrybenci newslettera', number_format($subscribersCount, 0, ',', ' '))
+                ->description('Aktualna liczba zapisanych osób')
+                ->descriptionIcon('heroicon-s-user-plus')
+                ->icon('heroicon-s-inbox-stack')
+                ->color('primary'),
         ];
     }
 }

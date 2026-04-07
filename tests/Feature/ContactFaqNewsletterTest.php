@@ -22,6 +22,7 @@ it('stores contact messages from the contact form', function () {
         'email' => 'jan@example.com',
         'phone' => '123 456 789',
         'content' => 'Chciałbym umówić wizytę.',
+        'privacy_consent' => '1',
     ]);
 
     $response->assertRedirect(route('pages.contact'));
@@ -29,6 +30,7 @@ it('stores contact messages from the contact form', function () {
     assertDatabaseHas('messages', [
         'name' => 'Jan Kowalski',
         'email' => 'jan@example.com',
+        'privacy_consent' => 1,
     ]);
 });
 
@@ -44,6 +46,7 @@ it('validates required fields in contact form', function () {
             'name',
             'email',
             'content',
+            'privacy_consent',
         ]);
 
     expect(\App\Models\Message::query()->count())->toBe(0);
@@ -52,12 +55,14 @@ it('validates required fields in contact form', function () {
 it('stores newsletter subscribers from the footer form', function () {
     $response = post(route('newsletter.subscribe'), [
         'email' => 'subskrybent@example.com',
+        'privacy_consent' => '1',
     ]);
 
     $response->assertRedirect();
 
     assertDatabaseHas('newsletter_subscribers', [
         'email' => 'subskrybent@example.com',
+        'privacy_consent' => 1,
     ]);
 
     expect(NewsletterSubscriber::query()->count())->toBe(1);
@@ -66,10 +71,12 @@ it('stores newsletter subscribers from the footer form', function () {
 it('does not create duplicate newsletter subscribers', function () {
     post(route('newsletter.subscribe'), [
         'email' => 'duplikat@example.com',
+        'privacy_consent' => '1',
     ])->assertRedirect();
 
     post(route('newsletter.subscribe'), [
         'email' => 'duplikat@example.com',
+        'privacy_consent' => '1',
     ])->assertRedirect();
 
     expect(NewsletterSubscriber::query()->count())->toBe(1);
@@ -80,9 +87,15 @@ it('validates newsletter email field', function () {
         'email' => 'nie-poprawny-adres',
     ]);
 
-    $response->assertSessionHasErrors(['email']);
+    $response->assertSessionHasErrors(['email', 'privacy_consent']);
 
     expect(NewsletterSubscriber::query()->count())->toBe(0);
+});
+
+it('renders legal pages', function () {
+    get(route('pages.privacy-policy'))->assertOk();
+    get(route('pages.cookies'))->assertOk();
+    get(route('pages.terms'))->assertOk();
 });
 
 it('renders active faq entries on the home page', function () {

@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
+use App\Models\CommentReport;
 use App\Models\Post;
 use App\Models\User;
+use App\Services\AnalyticsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -68,6 +70,8 @@ class PostComments extends Component
         $this->content = '';
         $this->website = '';
 
+        app(AnalyticsService::class)->increment('comments_submitted');
+
         session()->flash('comment_status', 'Twój komentarz oczekuje na zatwierdzenie przez administratora.');
     }
 
@@ -130,6 +134,8 @@ class PostComments extends Component
         $this->replyContent = '';
         $this->replyWebsite = '';
 
+        app(AnalyticsService::class)->increment('comments_submitted');
+
         session()->flash('comment_status', 'Twoja odpowiedź oczekuje na zatwierdzenie przez administratora.');
     }
 
@@ -180,6 +186,40 @@ class PostComments extends Component
         }
 
         $this->interactionMessage = null;
+    }
+
+    public function reportComment(int $commentId): void
+    {
+        $comment = $this->post->comments()
+            ->where('id', $commentId)
+            ->where('is_approved', true)
+            ->firstOrFail();
+
+        $user = $this->getCurrentUser();
+
+        if ($user) {
+            $created = CommentReport::query()->firstOrCreate([
+                'comment_id' => $comment->id,
+                'user_id' => $user->id,
+            ]);
+
+            $this->interactionMessage = $created->wasRecentlyCreated
+                ? 'Dziękujemy. Zgłoszenie zostało przekazane do moderacji.'
+                : 'Ten komentarz został już przez Ciebie zgłoszony.';
+
+            return;
+        }
+
+        $guestToken = $this->getGuestReportToken();
+
+        $created = CommentReport::query()->firstOrCreate([
+            'comment_id' => $comment->id,
+            'guest_token' => $guestToken,
+        ]);
+
+        $this->interactionMessage = $created->wasRecentlyCreated
+            ? 'Dziękujemy. Zgłoszenie zostało przekazane do moderacji.'
+            : 'Ten komentarz został już przez Ciebie zgłoszony.';
     }
 
     public function canPinComments(): bool
@@ -288,5 +328,17 @@ class PostComments extends Component
         }
 
         return true;
+    }
+
+    protected function getGuestReportToken(): string
+    {
+        $token = session('comment_guest_report_token');
+
+        if (! is_string($token) || $token === '') {
+            $token = (string) Str::uuid();
+            session(['comment_guest_report_token' => $token]);
+        }
+
+        return $token;
     }
 }
