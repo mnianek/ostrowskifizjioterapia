@@ -21,6 +21,7 @@ class PostController extends Controller
         }
 
         $posts = Post::query()
+            ->published()
             ->with('category')
             ->withCount([
                 'comments as comments_count' => fn ($query) => $query->where('is_approved', true),
@@ -67,8 +68,20 @@ class PostController extends Controller
     public function show(string $slug)
     {
         $post = Post::query()
+            ->published()
+            ->with('category')
             ->where('slug', $slug)
             ->firstOrFail();
+
+        $relatedPosts = Post::query()
+            ->published()
+            ->where('id', '!=', $post->id)
+            ->when($post->category_id, function ($query) use ($post) {
+                $query->where('category_id', $post->category_id);
+            })
+            ->latest('published_at')
+            ->limit(3)
+            ->get(['id', 'title', 'slug', 'lead', 'excerpt', 'published_at']);
 
         $viewedPosts = session()->get('viewed_posts', []);
 
@@ -81,12 +94,27 @@ class PostController extends Controller
 
         return view('posts.show', [
             'post' => $post,
+            'relatedPosts' => $relatedPosts,
         ]);
+    }
+
+    public function feed()
+    {
+        $posts = Post::query()
+            ->published()
+            ->latest('published_at')
+            ->limit(20)
+            ->get();
+
+        return response()
+            ->view('posts.feed', ['posts' => $posts])
+            ->header('Content-Type', 'application/rss+xml; charset=UTF-8');
     }
 
     public function storeComment(Request $request, string $slug)
     {
         $post = Post::query()
+            ->published()
             ->where('slug', $slug)
             ->firstOrFail();
 
@@ -108,11 +136,15 @@ class PostController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Post::class);
+
         return view('posts.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Post::class);
+
         $parameters = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:posts,slug'],

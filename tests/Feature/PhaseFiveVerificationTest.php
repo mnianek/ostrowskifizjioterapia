@@ -73,7 +73,7 @@ it('shows post list, details, and supports filtering by category', function () {
     get(route('posts.index'))
         ->assertOk()
         ->assertSee('Powrot po urazie')
-        ->assertSee('Trening biegacza');
+        ->assertDontSee('Trening biegacza');
 
     get(route('posts.index', ['category' => $rehab->id]))
         ->assertOk()

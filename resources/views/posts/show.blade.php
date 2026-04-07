@@ -1,4 +1,25 @@
-<x-layout>
+<x-layout :meta-title="$post->title . ' | Blog'" :meta-description="$post->excerpt ?: ($post->lead ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 160))"
+    :canonical="route('posts.show', $post->slug)"
+    :og-image="$post->getFirstMediaUrl('featured_image') ?: ($post->image_path ? asset('storage/' . ltrim($post->image_path, '/')) : asset('images/LOGO%20BLACK.png'))"
+    og-type="article">
+    @push('structured-data')
+        <script type="application/ld+json">
+            {!! json_encode([
+                '@context' => 'https://schema.org',
+                '@type' => 'BlogPosting',
+                'headline' => $post->title,
+                'description' => $post->excerpt ?: ($post->lead ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 160)),
+                'author' => [
+                    '@type' => 'Person',
+                    'name' => $post->author,
+                ],
+                'datePublished' => optional($post->published_at)->toIso8601String(),
+                'dateModified' => optional($post->updated_at)->toIso8601String(),
+                'mainEntityOfPage' => route('posts.show', $post->slug),
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+        </script>
+    @endpush
+
     <main class="bg-slate-50 font-[Inter,Geist,ui-sans-serif,system-ui,sans-serif] dark:bg-slate-900">
         <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
             <a href="{{ route('posts.index') }}"
@@ -92,6 +113,37 @@
                     </section>
 
                     <livewire:post-comments :post="$post" />
+
+                    @if ($relatedPosts->isNotEmpty())
+                        <section class="mt-12 border-t border-slate-100 pt-10 dark:border-slate-800">
+                            <div class="mb-5 flex items-center justify-between gap-3">
+                                <h2 class="text-2xl font-bold tracking-[-0.015em] text-slate-900 dark:text-white">
+                                    Powiazane wpisy
+                                </h2>
+                                <a href="{{ route('posts.index') }}"
+                                    class="text-sm font-semibold text-[#0B2A4A] transition hover:text-[#153f6b] dark:text-sky-300 dark:hover:text-sky-200">
+                                    Wszystkie wpisy
+                                </a>
+                            </div>
+
+                            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                @foreach ($relatedPosts as $relatedPost)
+                                    <article
+                                        class="rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/70">
+                                        <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+                                            <a href="{{ route('posts.show', $relatedPost->slug) }}"
+                                                class="transition hover:text-[#3498db] dark:hover:text-sky-300">
+                                                {{ $relatedPost->title }}
+                                            </a>
+                                        </h3>
+                                        <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                                            {{ $relatedPost->excerpt ?: ($relatedPost->lead ?: 'Przeczytaj pelny wpis.') }}
+                                        </p>
+                                    </article>
+                                @endforeach
+                            </div>
+                        </section>
+                    @endif
                 </div>
             </article>
         </section>

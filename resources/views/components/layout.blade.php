@@ -1,10 +1,36 @@
+@props([
+    'metaTitle' => config('app.name') . ' - Fizjoterapia',
+    'metaDescription' => 'Blog i poradniki o fizjoterapii, profilaktyce urazow i bezpiecznym powrocie do aktywnosci.',
+    'canonical' => url()->current(),
+    'ogImage' => asset('images/LOGO%20BLACK.png'),
+    'ogType' => 'website',
+    'robots' => 'index,follow',
+])
+
 <!DOCTYPE html>
 <html lang="pl" class="h-full bg-slate-50 dark:bg-slate-950">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }} - Fizjoterapia</title>
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="robots" content="{{ $robots }}">
+    <link rel="canonical" href="{{ $canonical }}">
+
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonical }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
+
+    <link rel="alternate" type="application/rss+xml" title="{{ config('app.name') }} RSS" href="{{ route('posts.feed') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -23,6 +49,7 @@
 
     @vite(['resources/css/app.css'])
     @livewireStyles
+    @stack('structured-data')
 </head>
 
 <body x-data="themeController"

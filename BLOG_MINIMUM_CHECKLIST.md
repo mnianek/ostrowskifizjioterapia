@@ -3,12 +3,12 @@
 Data: 2026-04-07
 
 ## 1. Bezpieczenstwo i publikacja (krytyczne)
-- [ ] Publiczna lista wpisow pokazuje tylko opublikowane posty (`is_published = true` lub `status = published`).
-- [ ] Publiczny podglad posta blokuje szkice (404 lub 403 dla nieopublikowanych).
-- [ ] Trasy tworzenia, edycji i usuwania postow sa chronione (`auth` + role/policy).
+- [x] Publiczna lista wpisow pokazuje tylko opublikowane posty (`is_published = true` lub `status = published`).
+- [x] Publiczny podglad posta blokuje szkice (404 lub 403 dla nieopublikowanych).
+- [x] Trasy tworzenia, edycji i usuwania postow sa chronione (`auth` + role/policy).
 - [ ] Akcje administracyjne (posty, komentarze, kategorie) sa dostepne tylko w panelu admin.
 - [ ] Walidacja formularzy jest kompletna (title, slug unique, content length, anty-spam).
-- [ ] Publiczne formularze maja rate limiting (komentarze, kontakt, newsletter).
+- [x] Publiczne formularze maja rate limiting (komentarze, kontakt, newsletter).
 
 ## 2. Model tresci i workflow redakcyjny
 - [x] Wpis ma: tytul, slug, lead, tresc, autora.
@@ -26,9 +26,9 @@ Data: 2026-04-07
 - [x] Filtr po kategorii.
 - [x] Widok pojedynczego wpisu.
 - [x] Licznik wyswietlen.
-- [ ] Powiazane wpisy pod artykulem (minimum 3).
+- [x] Powiazane wpisy pod artykulem (minimum 3).
 - [ ] Strony bledow 404 i 500 zgodne ze stylem serwisu.
-- [ ] RSS feed (`/feed`).
+- [x] RSS feed (`/feed`).
 
 ## 4. Komentarze i spolecznosc
 - [x] Dodawanie komentarzy i odpowiedzi.
@@ -40,12 +40,12 @@ Data: 2026-04-07
 - [ ] Krotkie zasady moderacji widoczne przy komentarzach.
 
 ## 5. SEO minimum
-- [ ] Dynamiczny `title` i `meta description` dla strony wpisu.
-- [ ] Canonical URL dla wpisow.
-- [ ] Open Graph i Twitter Card (title, description, image).
-- [ ] `sitemap.xml` dla wpisow i stron statycznych.
+- [x] Dynamiczny `title` i `meta description` dla strony wpisu.
+- [x] Canonical URL dla wpisow.
+- [x] Open Graph i Twitter Card (title, description, image).
+- [x] `sitemap.xml` dla wpisow i stron statycznych.
 - [ ] Poprawny `robots.txt` dla produkcji.
-- [ ] Dane strukturalne JSON-LD (`BlogPosting`).
+- [x] Dane strukturalne JSON-LD (`BlogPosting`).
 - [ ] Strategia SEO dla paginacji listy wpisow.
 
 ## 6. Performance i dostepnosc
@@ -72,10 +72,10 @@ Data: 2026-04-07
 - [ ] Proces wdrozenia z minimalnym downtime.
 
 ## 10. Testy (minimum jakosci)
-- [ ] Testy feature: lista opublikowanych, podglad opublikowanego, blokada szkicow.
+- [x] Testy feature: lista opublikowanych, podglad opublikowanego, blokada szkicow.
 - [ ] Testy uprawnien dla tworzenia/edycji/publikacji.
 - [x] Testy komentarzy i lajkow sa juz obecne.
-- [ ] Testy SEO smoke (status, meta, canonical).
+- [x] Testy SEO smoke (status, meta, canonical).
 - [ ] Testy formularzy kontakt i newsletter.
 
 ## 11. Testy Pest (rozszerzenie)
@@ -88,7 +88,7 @@ Data: 2026-04-07
 - [ ] Uruchamianie rownolegle w CI (`pest --parallel`).
 
 ## 12. Laravel Pint (jakosc kodu)
-- [ ] Konfiguracja projektu w `pint.json`.
+- [x] Konfiguracja projektu w `pint.json`.
 - [ ] `vendor/bin/pint` uruchamiany w CI przed merge.
 - [ ] Hook pre-commit (opcjonalnie) wymusza formatowanie.
 - [ ] Sprawdzanie tylko zmienionych plikow w szybkiej sciezce.
@@ -96,7 +96,7 @@ Data: 2026-04-07
 
 ## 13. SEO zaawansowane
 - [ ] Dynamiczne OG image per wpis.
-- [ ] JSON-LD: BlogPosting + BreadcrumbList + Organization.
+- [x] JSON-LD: BlogPosting + BreadcrumbList + Organization.
 - [ ] Canonical dla paginacji i filtrow (strategia duplicate-content).
 - [ ] Hreflang dla wersji jezykowych (jesli multi-lang).
 - [ ] Internal linking: sekcja powiazanych wpisow + kontekstowe linki.
@@ -104,14 +104,18 @@ Data: 2026-04-07
 - [ ] Audyt CWV i stale monitorowanie LCP/CLS/INP.
 
 ## 14. Prawdziwy dziennik zdarzen w Filamencie (audit trail)
-- [ ] Rejestracja zdarzen create/update/delete/publish/unpublish.
-- [ ] Zapisywane pola: kto, kiedy, co, stare->nowe, IP, user-agent.
-- [ ] Osobny Resource w Filamencie do przegladania logow.
-- [ ] Filtrowanie po modelu, uzytkowniku, akcji i zakresie dat.
-- [ ] Widok szczegolow zmiany (diff) dla pojedynczego wpisu.
-- [ ] Polityki dostepu: logi tylko dla admin/moderator/audytor.
+- [x] Rejestracja zdarzen create/update/delete/publish/unpublish.
+- [x] Zapisywane pola: kto, kiedy, co, stare->nowe, IP, user-agent.
+- [x] Osobny Resource w Filamencie do przegladania logow.
+- [x] Filtrowanie po modelu, uzytkowniku, akcji i zakresie dat.
+- [x] Widok szczegolow zmiany (diff) dla pojedynczego wpisu.
+- [x] Polityki dostepu: logi tylko dla admin/moderator/audytor.
 - [ ] Retencja logow i archiwizacja.
-- [ ] Testy Pest potwierdzajace zapis logu po kazdej akcji admina.
+- [x] Testy Pest potwierdzajace zapis logu po kazdej akcji admina.
+
+## Status implementacji (2026-04-07)
+- Wdrozone: publikacja/szkice, ochrona tras tworzenia wpisow, throttling formularzy, RSS, sitemap, SEO meta+OG+JSON-LD, powiazane wpisy, audit trail w Filamencie, nowe testy Pest, konfiguracja Pint i workflow quality.
+- Pozostale elementy wymagaja dalszych iteracji (analityka zewnetrzna, monitoring CWV, legal pages, backup/ops i pelne pokrycie testami wszystkich scenariuszy).
 
 ## Priorytet wdrozenia
 1. Ograniczyc publiczne posty do opublikowanych i zablokowac szkice.

@@ -1,4 +1,6 @@
-<x-layout>
+<x-layout meta-title="Blog | {{ config('app.name') }}"
+    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu."
+    :canonical="route('posts.index')">
     <main class="bg-slate-50 font-[Inter,Geist,ui-sans-serif,system-ui,sans-serif] dark:bg-slate-900">
         <section
             class="relative overflow-hidden border-b border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-950">

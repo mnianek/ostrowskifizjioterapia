@@ -55,6 +55,13 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
+        "test:pest": [
+            "@php artisan config:clear --ansi",
+            "@php vendor/bin/pest --parallel"
+        ],
+        "lint": [
+            "@php vendor/bin/pint --test"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
