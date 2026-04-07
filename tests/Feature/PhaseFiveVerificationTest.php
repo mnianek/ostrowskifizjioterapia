@@ -206,7 +206,7 @@ it('renders locations and map iframes on contact page', function () {
 it('allows authenticated access to basic filament resource pages', function () {
     $role = Role::query()->firstOrCreate(['name' => 'super_admin']);
 
-    collect(['Post', 'Category', 'Video', 'Location'])->each(function (string $resource) use ($role): void {
+    collect(['Post', 'Category', 'Video', 'Location', 'Faq'])->each(function (string $resource) use ($role): void {
         collect([
             'ViewAny',
             'View',
@@ -272,6 +272,14 @@ it('allows authenticated access to basic filament resource pages', function () {
 
     $this->actingAs($user)
         ->get('/admin/locations')
+        ->assertOk();
+
+    $this->actingAs($user)
+        ->get('/admin/faqs')
+        ->assertOk();
+
+    $this->actingAs($user)
+        ->get('/admin/faqs/create')
         ->assertOk();
 
     $this->actingAs($user)
