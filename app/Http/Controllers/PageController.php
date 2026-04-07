@@ -37,5 +37,4 @@ class PageController extends Controller
             'locations' => $locations,
         ]);
     }
-
 }

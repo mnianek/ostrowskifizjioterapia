@@ -34,7 +34,7 @@ class Video extends Model
             parse_str($parts['query'] ?? '', $query);
 
             if (! empty($query['v'])) {
-                return 'https://www.youtube.com/embed/' . $query['v'];
+                return 'https://www.youtube.com/embed/'.$query['v'];
             }
         }
 

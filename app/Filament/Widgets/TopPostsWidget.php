@@ -7,7 +7,6 @@ use App\Models\Post;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
-use Illuminate\Database\Eloquent\Builder;
 
 class TopPostsWidget extends TableWidget
 {
