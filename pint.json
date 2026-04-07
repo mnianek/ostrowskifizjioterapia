@@ -1,8 +1,8 @@
 {
-  "preset": "laravel",
-  "exclude": [
-    "bootstrap/cache",
-    "node_modules",
-    "storage"
-  ]
+    "preset": "laravel",
+    "exclude": [
+        "bootstrap/cache",
+        "node_modules",
+        "storage"
+    ]
 }

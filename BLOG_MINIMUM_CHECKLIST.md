@@ -6,18 +6,18 @@ Data: 2026-04-07
 - [x] Publiczna lista wpisow pokazuje tylko opublikowane posty (`is_published = true` lub `status = published`).
 - [x] Publiczny podglad posta blokuje szkice (404 lub 403 dla nieopublikowanych).
 - [x] Trasy tworzenia, edycji i usuwania postow sa chronione (`auth` + role/policy).
-- [ ] Akcje administracyjne (posty, komentarze, kategorie) sa dostepne tylko w panelu admin.
-- [ ] Walidacja formularzy jest kompletna (title, slug unique, content length, anty-spam).
+- [x] Akcje administracyjne (posty, komentarze, kategorie) sa dostepne tylko w panelu admin.
+- [x] Walidacja formularzy jest kompletna (title, slug unique, content length, anty-spam).
 - [x] Publiczne formularze maja rate limiting (komentarze, kontakt, newsletter).
 
 ## 2. Model tresci i workflow redakcyjny
 - [x] Wpis ma: tytul, slug, lead, tresc, autora.
 - [x] Kategorie istnieja i dzialaja.
-- [ ] Statusy redakcyjne sa spojne (`draft`, `published`, opcjonalnie `scheduled`).
-- [ ] Harmonogram publikacji (`published_at`) jest respektowany w listach i podgladzie.
-- [ ] Slugi sa unikalne i maja spojne zasady tworzenia.
-- [ ] Excerpt/meta description jest uzupelniony na potrzeby SEO.
-- [ ] Widoczne jest `updated_at` (lub prosty changelog) dla czytelnika.
+- [x] Statusy redakcyjne sa spojne (`draft`, `published`, opcjonalnie `scheduled`).
+- [x] Harmonogram publikacji (`published_at`) jest respektowany w listach i podgladzie.
+- [x] Slugi sa unikalne i maja spojne zasady tworzenia.
+- [x] Excerpt/meta description jest uzupelniony na potrzeby SEO.
+- [x] Widoczne jest `updated_at` (lub prosty changelog) dla czytelnika.
 
 ## 3. Funkcje blogowe na froncie
 - [x] Lista wpisow z paginacja.
@@ -27,7 +27,7 @@ Data: 2026-04-07
 - [x] Widok pojedynczego wpisu.
 - [x] Licznik wyswietlen.
 - [x] Powiazane wpisy pod artykulem (minimum 3).
-- [ ] Strony bledow 404 i 500 zgodne ze stylem serwisu.
+- [x] Strony bledow 404 i 500 zgodne ze stylem serwisu.
 - [x] RSS feed (`/feed`).
 
 ## 4. Komentarze i spolecznosc
@@ -35,7 +35,7 @@ Data: 2026-04-07
 - [x] Moderacja (pending i approved).
 - [x] Lajki komentarzy (zalogowany + gosc).
 - [x] Przypinanie komentarza.
-- [ ] Anty-spam dla komentarzy (honeypot/captcha/rate limit).
+- [x] Anty-spam dla komentarzy (honeypot/captcha/rate limit).
 - [ ] Zglaszanie komentarza (report) i usuwanie przez admina.
 - [ ] Krotkie zasady moderacji widoczne przy komentarzach.
 
@@ -44,7 +44,7 @@ Data: 2026-04-07
 - [x] Canonical URL dla wpisow.
 - [x] Open Graph i Twitter Card (title, description, image).
 - [x] `sitemap.xml` dla wpisow i stron statycznych.
-- [ ] Poprawny `robots.txt` dla produkcji.
+- [x] Poprawny `robots.txt` dla produkcji.
 - [x] Dane strukturalne JSON-LD (`BlogPosting`).
 - [ ] Strategia SEO dla paginacji listy wpisow.
 

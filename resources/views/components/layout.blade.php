@@ -30,7 +30,8 @@
     <meta name="twitter:description" content="{{ $metaDescription }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
 
-    <link rel="alternate" type="application/rss+xml" title="{{ config('app.name') }} RSS" href="{{ route('posts.feed') }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ config('app.name') }} RSS"
+        href="{{ route('posts.feed') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

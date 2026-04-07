@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -14,6 +15,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Post extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
+    public const STATUS_DRAFT = 'draft';
+
+    public const STATUS_PUBLISHED = 'published';
+
+    public const STATUS_SCHEDULED = 'scheduled';
 
     protected $appends = [
         'reading_time',
@@ -47,10 +54,46 @@ class Post extends Model implements HasMedia
         'views_count' => 'integer',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (Post $post): void {
+            if (blank($post->slug) && filled($post->title)) {
+                $post->slug = Str::slug((string) $post->title);
+            }
+
+            if (blank($post->excerpt) && filled($post->content)) {
+                $post->excerpt = Str::limit(strip_tags((string) $post->content), 160);
+            }
+
+            $status = $post->status ?: self::STATUS_DRAFT;
+
+            if ($status === self::STATUS_DRAFT) {
+                $post->is_published = false;
+                $post->published_at = null;
+
+                return;
+            }
+
+            $post->is_published = in_array($status, [self::STATUS_PUBLISHED, self::STATUS_SCHEDULED], true);
+
+            if ($status === self::STATUS_PUBLISHED && ! $post->published_at) {
+                $post->published_at = now();
+            }
+        });
+    }
+
     public function setStatusAttribute(string $value): void
     {
-        $this->attributes['status'] = $value;
-        $this->attributes['is_published'] = $value === 'published';
+        $allowedStatuses = [self::STATUS_DRAFT, self::STATUS_PUBLISHED, self::STATUS_SCHEDULED];
+
+        $status = in_array($value, $allowedStatuses, true) ? $value : self::STATUS_DRAFT;
+
+        $this->attributes['status'] = $status;
+    }
+
+    public function setSlugAttribute(string $value): void
+    {
+        $this->attributes['slug'] = Str::slug($value);
     }
 
     public function category(): BelongsTo
@@ -64,8 +107,16 @@ class Post extends Model implements HasMedia
             ->where('is_published', true)
             ->where(function (Builder $publishedQuery): void {
                 $publishedQuery
-                    ->whereNull('published_at')
-                    ->orWhere('published_at', '<=', now());
+                    ->where(function (Builder $datedQuery): void {
+                        $datedQuery
+                            ->whereNotNull('published_at')
+                            ->where('published_at', '<=', now());
+                    })
+                    ->orWhere(function (Builder $legacyPublishedQuery): void {
+                        $legacyPublishedQuery
+                            ->whereNull('published_at')
+                            ->where('status', self::STATUS_PUBLISHED);
+                    });
             });
     }
 

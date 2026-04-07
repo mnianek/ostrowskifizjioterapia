@@ -48,9 +48,11 @@ class PostForm
                                             ->maxLength(255),
                                         TextInput::make('slug')
                                             ->required()
+                                            ->rule('regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                                             ->unique(ignoreRecord: true)
                                             ->dehydrated()
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->helperText('Dozwolone: male litery, cyfry i myslnik.'),
                                         TextInput::make('author')
                                             ->required()
                                             ->maxLength(255),
@@ -69,6 +71,7 @@ class PostForm
                                         Textarea::make('excerpt')
                                             ->label('Krótki opis')
                                             ->rows(4)
+                                            ->maxLength(160)
                                             ->columnSpanFull(),
                                         RichEditor::make('content')
                                             ->required()
@@ -100,10 +103,12 @@ class PostForm
                                             ->options([
                                                 'draft' => 'Szkic',
                                                 'published' => 'Opublikowany',
+                                                'scheduled' => 'Zaplanowany',
                                             ])
                                             ->colors([
                                                 'draft' => 'gray',
                                                 'published' => 'success',
+                                                'scheduled' => 'warning',
                                             ])
                                             ->inline()
                                             ->default('draft')
@@ -111,7 +116,8 @@ class PostForm
                                         DatePicker::make('published_at')
                                             ->label('Data publikacji')
                                             ->native(false)
-                                            ->displayFormat('d.m.Y'),
+                                            ->displayFormat('d.m.Y')
+                                            ->required(fn (Get $get): bool => in_array($get('status'), ['published', 'scheduled'], true)),
                                     ]),
                             ])->columns(2),
                     ]),

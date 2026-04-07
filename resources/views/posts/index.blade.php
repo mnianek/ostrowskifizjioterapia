@@ -1,13 +1,11 @@
 <x-layout meta-title="Blog | {{ config('app.name') }}"
-    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu."
-    :canonical="route('posts.index')">
+    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu." :canonical="route('posts.index')">
     <main class="bg-slate-50 font-[Inter,Geist,ui-sans-serif,system-ui,sans-serif] dark:bg-slate-900">
         <section
             class="relative overflow-hidden border-b border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-950">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(11,42,74,0.12),transparent_45%)]">
             </div>
             <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-                <x-brand.logo size="h-14" :linked="false" class="mb-5" />
                 <h1
                     class="mt-5 max-w-4xl text-4xl font-bold tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">
                     Baza Wiedzy Fizjoterapeutycznej
@@ -161,10 +159,12 @@
                     <div
                         class="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center dark:border-slate-700 dark:bg-slate-950">
                         <p class="text-lg text-slate-600 dark:text-slate-300">Brak artykułów do wyświetlenia.</p>
-                        <a href="{{ route('posts.create') }}"
-                            class="mt-4 inline-block font-semibold text-[#0B2A4A] transition hover:text-[#153f6b] dark:text-sky-300 dark:hover:text-sky-200">
-                            Dodaj pierwszy wpis
-                        </a>
+                        @if (Route::has('posts.create'))
+                            <a href="{{ route('posts.create') }}"
+                                class="mt-4 inline-block font-semibold text-[#0B2A4A] transition hover:text-[#153f6b] dark:text-sky-300 dark:hover:text-sky-200">
+                                Dodaj pierwszy wpis
+                            </a>
+                        @endif
                     </div>
                 @endforelse
             </div>

@@ -1,7 +1,7 @@
-<x-layout :meta-title="$post->title . ' | Blog'" :meta-description="$post->excerpt ?: ($post->lead ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 160))"
-    :canonical="route('posts.show', $post->slug)"
-    :og-image="$post->getFirstMediaUrl('featured_image') ?: ($post->image_path ? asset('storage/' . ltrim($post->image_path, '/')) : asset('images/LOGO%20BLACK.png'))"
-    og-type="article">
+<x-layout :meta-title="$post->title . ' | Blog'" :meta-description="$post->excerpt ?: ($post->lead ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 160))" :canonical="route('posts.show', $post->slug)" :og-image="$post->getFirstMediaUrl('featured_image') ?:
+    ($post->image_path
+        ? asset('storage/' . ltrim($post->image_path, '/'))
+        : asset('images/LOGO%20BLACK.png'))" og-type="article">
     @push('structured-data')
         <script type="application/ld+json">
             {!! json_encode([
@@ -78,6 +78,8 @@
                         <span class="h-1 w-1 rounded-full bg-slate-300"></span>
                         <span class="font-medium text-[#3498db] dark:text-sky-300">⏱ {{ $post->reading_time }} min
                             czytania</span>
+                        <span class="h-1 w-1 rounded-full bg-slate-300"></span>
+                        <span>Aktualizacja: {{ $post->updated_at?->translatedFormat('d F Y') }}</span>
                     </div>
 
                     <header>

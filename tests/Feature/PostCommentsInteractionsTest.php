@@ -212,3 +212,56 @@ it('toggles likes for guest user without login', function () {
         'guest_token' => $guestToken,
     ]);
 });
+
+it('blocks top-level comment submission when honeypot is filled', function () {
+    $post = Post::query()->create([
+        'title' => 'Post honeypot',
+        'slug' => 'post-honeypot',
+        'content' => 'Tresc',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->set('userName', 'Bot')
+        ->set('content', 'Spam komentarz')
+        ->set('website', 'https://spam.example')
+        ->call('addComment');
+
+    assertDatabaseMissing('comments', [
+        'post_id' => $post->id,
+        'user_name' => 'Bot',
+        'content' => 'Spam komentarz',
+    ]);
+});
+
+it('blocks reply submission when honeypot is filled', function () {
+    $post = Post::query()->create([
+        'title' => 'Post honeypot reply',
+        'slug' => 'post-honeypot-reply',
+        'content' => 'Tresc',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    $parentComment = Comment::query()->create([
+        'post_id' => $post->id,
+        'user_name' => 'Jan',
+        'content' => 'Komentarz glowny',
+        'is_approved' => true,
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('toggleReplyForm', $parentComment->id)
+        ->set('replyUserName', 'Bot')
+        ->set('replyContent', 'Spam odpowiedz')
+        ->set('replyWebsite', 'https://spam.example')
+        ->call('addReply');
+
+    assertDatabaseMissing('comments', [
+        'post_id' => $post->id,
+        'parent_id' => $parentComment->id,
+        'user_name' => 'Bot',
+        'content' => 'Spam odpowiedz',
+    ]);
+});

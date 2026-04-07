@@ -10,8 +10,8 @@ class HomeController extends Controller
     public function index()
     {
         $latestPosts = Post::query()
+            ->published()
             ->with('category')
-            ->where('is_published', true)
             ->latest('published_at')
             ->latest('created_at')
             ->limit(3)

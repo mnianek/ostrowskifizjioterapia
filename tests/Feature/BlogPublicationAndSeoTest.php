@@ -1,11 +1,9 @@
 <?php
 
 use App\Models\Post;
-use App\Models\User;
-use Spatie\Permission\Models\Permission;
 
-use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
+use function Pest\Laravel\post;
 
 it('shows only published posts on blog index', function () {
     $published = Post::query()->create([
@@ -48,17 +46,33 @@ it('returns 404 when trying to open draft post page', function () {
     get('/blog/szkic-niewidoczny')->assertNotFound();
 });
 
-it('protects post creation routes from guests and allows permitted users', function () {
-    get(route('posts.create'))->assertForbidden();
+it('does not expose public post creation routes outside admin panel', function () {
+    get('/posts/create')->assertNotFound();
 
-    $user = User::factory()->create();
+    post('/posts', [
+        'title' => 'Nowy wpis',
+        'slug' => 'nowy-wpis',
+        'author' => 'Admin',
+        'content' => 'Tresc testowa wpisu poza panelem.',
+    ])->assertNotFound();
+});
 
-    Permission::findOrCreate('Create:Post', 'web');
-    $user->givePermissionTo('Create:Post');
+it('hides scheduled post until publication date', function () {
+    Post::query()->create([
+        'title' => 'Wpis zaplanowany',
+        'slug' => 'wpis-zaplanowany',
+        'content' => 'Tresc zaplanowana',
+        'author' => 'Admin',
+        'status' => 'scheduled',
+        'is_published' => true,
+        'published_at' => now()->addDay(),
+    ]);
 
-    actingAs($user)
-        ->get(route('posts.create'))
-        ->assertOk();
+    get(route('posts.index'))
+        ->assertOk()
+        ->assertDontSee('Wpis zaplanowany');
+
+    get('/blog/wpis-zaplanowany')->assertNotFound();
 });
 
 it('renders feed and sitemap using only published posts', function () {

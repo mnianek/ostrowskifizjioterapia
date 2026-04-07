@@ -146,11 +146,11 @@ class PostController extends Controller
         $this->authorize('create', Post::class);
 
         $parameters = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:posts,slug'],
-            'lead' => ['nullable', 'string'],
-            'author' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', 'unique:posts,slug'],
+            'lead' => ['nullable', 'string', 'max:500'],
+            'author' => ['required', 'string', 'min:2', 'max:255'],
+            'content' => ['required', 'string', 'min:50'],
         ]);
 
         $post = new Post;

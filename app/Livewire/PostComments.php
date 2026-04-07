@@ -18,6 +18,8 @@ class PostComments extends Component
 
     public string $content = '';
 
+    public string $website = '';
+
     public ?int $replyingTo = null;
 
     public ?int $justCreatedCommentId = null;
@@ -29,6 +31,8 @@ class PostComments extends Component
     public string $replyUserName = '';
 
     public string $replyContent = '';
+
+    public string $replyWebsite = '';
 
     public function mount(Post $post): void
     {
@@ -43,6 +47,10 @@ class PostComments extends Component
 
     public function addComment(): void
     {
+        if (! $this->passesHoneypot($this->website)) {
+            return;
+        }
+
         $validated = $this->validate([
             'userName' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:5000'],
@@ -58,6 +66,7 @@ class PostComments extends Component
 
         $this->justCreatedCommentId = $comment->id;
         $this->content = '';
+        $this->website = '';
 
         session()->flash('comment_status', 'Twój komentarz oczekuje na zatwierdzenie przez administratora.');
     }
@@ -80,6 +89,10 @@ class PostComments extends Component
 
     public function addReply(): void
     {
+        if (! $this->passesHoneypot($this->replyWebsite)) {
+            return;
+        }
+
         $parentId = $this->replyingTo;
 
         if (! $parentId) {
@@ -115,6 +128,7 @@ class PostComments extends Component
         $this->justCreatedReplyId = $reply->id;
         $this->replyingTo = null;
         $this->replyContent = '';
+        $this->replyWebsite = '';
 
         session()->flash('comment_status', 'Twoja odpowiedź oczekuje na zatwierdzenie przez administratora.');
     }
@@ -263,5 +277,16 @@ class PostComments extends Component
         }
 
         return $token;
+    }
+
+    protected function passesHoneypot(string $trapValue): bool
+    {
+        if (filled($trapValue)) {
+            $this->interactionMessage = 'Nie udalo sie wyslac formularza. Sprobuj ponownie.';
+
+            return false;
+        }
+
+        return true;
     }
 }

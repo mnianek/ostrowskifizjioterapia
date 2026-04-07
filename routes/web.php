@@ -41,8 +41,3 @@ Route::post('/newsletter', [NewsletterSubscriberController::class, 'store'])
     ->name('newsletter.subscribe');
 
 Route::get('/hello-world/{name}', [HelloController::class, 'index']);
-
-Route::middleware(['can:create,App\\Models\\Post'])->group(function () {
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-});

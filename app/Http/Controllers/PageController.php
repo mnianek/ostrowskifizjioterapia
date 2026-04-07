@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use App\Models\Video;
+use App\Models\YoutubePageSetting;
 
 class PageController extends Controller
 {
@@ -14,16 +15,14 @@ class PageController extends Controller
 
     public function youtube()
     {
+        $settings = YoutubePageSetting::current();
+
         $videos = Video::query()
             ->latest()
-            ->get()
-            ->map(function (Video $video) {
-                $video->embed_url = $this->youtubeUrlToEmbed($video->url);
-
-                return $video;
-            });
+            ->get();
 
         return view('pages.youtube', [
+            'settings' => $settings,
             'videos' => $videos,
         ]);
     }
@@ -39,29 +38,4 @@ class PageController extends Controller
         ]);
     }
 
-    private function youtubeUrlToEmbed(string $url): ?string
-    {
-        if (str_contains($url, 'youtube.com/embed/')) {
-            return $url;
-        }
-
-        $parts = parse_url($url);
-        $host = $parts['host'] ?? '';
-
-        if ($host === 'youtu.be') {
-            $videoId = trim($parts['path'] ?? '', '/');
-
-            return $videoId !== '' ? "https://www.youtube.com/embed/{$videoId}" : null;
-        }
-
-        if (str_contains($host, 'youtube.com')) {
-            parse_str($parts['query'] ?? '', $query);
-
-            if (! empty($query['v'])) {
-                return 'https://www.youtube.com/embed/' . $query['v'];
-            }
-        }
-
-        return null;
-    }
 }

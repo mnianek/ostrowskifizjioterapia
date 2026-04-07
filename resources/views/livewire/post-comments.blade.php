@@ -70,6 +70,9 @@
                 @if ($replyingTo === $comment->id)
                     <form wire:submit="addReply"
                         class="mt-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <input type="text" wire:model="replyWebsite" tabindex="-1" autocomplete="off" class="hidden"
+                            aria-hidden="true">
+
                         <div class="space-y-3">
                             <div>
                                 <label for="replyUserName"
@@ -154,6 +157,9 @@
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dodaj komentarz</h3>
 
         <form wire:submit="addComment" class="mt-4 space-y-4">
+            <input type="text" wire:model="website" tabindex="-1" autocomplete="off" class="hidden"
+                aria-hidden="true">
+
             <div>
                 <label for="userName" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Imię</label>
                 <input id="userName" type="text" wire:model="userName"

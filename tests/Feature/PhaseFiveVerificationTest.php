@@ -6,6 +6,7 @@ use App\Models\Location;
 use App\Models\Post;
 use App\Models\SiteStat;
 use App\Models\User;
+use App\Models\YoutubePageSetting;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
@@ -181,6 +182,8 @@ it('shows reading time and supports search and sort modes', function () {
 });
 
 it('renders youtube embeds from stored video urls', function () {
+    YoutubePageSetting::create(YoutubePageSetting::defaults());
+
     Video::create([
         'title' => 'Mobilizacja barku',
         'url' => 'https://www.youtube.com/watch?v=abc123xyz45',
@@ -189,6 +192,8 @@ it('renders youtube embeds from stored video urls', function () {
 
     get(route('pages.youtube'))
         ->assertOk()
+        ->assertSee('Filmy na YouTube')
+        ->assertSee('Otwórz kanał')
         ->assertSee('https://www.youtube.com/embed/abc123xyz45');
 });
 

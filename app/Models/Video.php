@@ -14,4 +14,30 @@ class Video extends Model
         'url',
         'description',
     ];
+
+    public function getEmbedUrlAttribute(): ?string
+    {
+        if (str_contains($this->url, 'youtube.com/embed/')) {
+            return $this->url;
+        }
+
+        $parts = parse_url($this->url);
+        $host = $parts['host'] ?? '';
+
+        if ($host === 'youtu.be') {
+            $videoId = trim($parts['path'] ?? '', '/');
+
+            return $videoId !== '' ? "https://www.youtube.com/embed/{$videoId}" : null;
+        }
+
+        if (str_contains($host, 'youtube.com')) {
+            parse_str($parts['query'] ?? '', $query);
+
+            if (! empty($query['v'])) {
+                return 'https://www.youtube.com/embed/' . $query['v'];
+            }
+        }
+
+        return null;
+    }
 }
