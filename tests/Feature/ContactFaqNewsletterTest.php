@@ -32,6 +32,23 @@ it('stores contact messages from the contact form', function () {
     ]);
 });
 
+it('validates required fields in contact form', function () {
+    $response = post(route('contact.store'), [
+        'name' => '',
+        'email' => 'bledny-email',
+        'content' => '',
+    ]);
+
+    $response
+        ->assertSessionHasErrors([
+            'name',
+            'email',
+            'content',
+        ]);
+
+    expect(\App\Models\Message::query()->count())->toBe(0);
+});
+
 it('stores newsletter subscribers from the footer form', function () {
     $response = post(route('newsletter.subscribe'), [
         'email' => 'subskrybent@example.com',
@@ -44,6 +61,28 @@ it('stores newsletter subscribers from the footer form', function () {
     ]);
 
     expect(NewsletterSubscriber::query()->count())->toBe(1);
+});
+
+it('does not create duplicate newsletter subscribers', function () {
+    post(route('newsletter.subscribe'), [
+        'email' => 'duplikat@example.com',
+    ])->assertRedirect();
+
+    post(route('newsletter.subscribe'), [
+        'email' => 'duplikat@example.com',
+    ])->assertRedirect();
+
+    expect(NewsletterSubscriber::query()->count())->toBe(1);
+});
+
+it('validates newsletter email field', function () {
+    $response = post(route('newsletter.subscribe'), [
+        'email' => 'nie-poprawny-adres',
+    ]);
+
+    $response->assertSessionHasErrors(['email']);
+
+    expect(NewsletterSubscriber::query()->count())->toBe(0);
 });
 
 it('renders active faq entries on the home page', function () {

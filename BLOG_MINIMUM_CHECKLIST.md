@@ -36,8 +36,8 @@ Data: 2026-04-07
 - [x] Lajki komentarzy (zalogowany + gosc).
 - [x] Przypinanie komentarza.
 - [x] Anty-spam dla komentarzy (honeypot/captcha/rate limit).
-- [ ] Zglaszanie komentarza (report) i usuwanie przez admina.
-- [ ] Krotkie zasady moderacji widoczne przy komentarzach.
+- [x] Zglaszanie komentarza (report) i usuwanie przez admina.
+- [x] Krotkie zasady moderacji widoczne przy komentarzach.
 
 ## 5. SEO minimum
 - [x] Dynamiczny `title` i `meta description` dla strony wpisu.
@@ -76,7 +76,7 @@ Data: 2026-04-07
 - [ ] Testy uprawnien dla tworzenia/edycji/publikacji.
 - [x] Testy komentarzy i lajkow sa juz obecne.
 - [x] Testy SEO smoke (status, meta, canonical).
-- [ ] Testy formularzy kontakt i newsletter.
+- [x] Testy formularzy kontakt i newsletter.
 
 ## 11. Testy Pest (rozszerzenie)
 - [ ] Testy unit dla modeli (mutatory, relacje, scope, walidacja).
