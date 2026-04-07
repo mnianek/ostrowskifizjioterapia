@@ -91,78 +91,7 @@
                         </div>
                     </section>
 
-                    <section
-                        class="mt-10 rounded-2xl border border-slate-100 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-950">
-                        <h2 class="text-2xl font-bold tracking-[-0.015em] text-slate-900 dark:text-white">Komentarze
-                        </h2>
-
-                        @if (session('comment_status'))
-                            <div
-                                class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-950/40 dark:text-emerald-300">
-                                {{ session('comment_status') }}
-                            </div>
-                        @endif
-
-                        <div class="mt-6 space-y-4">
-                            @forelse ($post->comments as $comment)
-                                <article
-                                    class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
-                                    <div class="flex items-center justify-between gap-3">
-                                        <p class="font-semibold text-slate-900 dark:text-white">
-                                            {{ $comment->user_name }}</p>
-                                        <time class="text-xs text-slate-500 dark:text-slate-400"
-                                            datetime="{{ $comment->created_at->toDateString() }}">
-                                            {{ $comment->created_at->translatedFormat('d.m.Y H:i') }}
-                                        </time>
-                                    </div>
-                                    <p
-                                        class="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                                        {{ $comment->content }}</p>
-                                </article>
-                            @empty
-                                <p class="text-sm text-slate-600 dark:text-slate-300">Brak zatwierdzonych komentarzy.
-                                    Bądź pierwszą osobą,
-                                    która doda opinię.</p>
-                            @endforelse
-                        </div>
-
-                        <div class="mt-8 border-t border-slate-100 pt-6 dark:border-slate-800">
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dodaj komentarz</h3>
-
-                            <form class="mt-4 space-y-4" method="POST"
-                                action="{{ route('posts.comments.store', $post->slug) }}">
-                                @csrf
-
-                                <div>
-                                    <label for="user_name"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Imię</label>
-                                    <input id="user_name" name="user_name" type="text"
-                                        value="{{ old('user_name') }}"
-                                        class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25"
-                                        required>
-                                    @error('user_name')
-                                        <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <div>
-                                    <label for="content"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Treść</label>
-                                    <textarea id="content" name="content" rows="4"
-                                        class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25"
-                                        required>{{ old('content') }}</textarea>
-                                    @error('content')
-                                        <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <button type="submit"
-                                    class="inline-flex items-center rounded-lg bg-[#3498db] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2d83bd]">
-                                    Wyślij komentarz
-                                </button>
-                            </form>
-                        </div>
-                    </section>
+                    <livewire:post-comments :post="$post" />
                 </div>
             </article>
         </section>

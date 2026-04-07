@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -66,11 +67,6 @@ class PostController extends Controller
     public function show(string $slug)
     {
         $post = Post::query()
-            ->with([
-                'comments' => fn ($query) => $query
-                    ->where('is_approved', true)
-                    ->latest(),
-            ])
             ->where('slug', $slug)
             ->firstOrFail();
 
@@ -131,6 +127,7 @@ class PostController extends Controller
         $post->slug = $parameters['slug'];
         $post->lead = $parameters['lead'] ?? null;
         $post->author = $parameters['author'];
+        $post->author_id = Auth::id();
         $post->content = $parameters['content'];
 
         // Post::create($parameters);

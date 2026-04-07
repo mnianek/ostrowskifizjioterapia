@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,6 +26,7 @@ class Post extends Model implements HasMedia
         'excerpt',
         'content',
         'author',
+        'author_id',
         'photo',
         'image_path',
         'is_published',
@@ -39,6 +41,7 @@ class Post extends Model implements HasMedia
 
     protected $casts = [
         'is_published' => 'boolean',
+        'author_id' => 'integer',
         'published_at' => 'datetime',
         'views_count' => 'integer',
     ];
@@ -57,6 +60,16 @@ class Post extends Model implements HasMedia
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function pinnedComment(): HasOne
+    {
+        return $this->hasOne(Comment::class)->where('is_pinned', true);
+    }
+
+    public function authorUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function getReadingTimeAttribute(): int
