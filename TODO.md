@@ -74,3 +74,12 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Formularz kontaktowy i panel zapytań.
 - [x] Sekcja FAQ z akordeonem Alpine.js.
 - [x] Newsletter w stopce strony.
+
+## Faza 12: Redesign publicznego UI (SaaS)
+- [x] Setup design system: tokeny kolorów i typografii w `resources/css/app.css` oraz konfiguracja motywu w `tailwind.config.js`.
+- [x] Utworzenie reużywalnych komponentów Blade UI (`button`, `section`, `feature-card`, `testimonial-card`, `badge`, `input`, `textarea`).
+- [x] Przebudowa globalnego layoutu publicznego (`resources/views/components/layout.blade.php`) o nowe fonty, tła gradientowe i spójną estetykę light/dark.
+- [x] Przebudowa nawigacji (`resources/views/partials/navigation.blade.php`): sticky navbar, glass effect, mobile menu (Alpine.js), ulepszone stany aktywne.
+- [x] Przebudowa stopki (`resources/views/partials/footer.blade.php`) z sekcjami linków, newsletterem i komponentami UI.
+- [x] Przebudowa strony głównej (`resources/views/pages/home.blade.php`): Hero z CTA, Features Grid, Testimonials/Social Proof, sekcje blog/FAQ i końcowe CTA.
+- [x] Walidacja zmian frontendu: build Vite zakończony sukcesem po wdrożeniu redesignu.

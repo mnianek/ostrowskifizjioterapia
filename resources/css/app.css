@@ -10,10 +10,57 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50: #eef4ff;
+    --color-brand-100: #dbe7ff;
+    --color-brand-200: #c3d6ff;
+    --color-brand-300: #9dbbff;
+    --color-brand-400: #7095ff;
+    --color-brand-500: #446ef1;
+    --color-brand-600: #1e40af;
+    --color-brand-700: #19378f;
+    --color-brand-800: #172f75;
+    --color-brand-900: #162c5f;
+
+    --color-secondary-500: #0ea5a4;
+    --color-accent-500: #f59e0b;
+
+    --radius-xl: 1rem;
+    --radius-2xl: 1.25rem;
+    --radius-3xl: 1.75rem;
 }
 
 [x-cloak] {
     display: none !important;
+}
+
+@layer base {
+    body {
+        font-family: var(--font-sans);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-heading);
+        letter-spacing: -0.02em;
+    }
+}
+
+@layer components {
+    .surface-card {
+        @apply rounded-3xl border border-slate-200/70 bg-white/90 shadow-sm shadow-slate-900/5 backdrop-blur-sm dark:border-slate-700/60 dark:bg-slate-900/70;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-300/40;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white/80 px-5 py-3 text-sm font-semibold text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-300/30 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100 dark:hover:border-brand-400 dark:hover:text-brand-200;
+    }
 }
