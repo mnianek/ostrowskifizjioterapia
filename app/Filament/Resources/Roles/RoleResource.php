@@ -39,6 +39,10 @@ class RoleResource extends Resource
     use Essentials\HasNavigation;
     use HasShieldFormComponents;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Administracja';
+
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     #[Override]

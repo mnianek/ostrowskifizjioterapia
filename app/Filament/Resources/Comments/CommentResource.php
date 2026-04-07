@@ -23,7 +23,9 @@ class CommentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
 
-    protected static ?int $navigationSort = 5;
+    protected static string|\UnitEnum|null $navigationGroup = 'Treści';
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'user_name';
 

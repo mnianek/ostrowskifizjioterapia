@@ -23,6 +23,8 @@ class PostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Treści';
+
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'title';

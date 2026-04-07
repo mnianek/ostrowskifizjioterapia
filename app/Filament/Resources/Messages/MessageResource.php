@@ -22,7 +22,9 @@ class MessageResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
 
-    protected static ?int $navigationSort = 6;
+    protected static string|\UnitEnum|null $navigationGroup = 'Kontakt i marketing';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
 

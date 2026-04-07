@@ -17,7 +17,9 @@ class NewsletterSubscriberResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedEnvelope;
 
-    protected static ?int $navigationSort = 8;
+    protected static string|\UnitEnum|null $navigationGroup = 'Kontakt i marketing';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'email';
 
