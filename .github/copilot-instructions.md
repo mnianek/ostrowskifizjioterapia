@@ -19,6 +19,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/sail (SAIL) - v1
 - pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
+- alpinejs (ALPINEJS) - v3
 - tailwindcss (TAILWINDCSS) - v4
 
 ## Skills Activation
@@ -396,3 +397,28 @@ livewire(ListUsers::class)
 When creating Filament resources and other elements use php artisan commands to generate them, and ensure you use the correct options to generate the appropriate code.
 
 Always add tests when creating new features or modifying existing ones, and use the appropriate testing tools and approaches for the type of test being created.
+
+---
+## SPECYFICZNE REGUŁY PROJEKTU (OSTROWSKI PHYSIO)
+
+### Reguła 1: Testy Pest po każdej implementacji
+- Po stworzeniu nowej funkcjonalności (Model, Kontroler, Resource) MUSISZ wygenerować testy: `php artisan make:test --pest`.
+- Testy mają sprawdzać "happy path" (poprawne działanie) oraz "edge cases" (np. walidacja, brak uprawnień).
+
+### Reguła 2: Filament TYLKO przez CLI
+- Nigdy nie twórz plików Filament (Resources, Pages, Widgets) ręcznie przez system plików.
+- ZAWSZE używaj: `php artisan make:filament-resource {Name} --no-interaction`.
+- Dopiero po wygenerowaniu szkieletu przez CLI, przejdź do modyfikacji kodu.
+
+### Reguła 3: Wyszukiwanie w dokumentacji (Search Docs)
+- Przed każdą nową implementacją (szczególnie paczek Spatie, Filament Shield czy SEOTools), użyj narzędzia `search-docs`, aby zweryfikować składnię dla Laravel 12 i PHP 8.4.
+
+### Reguła 4: Automatyczne Commity Atomowe
+- Po każdym zakończonym i przetestowanym etapie (np. "Dodanie modelu Message i testów"), wykonaj:
+  `git add .`
+  `git commit -m "[Krótki opis po polsku]"`
+- Opisy muszą być profesjonalne i techniczne.
+
+### Reguła 5: Język i Interfejs
+- Nazwy klas i bazy danych: Angielski.
+- Interfejs użytkownika i panelu admina (Labels, Badges, Wiadomości): Polski.

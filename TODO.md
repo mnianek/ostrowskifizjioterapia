@@ -50,3 +50,27 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Integracja Spatie Media Library w PostResource (upload obrazu przez media collection).
 - [x] Ustandaryzowane ikony i kolejność nawigacji zasobów Filament (Posts, Categories, Videos, Locations, Comments).
 - [x] Konfiguracja Global Search dla Post, Video i Location (w tym wyszukiwanie po `city`).
+
+## Faza 8: Frontend i wyszukiwanie
+- [x] Czas czytania postów.
+- [x] Polska lokalizacja dat.
+- [x] Wyszukiwarka i zaawansowane filtrowanie (Popularne/Komentowane).
+
+## Faza 9: Upgrade filamentu
+- [x] Szczegóły wyników dla Post, Location i Comment.
+- [x] Grupowanie wyników przez etykiety modeli (Blog, Placówki, Dyskusje).
+- [x] Akcje kontekstowe w wynikach: podgląd posta na stronie i zatwierdzanie komentarzy.
+- [x] Miniaturki zdjęć wpisów w wynikach global search.
+- [x] Limit wyników global search zwiększony do 10.
+
+- [x] Branding panelu: Sky primary, zwijany sidebar desktop, pełna szerokość treści, sekcje w formularzach, striped tabela postów, badge statusu komentarzy i kolorowe karty statystyk.
+
+## Faza 10: UX i UI bloga
+- [x] Błękitna paginacja Tailwind.
+- [x] Nawigacja Breadcrumbs.
+- [x] Przełącznik Dark Mode (Słońce/Księżyc).
+
+## Faza 11: Kontakt, FAQ i Newsletter
+- [x] Formularz kontaktowy i panel zapytań.
+- [x] Sekcja FAQ z akordeonem Alpine.js.
+- [x] Newsletter w stopce strony.

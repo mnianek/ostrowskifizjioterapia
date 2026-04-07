@@ -64,6 +64,7 @@ class PostsTable
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
+            ->striped()
             ->filters([
                 //
             ])

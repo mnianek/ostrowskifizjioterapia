@@ -25,6 +25,16 @@ class LocationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return 'placówka';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Placówki';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return LocationForm::configure($schema);
@@ -47,9 +57,22 @@ class LocationResource extends Resource
         return ['name', 'city', 'address'];
     }
 
+    public static function getGlobalSearchResultsLimit(): int
+    {
+        return 10;
+    }
+
     public static function getGlobalSearchResultTitle(Model $record): string
     {
         return filled($record->city) ? "{$record->name} ({$record->city})" : $record->name;
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return array_filter([
+            'Miasto' => $record->city,
+            'Ulica' => $record->address,
+        ]);
     }
 
     public static function getPages(): array

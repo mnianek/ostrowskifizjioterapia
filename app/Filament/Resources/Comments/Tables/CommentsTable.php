@@ -6,8 +6,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
@@ -31,8 +31,13 @@ class CommentsTable
                 TextColumn::make('post.title')
                     ->label('Post')
                     ->searchable(),
-                ToggleColumn::make('is_approved')
-                    ->label('Zatwierdzony'),
+                BadgeColumn::make('is_approved')
+                    ->label('Status')
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'Zatwierdzony' : 'Oczekuje')
+                    ->colors([
+                        'success' => fn (bool $state): bool => $state,
+                        'danger' => fn (bool $state): bool => ! $state,
+                    ]),
             ])
             ->filters([
                 TernaryFilter::make('is_approved')

@@ -24,6 +24,21 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return 'kategoria';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Kategorie';
+    }
+
+    public static function getGlobalSearchResultsLimit(): int
+    {
+        return 10;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return CategoryForm::configure($schema);

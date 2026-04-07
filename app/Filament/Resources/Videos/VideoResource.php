@@ -25,6 +25,21 @@ class VideoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    public static function getModelLabel(): string
+    {
+        return 'film';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Filmy';
+    }
+
+    public static function getGlobalSearchResultsLimit(): int
+    {
+        return 10;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return VideoForm::configure($schema);

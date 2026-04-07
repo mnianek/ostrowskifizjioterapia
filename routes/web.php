@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterSubscriberController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +16,10 @@ Route::post('/blog/{slug}/comments', [PostController::class, 'storeComment'])->n
 
 Route::get('/o-mnie', [PageController::class, 'about'])->name('pages.about');
 Route::get('/youtube', [PageController::class, 'youtube'])->name('pages.youtube');
-Route::get('/kontakt', [PageController::class, 'contact'])->name('pages.contact');
+Route::get('/kontakt', [ContactController::class, 'index'])->name('pages.contact');
+Route::post('/kontakt', [ContactController::class, 'store'])->name('contact.store');
+
+Route::post('/newsletter', [NewsletterSubscriberController::class, 'store'])->name('newsletter.subscribe');
 
 Route::get('/hello-world/{name}', [HelloController::class, 'index']);
 

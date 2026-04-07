@@ -1,13 +1,15 @@
 <?php
 
+use App\Filament\Widgets\StatsOverview;
 use App\Models\Category;
 use App\Models\Location;
-use App\Models\SiteStat;
 use App\Models\Post;
-use App\Filament\Widgets\StatsOverview;
+use App\Models\SiteStat;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 uses(RefreshDatabase::class);
 
@@ -87,6 +89,94 @@ it('shows post list, details, and supports filtering by category', function () {
     expect($targetPost->refresh()->views_count)->toBe(1);
 });
 
+it('shows reading time and supports search and sort modes', function () {
+    $category = Category::create(['name' => 'Edukacja']);
+
+    $shortPost = Post::create([
+        'category_id' => $category->id,
+        'title' => 'Krotki wpis',
+        'slug' => 'krotki-wpis',
+        'content' => str_repeat('slowo ', 50),
+        'author' => 'Anna',
+        'status' => 'published',
+        'published_at' => now()->subDay(),
+        'views_count' => 5,
+    ]);
+
+    $popularPost = Post::create([
+        'category_id' => $category->id,
+        'title' => 'Popularny wpis',
+        'slug' => 'popularny-wpis',
+        'content' => str_repeat('slowo ', 420),
+        'author' => 'Anna',
+        'status' => 'published',
+        'published_at' => now(),
+        'views_count' => 42,
+    ]);
+
+    $commentedPost = Post::create([
+        'category_id' => $category->id,
+        'title' => 'Komentowany wpis',
+        'slug' => 'komentowany-wpis',
+        'content' => str_repeat('slowo ', 220),
+        'author' => 'Anna',
+        'status' => 'published',
+        'published_at' => now()->subHours(2),
+        'views_count' => 8,
+    ]);
+
+    $popularPost->comments()->create([
+        'user_name' => 'Jan',
+        'content' => 'Komentarz 1',
+        'is_approved' => true,
+    ]);
+    $popularPost->comments()->create([
+        'user_name' => 'Ewa',
+        'content' => 'Komentarz 2',
+        'is_approved' => true,
+    ]);
+    $commentedPost->comments()->create([
+        'user_name' => 'Piotr',
+        'content' => 'Komentarz 3',
+        'is_approved' => true,
+    ]);
+    $commentedPost->comments()->create([
+        'user_name' => 'Ola',
+        'content' => 'Komentarz 4',
+        'is_approved' => true,
+    ]);
+    $commentedPost->comments()->create([
+        'user_name' => 'Marek',
+        'content' => 'Komentarz 5',
+        'is_approved' => true,
+    ]);
+
+    $this->get(route('posts.index', ['search' => 'Popularny']))
+        ->assertOk()
+        ->assertSee('Popularny wpis')
+        ->assertDontSee('Krotki wpis');
+
+    $this->get(route('posts.index', ['sort' => 'popular']))
+        ->assertOk()
+        ->assertSeeInOrder(['Popularny wpis', 'Komentowany wpis', 'Krotki wpis']);
+
+    $this->get(route('posts.index', ['sort' => 'popular', 'direction' => 'asc']))
+        ->assertOk()
+        ->assertSeeInOrder(['Krotki wpis', 'Komentowany wpis', 'Popularny wpis']);
+
+    $this->get(route('posts.index', ['sort' => 'comments']))
+        ->assertOk()
+        ->assertSeeInOrder(['Komentowany wpis', 'Popularny wpis', 'Krotki wpis']);
+
+    $this->get(route('posts.index', ['sort' => 'comments', 'direction' => 'asc']))
+        ->assertOk()
+        ->assertSeeInOrder(['Krotki wpis', 'Popularny wpis', 'Komentowany wpis']);
+
+    expect($shortPost->refresh()->reading_time)->toBe(1);
+    expect($popularPost->refresh()->reading_time)->toBe(3);
+    expect($commentedPost->refresh()->reading_time)->toBe(2);
+});
+
 it('renders youtube embeds from stored video urls', function () {
     Video::create([
         'title' => 'Mobilizacja barku',
@@ -114,7 +204,35 @@ it('renders locations and map iframes on contact page', function () {
 });
 
 it('allows authenticated access to basic filament resource pages', function () {
+    $role = Role::query()->firstOrCreate(['name' => 'super_admin']);
+
+    collect(['Post', 'Category', 'Video', 'Location'])->each(function (string $resource) use ($role): void {
+        collect([
+            'ViewAny',
+            'View',
+            'Create',
+            'Update',
+            'Delete',
+            'DeleteAny',
+            'Restore',
+            'RestoreAny',
+            'ForceDelete',
+            'ForceDeleteAny',
+            'Replicate',
+            'Reorder',
+        ])->each(function (string $action) use ($resource, $role): void {
+            $permission = Permission::query()->firstOrCreate([
+                'name' => $action.':'.$resource,
+                'guard_name' => 'web',
+            ]);
+
+            $role->givePermissionTo($permission);
+        });
+    });
+
     $user = User::factory()->create();
+    $user->assignRole('super_admin');
+
     $category = Category::create(['name' => 'Manualna']);
     $video = Video::create([
         'title' => 'Oddech przeponowy',
@@ -157,19 +275,19 @@ it('allows authenticated access to basic filament resource pages', function () {
         ->assertOk();
 
     $this->actingAs($user)
-        ->get('/admin/posts/' . $post->id . '/edit')
+        ->get('/admin/posts/'.$post->id.'/edit')
         ->assertOk();
 
     $this->actingAs($user)
-        ->get('/admin/categories/' . $category->id . '/edit')
+        ->get('/admin/categories/'.$category->id.'/edit')
         ->assertOk();
 
     $this->actingAs($user)
-        ->get('/admin/videos/' . $video->id . '/edit')
+        ->get('/admin/videos/'.$video->id.'/edit')
         ->assertOk();
 
     $this->actingAs($user)
-        ->get('/admin/locations/' . $location->id . '/edit')
+        ->get('/admin/locations/'.$location->id.'/edit')
         ->assertOk();
 });
 
@@ -179,6 +297,15 @@ it('exposes unique patients and pending comments stats on the dashboard widget',
         'value' => 7,
     ]);
 
+    Post::create([
+        'category_id' => Category::create(['name' => 'Analiza'])->id,
+        'title' => 'Szkic testowy',
+        'slug' => 'szkic-testowy',
+        'content' => 'Treść szkicu.',
+        'author' => 'Test',
+        'status' => 'draft',
+    ]);
+
     $widget = app(StatsOverview::class);
     $reflection = new \ReflectionClass($widget);
     $method = $reflection->getMethod('getStats');
@@ -186,15 +313,21 @@ it('exposes unique patients and pending comments stats on the dashboard widget',
 
     $stats = $method->invoke($widget);
 
-    expect($stats)->toHaveCount(2);
+    expect($stats)->toHaveCount(4);
     expect($stats[0]->getLabel())->toBe('Unikalni Pacjenci');
     expect($stats[0]->getValue())->toBe('7');
-    expect($stats[1]->getLabel())->toBe('Komentarze do zatwierdzenia');
-    expect($stats[1]->getValue())->toBe('0');
+    expect($stats[1]->getLabel())->toBe('Opublikowane wpisy');
+    expect($stats[2]->getLabel())->toBe('Szkice wpisów');
+    expect($stats[2]->getValue())->toBe('1');
+    expect($stats[3]->getLabel())->toBe('Komentarze do zatwierdzenia');
+    expect($stats[3]->getValue())->toBe('0');
 });
 
 it('does not count admin visits toward unique sessions', function () {
+    Role::query()->firstOrCreate(['name' => 'panel_user']);
+
     $user = User::factory()->create();
+    $user->assignRole('panel_user');
 
     $this->actingAs($user)
         ->get('/admin')

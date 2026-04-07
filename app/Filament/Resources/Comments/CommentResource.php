@@ -9,10 +9,13 @@ use App\Filament\Resources\Comments\Schemas\CommentForm;
 use App\Filament\Resources\Comments\Tables\CommentsTable;
 use App\Models\Comment;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class CommentResource extends Resource
 {
@@ -23,6 +26,16 @@ class CommentResource extends Resource
     protected static ?int $navigationSort = 5;
 
     protected static ?string $recordTitleAttribute = 'user_name';
+
+    public static function getModelLabel(): string
+    {
+        return 'komentarz';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Dyskusje';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -47,6 +60,44 @@ class CommentResource extends Resource
             'index' => ListComments::route('/'),
             'create' => CreateComment::route('/create'),
             'edit' => EditComment::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['user_name', 'content', 'post.title'];
+    }
+
+    public static function getGlobalSearchResultsLimit(): int
+    {
+        return 10;
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Treść' => Str::limit($record->content, 80),
+        ];
+    }
+
+    /**
+     * @return array<Action>
+     */
+    public static function getGlobalSearchResultActions(Model $record): array
+    {
+        if ($record->is_approved) {
+            return [];
+        }
+
+        return [
+            Action::make('approve')
+                ->label('Zatwierdź')
+                ->icon('heroicon-o-check-circle')
+                ->color('success')
+                ->action(function (Comment $record): void {
+                    $record->update(['is_approved' => true]);
+                })
+                ->visible(fn (Comment $record): bool => ! $record->is_approved),
         ];
     }
 

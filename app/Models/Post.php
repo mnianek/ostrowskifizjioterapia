@@ -13,6 +13,10 @@ class Post extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $appends = [
+        'reading_time',
+    ];
+
     protected $fillable = [
         'category_id',
         'title',
@@ -53,6 +57,11 @@ class Post extends Model implements HasMedia
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getReadingTimeAttribute(): int
+    {
+        return (int) ceil(str_word_count(strip_tags((string) $this->content)) / 200);
     }
 
     public function registerMediaCollections(): void

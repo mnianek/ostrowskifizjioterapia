@@ -9,11 +9,13 @@ use App\Filament\Resources\Posts\Schemas\PostForm;
 use App\Filament\Resources\Posts\Tables\PostsTable;
 use App\Models\Post;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 class PostResource extends Resource
 {
@@ -24,6 +26,16 @@ class PostResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    public static function getModelLabel(): string
+    {
+        return 'wpis';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Blog';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -47,9 +59,44 @@ class PostResource extends Resource
         return ['title', 'slug', 'category.name'];
     }
 
+    public static function getGlobalSearchResultsLimit(): int
+    {
+        return 10;
+    }
+
     public static function getGlobalSearchResultTitle(Model $record): string
     {
-        return $record->title;
+        $mediaUrl = $record->getFirstMediaUrl('featured_image', 'thumb') ?: $record->getFirstMediaUrl('featured_image');
+
+        if (blank($mediaUrl)) {
+            return $record->title;
+        }
+
+        return new HtmlString(
+            '<span class="flex items-center gap-3"><img src="'.e($mediaUrl).'" alt="'.e($record->title).'" class="h-10 w-10 rounded-lg object-cover ring-1 ring-sky-100">'
+            .'<span>'.e($record->title).'</span></span>'
+        );
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return array_filter([
+            'Kategoria' => $record->category?->name,
+            'Data publikacji' => $record->published_at?->translatedFormat('d F Y'),
+        ]);
+    }
+
+    /**
+     * @return array<Action>
+     */
+    public static function getGlobalSearchResultActions(Model $record): array
+    {
+        return [
+            Action::make('view_on_site')
+                ->label('Zobacz na stronie')
+                ->icon('heroicon-o-arrow-top-right-on-square')
+                ->url(route('posts.show', $record->slug)),
+        ];
     }
 
     public static function getPages(): array

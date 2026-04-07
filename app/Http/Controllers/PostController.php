@@ -11,15 +11,43 @@ class PostController extends Controller
     public function index()
     {
         $selectedCategory = request()->integer('category');
+        $search = trim((string) request()->string('search'));
+        $sort = request()->string('sort')->toString() ?: 'latest';
+        $direction = request()->string('direction')->toString();
+
+        if (! in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
 
         $posts = Post::query()
             ->with('category')
+            ->withCount([
+                'comments as comments_count' => fn ($query) => $query->where('is_approved', true),
+            ])
             ->when($selectedCategory, function ($query, int $categoryId) {
                 $query->where('category_id', $categoryId);
             })
-            ->latest('published_at')
-            ->latest('created_at')
-            ->paginate(9);
+            ->when(filled($search), function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', '%'.$search.'%')
+                        ->orWhere('content', 'like', '%'.$search.'%');
+                });
+            })
+            ->when($sort === 'popular', function ($query) use ($direction) {
+                $query->orderBy('views_count', $direction);
+            })
+            ->when($sort === 'comments', function ($query) use ($direction) {
+                $query->orderBy('comments_count', $direction);
+            })
+            ->when($sort === 'latest', function ($query) use ($direction) {
+                $query->orderBy('published_at', $direction)
+                    ->orderBy('created_at', $direction);
+            }, function ($query) use ($direction) {
+                $query->orderBy('published_at', $direction)
+                    ->orderBy('created_at', $direction);
+            })
+            ->paginate(9)
+            ->withQueryString();
 
         $categories = Category::query()
             ->orderBy('name')
@@ -29,6 +57,9 @@ class PostController extends Controller
             'posts' => $posts,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'search' => $search,
+            'sort' => $sort,
+            'direction' => $direction,
         ]);
     }
 
