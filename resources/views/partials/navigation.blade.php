@@ -1,12 +1,7 @@
 <nav x-data="{ mobileOpen: false }" class="sticky top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
     <div
         class="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/65 bg-white/78 px-3 py-2.5 shadow-sm shadow-slate-900/5 backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/70 sm:px-4">
-        <a href="{{ route('home') }}" class="inline-flex items-center gap-3">
-            <span
-                class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-sm font-black text-white shadow-lg">OF</span>
-            <span class="text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-base">Ostrowski
-                Fizjoterapia</span>
-        </a>
+        <x-brand.logo class="shrink-0 max-w-72 origin-left scale-110 sm:scale-125" size="h-10 sm:h-11" />
 
         <div class="hidden items-center gap-1.5 text-sm font-medium lg:flex">
             <a href="{{ route('home') }}"

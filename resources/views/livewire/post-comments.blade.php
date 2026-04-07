@@ -8,13 +8,26 @@
         </div>
     @endif
 
+    @if ($interactionMessage)
+        <div
+            class="mt-4 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-800 dark:border-sky-900/40 dark:bg-sky-950/40 dark:text-sky-300">
+            {{ $interactionMessage }}
+        </div>
+    @endif
+
     <div class="mt-6 space-y-4">
         @forelse ($comments as $comment)
             <article
-                class="rounded-xl border p-4 {{ $comment->is_pinned ? 'border-amber-300 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20' : 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900' }}">
+                class="rounded-xl border p-4 {{ $comment->is_pinned ? 'border-amber-300 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20' : ($comment->is_approved ? 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900' : 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20') }}">
                 <div class="flex items-center justify-between gap-3">
                     <div class="flex items-center gap-2">
                         <p class="font-semibold text-slate-900 dark:text-white">{{ $comment->user_name }}</p>
+                        @if (!$comment->is_approved)
+                            <span
+                                class="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
+                                Oczekuje na zatwierdzenie
+                            </span>
+                        @endif
                         @if ($comment->is_pinned)
                             <span
                                 class="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
@@ -38,7 +51,7 @@
                         class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-rose-700 dark:hover:text-rose-400">
                         <span
                             class="{{ $this->userLikedComment($comment) ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500' }}">♥</span>
-                        <span>Lubię to ({{ $comment->likes_count }})</span>
+                        <span>Lubię to ({{ $comment->likes_count + $comment->guest_likes_count }})</span>
                     </button>
 
                     <button type="button" wire:click="toggleReplyForm({{ $comment->id }})"
@@ -97,10 +110,18 @@
                     <div class="mt-4 space-y-3 border-l border-slate-200 pl-4 dark:border-slate-700 sm:ml-4">
                         @foreach ($comment->replies as $reply)
                             <article
-                                class="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950">
+                                class="rounded-lg border p-3 {{ $reply->is_approved ? 'border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-950' : 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20' }}">
                                 <div class="flex items-center justify-between gap-2">
-                                    <p class="text-sm font-semibold text-slate-900 dark:text-white">
-                                        {{ $reply->user_name }}</p>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                                            {{ $reply->user_name }}</p>
+                                        @if (!$reply->is_approved)
+                                            <span
+                                                class="inline-flex items-center rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
+                                                Oczekuje na zatwierdzenie
+                                            </span>
+                                        @endif
+                                    </div>
                                     <time class="text-xs text-slate-500 dark:text-slate-400"
                                         datetime="{{ $reply->created_at->toDateString() }}">
                                         {{ $reply->created_at->translatedFormat('d.m.Y H:i') }}
@@ -115,7 +136,7 @@
                                         class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-rose-700 dark:hover:text-rose-400">
                                         <span
                                             class="{{ $this->userLikedComment($reply) ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500' }}">♥</span>
-                                        <span>Lubię to ({{ $reply->likes_count }})</span>
+                                        <span>Lubię to ({{ $reply->likes_count + $reply->guest_likes_count }})</span>
                                     </button>
                                 </div>
                             </article>

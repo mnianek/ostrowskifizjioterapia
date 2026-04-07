@@ -22,8 +22,8 @@
                         <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" class="h-full w-full object-cover">
                     @else
                         <div
-                            class="flex h-full items-center justify-center bg-linear-to-br from-slate-100 to-slate-200 text-sm font-semibold uppercase tracking-[0.18em] text-[#0B2A4A]/65">
-                            Ostrowski Fizjoterapia
+                            class="flex h-full items-center justify-center bg-linear-to-br from-slate-100 to-slate-200 text-sm font-semibold uppercase tracking-[0.18em] text-[#0B2A4A]/65 dark:from-slate-800 dark:to-slate-900">
+                            <x-brand.logo size="h-16" :linked="false" />
                         </div>
                     @endif
                 </div>

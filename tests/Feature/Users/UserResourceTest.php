@@ -4,7 +4,9 @@ use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\get;
 
 beforeEach(function () {
     $superAdminRole = Role::query()->create(['name' => 'super_admin']);
@@ -20,13 +22,13 @@ beforeEach(function () {
         $superAdminRole->givePermissionTo($permission);
     });
 
-    $this->user = User::factory()->create();
-    $this->user->assignRole('super_admin');
-    $this->actingAs($this->user);
+    $user = User::factory()->create();
+    $user->assignRole('super_admin');
+    actingAs($user);
 });
 
 test('it can list users on the resource', function () {
-    $this->get('/admin/users')->assertOk();
+    get('/admin/users')->assertOk();
 });
 
 test('it can create a user with role assignment', function () {
@@ -67,7 +69,7 @@ test('it blocks user listing without permission', function () {
     $userWithoutPermission = User::factory()->create();
     $userWithoutPermission->assignRole('redaktor');
 
-    $this->actingAs($userWithoutPermission)
+    actingAs($userWithoutPermission)
         ->get('/admin/users')
         ->assertForbidden();
 });

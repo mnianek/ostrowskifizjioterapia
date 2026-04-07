@@ -22,6 +22,7 @@
     </script>
 
     @vite(['resources/css/app.css'])
+    @livewireStyles
 </head>
 
 <body x-data="themeController"
@@ -40,6 +41,7 @@
 
     @include('partials.footer')
 
+    @livewireScriptConfig
     @vite(['resources/js/app.js'])
 </body>
 

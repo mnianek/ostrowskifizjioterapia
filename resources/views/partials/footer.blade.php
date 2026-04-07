@@ -3,8 +3,7 @@
     <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr_1.2fr]">
             <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-300">Ostrowski
-                    Fizjoterapia</p>
+                <x-brand.logo size="h-12" />
                 <p class="mt-3 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-300">Nowoczesna terapia bólu
                     i powrót do aktywności przez ruch, edukację i plan oparty na danych.</p>
                 <div class="mt-5 flex items-center gap-2">
@@ -62,7 +61,7 @@
 
         <p
             class="mt-10 border-t border-slate-200/70 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-500">
-            © 2026 Ostrowski Fizjoterapia. Wszelkie prawa zastrzeżone.
+            © 2026. Wszelkie prawa zastrzeżone.
         </p>
     </div>
 </footer>

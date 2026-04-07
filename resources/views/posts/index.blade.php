@@ -5,8 +5,7 @@
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(11,42,74,0.12),transparent_45%)]">
             </div>
             <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[#0B2A4A]/70 dark:text-sky-300/80">
-                    Ostrowski Fizjoterapia</p>
+                <x-brand.logo size="h-14" :linked="false" class="mb-5" />
                 <h1
                     class="mt-5 max-w-4xl text-4xl font-bold tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">
                     Baza Wiedzy Fizjoterapeutycznej
@@ -117,8 +116,8 @@
                                         class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
                                 @else
                                     <div
-                                        class="flex h-full items-center justify-center bg-linear-to-br from-slate-100 to-slate-200 text-xs font-semibold uppercase tracking-[0.16em] text-[#0B2A4A]/70">
-                                        Ostrowski Fizjoterapia
+                                        class="flex h-full items-center justify-center bg-linear-to-br from-slate-100 to-slate-200 text-xs font-semibold uppercase tracking-[0.16em] text-[#0B2A4A]/70 dark:from-slate-800 dark:to-slate-900">
+                                        <x-brand.logo size="h-12" :linked="false" />
                                     </div>
                                 @endif
                             </div>

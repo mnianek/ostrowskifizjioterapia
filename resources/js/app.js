@@ -1,8 +1,9 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+import { Alpine, Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
 
 window.Alpine = Alpine;
+window.Livewire = Livewire;
 
 Alpine.data('themeController', () => ({
     darkMode: false,
@@ -30,4 +31,4 @@ Alpine.data('themeController', () => ({
     },
 }));
 
-Alpine.start();
+Livewire.start();

@@ -399,26 +399,38 @@ When creating Filament resources and other elements use php artisan commands to 
 Always add tests when creating new features or modifying existing ones, and use the appropriate testing tools and approaches for the type of test being created.
 
 ---
-## SPECYFICZNE REGUŁY PROJEKTU (OSTROWSKI PHYSIO)
+## SPECYFICZNE REGUŁY PROJEKTU (OSTROWSKI FIZJOTERAPIA)
 
-### Reguła 1: Testy Pest po każdej implementacji
-- Po stworzeniu nowej funkcjonalności (Model, Kontroler, Resource) MUSISZ wygenerować testy: `php artisan make:test --pest`.
-- Testy mają sprawdzać "happy path" (poprawne działanie) oraz "edge cases" (np. walidacja, brak uprawnień).
+### Reguła 1: Cykl Pracy "Test-First" (Pest 4)
+- Każda zmiana funkcjonalna (Model, Kontroler, Action, Resource) MUSI posiadać odzwierciedlenie w testach.
+- **Proces:** 1. Wygeneruj test: `php artisan make:test --pest`.
+    2. Napisz testy sprawdzające "happy path" oraz kluczowe "edge cases" (walidacja, uprawnienia).
+    3. Przed zakończeniem zadania uruchom: `php artisan test --compact`.
+- **Wymóg:** Nie przechodź do kolejnego kroku i nie rób commita, dopóki wszystkie testy nie zakończą się wynikiem pozytywnym (Success).
 
-### Reguła 2: Filament TYLKO przez CLI
-- Nigdy nie twórz plików Filament (Resources, Pages, Widgets) ręcznie przez system plików.
-- ZAWSZE używaj: `php artisan make:filament-resource {Name} --no-interaction`.
-- Dopiero po wygenerowaniu szkieletu przez CLI, przejdź do modyfikacji kodu.
+### Reguła 2: Filament v5 - Tylko CLI i Polskie UI
+- **Generowanie:** Nigdy nie twórz plików Filament ręcznie. ZAWSZE używaj: `php artisan make:filament-resource {Name} --no-interaction`.
+- **Lokalizacja (Ważne):** Kod i nazwy techniczne są po angielsku, ale interfejs użytkownika MUSI być po polsku.
+    - Każde pole/kolumna musi mieć: `->label('Polska Nazwa')`.
+    - Każdy Resource musi definiować metody `getModelLabel()`, `getPluralModelLabel()` oraz `getNavigationLabel()` w języku polskim.
+    - Używaj `->placeholder()` i `->validationAttribute()` z polskimi nazwami.
 
-### Reguła 3: Wyszukiwanie w dokumentacji (Search Docs)
-- Przed każdą nową implementacją (szczególnie paczek Spatie, Filament Shield czy SEOTools), użyj narzędzia `search-docs`, aby zweryfikować składnię dla Laravel 12 i PHP 8.4.
+### Reguła 3: Weryfikacja Technologii i Tailwind v4
+- **Search Docs:** Przed każdą implementacją (Spatie, Filament Shield, SEOTools) użyj narzędzia `search-docs`, aby potwierdzić składnię dla Laravel 12 i PHP 8.4.
+- **Tailwind CSS v4:** - To projekt "CSS-first". Nie twórz i nie edytuj pliku `tailwind.config.js`.
+    - Wszystkie definicje motywu, kolory i customowe klasy wprowadzaj w plikach CSS przy użyciu dyrektywy `@theme`.
+    - Do stylowania komponentów Blade używaj wyłącznie narzędziowych klas Tailwind v4.
 
-### Reguła 4: Automatyczne Commity Atomowe
-- Po każdym zakończonym i przetestowanym etapie (np. "Dodanie modelu Message i testów"), wykonaj:
-  `git add .`
-  `git commit -m "[Krótki opis po polsku]"`
-- Opisy muszą być profesjonalne i techniczne.
+### Reguła 4: Formatowanie i Automatyczne Commity Atomowe
+- **Pint:** Przed wykonaniem commita ZAWSZE uruchom: `vendor/bin/pint --dirty`, aby dopasować kod do standardów projektu.
+- **Commity:** Po każdym zakończonym i przetestowanym etapie wykonaj commit atomowy.
+    - **Komenda:** `git add .` oraz `git commit -m "[PL] Krótki, techniczny opis zmian"`.
+    - **Przykład:** `[PL] Implementacja przypinania komentarzy i testy funkcjonalne`.
+- Nie twórz "pustych" commitów (sprawdź `git status` przed wysłaniem).
 
-### Reguła 5: Język i Interfejs
-- Nazwy klas i bazy danych: Angielski.
-- Interfejs użytkownika i panelu admina (Labels, Badges, Wiadomości): Polski.
+### Reguła 5: Standardy Bazy Danych i PHP 8.4
+- **Relacje:** Zawsze używaj `foreignId()->constrained()->cascadeOnDelete()` dla kluczy obcych.
+- **Typowanie:** Wykorzystuj nowości PHP 8.4: `readonly classes`, `property promotion` w konstruktorach oraz ścisłe typowanie zwrotne (return types).
+- **Enumy:** Zamiast "hardkodowanych" stringów dla statusów czy typów, twórz Enumy w `app/Enums`.
+- **Nazewnictwo:** Klasy, metody, zmienne i tabele = Angielski. Napisy widoczne dla pacjenta/admina = Polski.
+    

@@ -46,4 +46,9 @@ class Comment extends Model
         return $this->belongsToMany(User::class, 'comment_like')
             ->withTimestamps();
     }
+
+    public function guestLikes(): HasMany
+    {
+        return $this->hasMany(CommentGuestLike::class, 'comment_id');
+    }
 }

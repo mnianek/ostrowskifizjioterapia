@@ -11,10 +11,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
+
 uses(RefreshDatabase::class);
 
 it('renders all key public pages and navigation links', function () {
-    $response = $this->get(route('home'));
+    $response = get(route('home'));
 
     $response->assertOk();
     $response->assertSee('name="viewport"', false);
@@ -24,18 +27,18 @@ it('renders all key public pages and navigation links', function () {
     $response->assertSee(route('pages.youtube'));
     $response->assertSee(route('pages.contact'));
 
-    $this->get(route('posts.index'))->assertOk();
-    $this->get(route('pages.about'))->assertOk();
-    $this->get(route('pages.youtube'))->assertOk();
-    $this->get(route('pages.contact'))->assertOk();
+    get(route('posts.index'))->assertOk();
+    get(route('pages.about'))->assertOk();
+    get(route('pages.youtube'))->assertOk();
+    get(route('pages.contact'))->assertOk();
 });
 
 it('tracks unique sessions only once per browser session', function () {
-    $this->get(route('home'))->assertOk();
+    get(route('home'))->assertOk();
 
     expect(SiteStat::query()->where('key', 'unique_visits')->value('value'))->toBe(1);
 
-    $this->get(route('home'))->assertOk();
+    get(route('home'))->assertOk();
 
     expect(SiteStat::query()->where('key', 'unique_visits')->value('value'))->toBe(1);
 });
@@ -67,24 +70,24 @@ it('shows post list, details, and supports filtering by category', function () {
         'status' => 'draft',
     ]);
 
-    $this->get(route('posts.index'))
+    get(route('posts.index'))
         ->assertOk()
         ->assertSee('Powrot po urazie')
         ->assertSee('Trening biegacza');
 
-    $this->get(route('posts.index', ['category' => $rehab->id]))
+    get(route('posts.index', ['category' => $rehab->id]))
         ->assertOk()
         ->assertSee('Powrot po urazie')
         ->assertDontSee('Trening biegacza');
 
-    $this->get(route('posts.show', $targetPost->slug))
+    get(route('posts.show', $targetPost->slug))
         ->assertOk()
         ->assertSee('Powrot po urazie')
         ->assertSee('Tresc artykulu.', false);
 
     expect($targetPost->refresh()->views_count)->toBe(1);
 
-    $this->get(route('posts.show', $targetPost->slug))->assertOk();
+    get(route('posts.show', $targetPost->slug))->assertOk();
 
     expect($targetPost->refresh()->views_count)->toBe(1);
 });
@@ -151,24 +154,24 @@ it('shows reading time and supports search and sort modes', function () {
         'is_approved' => true,
     ]);
 
-    $this->get(route('posts.index', ['search' => 'Popularny']))
+    get(route('posts.index', ['search' => 'Popularny']))
         ->assertOk()
         ->assertSee('Popularny wpis')
         ->assertDontSee('Krotki wpis');
 
-    $this->get(route('posts.index', ['sort' => 'popular']))
+    get(route('posts.index', ['sort' => 'popular']))
         ->assertOk()
         ->assertSeeInOrder(['Popularny wpis', 'Komentowany wpis', 'Krotki wpis']);
 
-    $this->get(route('posts.index', ['sort' => 'popular', 'direction' => 'asc']))
+    get(route('posts.index', ['sort' => 'popular', 'direction' => 'asc']))
         ->assertOk()
         ->assertSeeInOrder(['Krotki wpis', 'Komentowany wpis', 'Popularny wpis']);
 
-    $this->get(route('posts.index', ['sort' => 'comments']))
+    get(route('posts.index', ['sort' => 'comments']))
         ->assertOk()
         ->assertSeeInOrder(['Komentowany wpis', 'Popularny wpis', 'Krotki wpis']);
 
-    $this->get(route('posts.index', ['sort' => 'comments', 'direction' => 'asc']))
+    get(route('posts.index', ['sort' => 'comments', 'direction' => 'asc']))
         ->assertOk()
         ->assertSeeInOrder(['Krotki wpis', 'Popularny wpis', 'Komentowany wpis']);
 
@@ -184,7 +187,7 @@ it('renders youtube embeds from stored video urls', function () {
         'description' => 'Material edukacyjny',
     ]);
 
-    $this->get(route('pages.youtube'))
+    get(route('pages.youtube'))
         ->assertOk()
         ->assertSee('https://www.youtube.com/embed/abc123xyz45');
 });
@@ -197,7 +200,7 @@ it('renders locations and map iframes on contact page', function () {
         'hours' => "Pon-Pt 8:00-18:00\nSob 9:00-13:00",
     ]);
 
-    $this->get(route('pages.contact'))
+    get(route('pages.contact'))
         ->assertOk()
         ->assertSee('Gabinet Centrum')
         ->assertSee('output=embed');
@@ -254,47 +257,47 @@ it('allows authenticated access to basic filament resource pages', function () {
         'status' => 'draft',
     ]);
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/posts')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/categories')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/videos')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/locations')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/faqs')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/faqs/create')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/posts/'.$post->id.'/edit')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/categories/'.$category->id.'/edit')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/videos/'.$video->id.'/edit')
         ->assertOk();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin/locations/'.$location->id.'/edit')
         ->assertOk();
 });
@@ -337,7 +340,7 @@ it('does not count admin visits toward unique sessions', function () {
     $user = User::factory()->create();
     $user->assignRole('panel_user');
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/admin')
         ->assertOk();
 

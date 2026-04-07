@@ -100,13 +100,40 @@ it('creates nested reply with parent id', function () {
         ->call('toggleReplyForm', $parentComment->id)
         ->set('replyUserName', 'Anna')
         ->set('replyContent', 'To jest odpowiedź')
-        ->call('addReply');
+        ->call('addReply')
+        ->assertSee('To jest odpowiedź')
+        ->assertSee('Oczekuje na zatwierdzenie');
 
     assertDatabaseHas('comments', [
         'post_id' => $post->id,
         'parent_id' => $parentComment->id,
         'user_name' => 'Anna',
         'content' => 'To jest odpowiedź',
+        'is_approved' => false,
+    ]);
+});
+
+it('shows freshly created top-level comment while it waits for approval', function () {
+    $post = Post::query()->create([
+        'title' => 'Post do komentarza',
+        'slug' => 'post-do-komentarza',
+        'content' => 'Treść',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->set('userName', 'Anna')
+        ->set('content', 'Mój nowy komentarz')
+        ->call('addComment')
+        ->assertSee('Mój nowy komentarz')
+        ->assertSee('Oczekuje na zatwierdzenie');
+
+    assertDatabaseHas('comments', [
+        'post_id' => $post->id,
+        'parent_id' => null,
+        'user_name' => 'Anna',
+        'content' => 'Mój nowy komentarz',
         'is_approved' => false,
     ]);
 });
@@ -146,5 +173,42 @@ it('toggles likes for authenticated user', function () {
     assertDatabaseMissing('comment_like', [
         'user_id' => $user->id,
         'comment_id' => $comment->id,
+    ]);
+});
+
+it('toggles likes for guest user without login', function () {
+    $post = Post::query()->create([
+        'title' => 'Post do lajków gościa',
+        'slug' => 'post-lajki-goscia',
+        'content' => 'Treść',
+        'author' => 'Autor',
+        'status' => 'published',
+    ]);
+
+    $comment = Comment::query()->create([
+        'post_id' => $post->id,
+        'user_name' => 'Jan',
+        'content' => 'Komentarz do polubienia przez gościa',
+        'is_approved' => true,
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('toggleLike', $comment->id);
+
+    $guestToken = session('comment_guest_like_token');
+
+    expect($guestToken)->toBeString()->not->toBe('');
+
+    assertDatabaseHas('comment_guest_like', [
+        'comment_id' => $comment->id,
+        'guest_token' => $guestToken,
+    ]);
+
+    Livewire::test(PostComments::class, ['post' => $post])
+        ->call('toggleLike', $comment->id);
+
+    assertDatabaseMissing('comment_guest_like', [
+        'comment_id' => $comment->id,
+        'guest_token' => $guestToken,
     ]);
 });
