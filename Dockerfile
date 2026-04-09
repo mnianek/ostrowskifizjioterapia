@@ -4,8 +4,9 @@ FROM php:8.4-fpm
 # Instalujemy dodatki, których brakowało w błędach (intl, zip, bcmath, exif)
 RUN apt-get update && apt-get install -y \
     git unzip curl libicu-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
+    libpq-dev \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install intl zip exif bcmath pdo pdo_mysql
+    && docker-php-ext-install intl zip exif bcmath pdo pdo_mysql pdo_pgsql
 
 # Pobieramy Composera
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
