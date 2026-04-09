@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -46,6 +48,7 @@ it('requires authentication for post create and edit pages in panel', function (
 it('returns forbidden for panel user without post permissions', function () {
     $role = Role::query()->firstOrCreate(['name' => 'panel_user']);
 
+    /** @var User $user */
     $user = User::factory()->create();
     $user->assignRole($role);
 
@@ -70,6 +73,7 @@ it('allows users with post permissions to create edit and publish content', func
     $role = Role::query()->firstOrCreate(['name' => 'redaktor']);
     grantPostCrudPermissions($role);
 
+    /** @var User $user */
     $user = User::factory()->create();
     $user->assignRole($role);
 
