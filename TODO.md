@@ -93,3 +93,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Dostosowanie stron prawnych `/polityka-prywatnosci`, `/cookies` i `/regulamin` do nowego design systemu (spójne surface, typografia i CTA).
 - [x] Branding Filament: zamiana napisu Laravel na logo (light/dark) w panelu administratora.
 - [x] Zmiana ścieżki panelu Filament z `/admin` na `/panel` wraz z aktualizacją testów odwołujących się do panelu.
+- [x] Korekta strony `/o-mnie`: odejście od układu landingowego na rzecz klasycznej strony profilowej (biogram, styl pracy, specjalizacje, CTA).
