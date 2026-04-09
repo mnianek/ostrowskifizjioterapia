@@ -119,3 +119,20 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Dodanie operacyjnych backupow automatycznych (DB + media), monitoringu backupu i komendy walidacji odtworzenia.
 - [x] Dodanie runbooka operacyjnego (env split, alerty logow, minimal downtime deploy, restore procedure).
 - [x] Uzupełnienie testow unit/regresji i formalne domkniecie `BLOG_MINIMUM_CHECKLIST.md`.
+
+## Bieżące prace (Quality Assurance & Polish)
+- [x] Naprawienie type hint'ów w testach Feature (`$user` pokazywany jako Collection|Model zamiast User)
+  - [x] Dodanie namespace `Tests\Feature` do PhaseFiveVerificationTest.php i PostAuthorizationTest.php
+  - [x] Dodanie `@var \App\Models\User $user` docblocks przed factory()->create() dla IDE recognition
+  - Commit: "Napraw type hint dla User w PostAuthorizationTest"
+- [x] Usunięcie sekcji "Gdzie przyjmujemy pacjentów" ze strony kontaktu
+  - [x] Kolumna z widgety lokalizacji i mapami (iframe) usunięta
+  - Commit: "Usuń sekcję Gdzie przyjmujemy pacjentów ze strony kontaktu"
+- [x] Dodanie 2 pozycji FAQ w seedersie
+  - [x] "Jakie zabiegi oferujecie?" - opis zakresu usług fizjoterapeutycznych
+  - [x] "Ile trwa typowa sesja rehabilitacji?" - informacja o czasie sesji (60 min standard, 90 min pierwsza wizyta)
+  - Commit: "Dodaj 2 pozycje FAQ do seedera (zabiegi i czas sesji)"
+- [ ] Kolejne ulepszenia
+  - [ ] Przeglądnięcie responsywności mobile na wszystkich stronach
+  - [ ] Dodanie testimonialów/opinii pacjentów
+  - [ ] Optymalizacja zdjęć (konwersja do WebP, lazy loading)
