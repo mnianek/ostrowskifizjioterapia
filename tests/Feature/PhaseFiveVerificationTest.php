@@ -263,47 +263,47 @@ it('allows authenticated access to basic filament resource pages', function () {
     ]);
 
     actingAs($user)
-        ->get('/admin')
+        ->get('/panel')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/posts')
+        ->get('/panel/posts')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/categories')
+        ->get('/panel/categories')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/videos')
+        ->get('/panel/videos')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/locations')
+        ->get('/panel/locations')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/faqs')
+        ->get('/panel/faqs')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/faqs/create')
+        ->get('/panel/faqs/create')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/posts/'.$post->id.'/edit')
+        ->get('/panel/posts/'.$post->id.'/edit')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/categories/'.$category->id.'/edit')
+        ->get('/panel/categories/'.$category->id.'/edit')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/videos/'.$video->id.'/edit')
+        ->get('/panel/videos/'.$video->id.'/edit')
         ->assertOk();
 
     actingAs($user)
-        ->get('/admin/locations/'.$location->id.'/edit')
+        ->get('/panel/locations/'.$location->id.'/edit')
         ->assertOk();
 });
 
@@ -346,7 +346,7 @@ it('does not count admin visits toward unique sessions', function () {
     $user->assignRole('panel_user');
 
     actingAs($user)
-        ->get('/admin')
+        ->get('/panel')
         ->assertOk();
 
     expect(SiteStat::query()->where('key', 'unique_visits')->value('value') ?? 0)->toBe(0);

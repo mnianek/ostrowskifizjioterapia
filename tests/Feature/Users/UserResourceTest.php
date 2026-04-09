@@ -28,7 +28,7 @@ beforeEach(function () {
 });
 
 test('it can list users on the resource', function () {
-    get('/admin/users')->assertOk();
+    get('/panel/users')->assertOk();
 });
 
 test('it can create a user with role assignment', function () {
@@ -70,6 +70,6 @@ test('it blocks user listing without permission', function () {
     $userWithoutPermission->assignRole('redaktor');
 
     actingAs($userWithoutPermission)
-        ->get('/admin/users')
+        ->get('/panel/users')
         ->assertForbidden();
 });
