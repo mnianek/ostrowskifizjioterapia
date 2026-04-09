@@ -1,72 +1,72 @@
 <section class="surface-glass mt-10 p-6 sm:p-8">
-    <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink dark:text-paper">Komentarze</h2>
+    <h2 class="text-ink dark:text-paper">Komentarze</h2>
 
     @if (session('comment_status'))
         <div
-            class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-950/40 dark:text-emerald-300">
+            class="mt-4 rounded-2xl border border-sage-300/60 bg-sage-100/70 px-4 py-3 text-sm text-sage-800 dark:border-sage-600/35 dark:bg-sage-900/20 dark:text-sage-200">
             {{ session('comment_status') }}
         </div>
     @endif
 
     @if ($interactionMessage)
         <div
-            class="mt-4 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-800 dark:border-sky-900/40 dark:bg-sky-950/40 dark:text-sky-300">
+            class="mt-4 rounded-2xl border border-ink/15 bg-paper/80 px-4 py-3 text-sm text-ink/80 dark:border-paper/15 dark:bg-paper/10 dark:text-paper/80">
             {{ $interactionMessage }}
         </div>
     @endif
 
-    <div class="mt-6 space-y-4">
+    <div class="mt-6 space-y-5">
         @forelse ($comments as $comment)
             <article
-                class="rounded-xl border p-4 {{ $comment->is_pinned ? 'border-amber-300 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20' : ($comment->is_approved ? 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900' : 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20') }}">
+                class="rounded-3xl border p-5 sm:p-6 {{ $comment->is_pinned ? 'border-sage-400/50 bg-sage-100/45 dark:border-sage-500/40 dark:bg-sage-900/20' : ($comment->is_approved ? 'border-ink/10 bg-paper/75 dark:border-paper/10 dark:bg-paper/5' : 'border-sage-300/50 bg-sage-100/40 dark:border-sage-500/35 dark:bg-sage-900/20') }}">
                 <div class="flex items-center justify-between gap-3">
                     <div class="flex items-center gap-2">
-                        <p class="font-semibold text-slate-900 dark:text-white">{{ $comment->user_name }}</p>
+                        <p class="text-xl font-semibold text-ink dark:text-paper">{{ $comment->user_name }}</p>
                         @if (!$comment->is_approved)
                             <span
-                                class="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
+                                class="inline-flex items-center gap-1 rounded-full border border-sage-300/70 bg-sage-100 px-2.5 py-1 text-[11px] font-semibold text-sage-800 dark:border-sage-500/40 dark:bg-sage-900/30 dark:text-sage-200">
                                 Oczekuje na zatwierdzenie
                             </span>
                         @endif
                         @if ($comment->is_pinned)
                             <span
-                                class="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
-                                <span aria-hidden="true">📌</span>
+                                class="inline-flex items-center gap-1 rounded-full border border-sage-300/70 bg-sage-100 px-2.5 py-1 text-[11px] font-semibold text-sage-800 dark:border-sage-500/40 dark:bg-sage-900/30 dark:text-sage-200">
+                                <span aria-hidden="true">PIN</span>
                                 Przypięty komentarz
                             </span>
                         @endif
                     </div>
-                    <time class="text-xs text-slate-500 dark:text-slate-400"
+                    <time class="text-sm text-ink/55 dark:text-paper/55"
                         datetime="{{ $comment->created_at->toDateString() }}">
                         {{ $comment->created_at->translatedFormat('d.m.Y H:i') }}
                     </time>
                 </div>
 
-                <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                <p class="mt-4 whitespace-pre-line text-lg leading-8 text-ink/82 dark:text-paper/82">
                     {{ $comment->content }}
                 </p>
 
                 <div class="mt-4 flex flex-wrap items-center gap-3">
                     <button type="button" wire:click="toggleLike({{ $comment->id }})"
-                        class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-rose-700 dark:hover:text-rose-400">
+                        class="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         <span
-                            class="{{ $this->userLikedComment($comment) ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500' }}">♥</span>
+                            class="{{ $this->userLikedComment($comment) ? 'text-sage-600 dark:text-sage-200' : 'text-ink/35 dark:text-paper/45' }}">♥</span>
                         <span>Lubię to ({{ $comment->likes_count + $comment->guest_likes_count }})</span>
                     </button>
 
                     <button type="button" wire:click="toggleReplyForm({{ $comment->id }})"
-                        class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-sky-300 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-sky-700 dark:hover:text-sky-300">
+                        class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         Odpowiedz
                     </button>
 
                     <button type="button" wire:click="reportComment({{ $comment->id }})"
-                        class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-amber-700 dark:hover:text-amber-300">
+                        class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         Zgłoś
                     </button>
 
                     @if ($this->canPinComments())
                         <button type="button" wire:click="pinComment({{ $comment->id }})"
-                            class="inline-flex items-center rounded-lg border border-amber-300 bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-800 transition hover:bg-amber-200 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200 dark:hover:bg-amber-900/60">
+                            class="inline-flex items-center rounded-xl border border-sage-400/60 bg-sage-100 px-4 py-2 text-sm font-semibold text-sage-800 transition hover:bg-sage-200/80 dark:border-sage-500/40 dark:bg-sage-900/35 dark:text-sage-200 dark:hover:bg-sage-900/50">
                             Przypnij
                         </button>
                     @endif
@@ -74,39 +74,27 @@
 
                 @if ($replyingTo === $comment->id)
                     <form wire:submit="addReply"
-                        class="mt-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+                        class="mt-5 rounded-2xl border border-ink/10 bg-paper/70 p-4 dark:border-paper/10 dark:bg-paper/5">
                         <input type="text" wire:model="replyWebsite" tabindex="-1" autocomplete="off" class="hidden"
                             aria-hidden="true">
 
-                        <div class="space-y-3">
+                        <div class="space-y-4">
                             <div>
-                                <label for="replyUserName"
-                                    class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Imię</label>
-                                <input id="replyUserName" type="text" wire:model="replyUserName"
-                                    class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25">
-                                @error('replyUserName')
-                                    <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.input id="replyUserName" name="replyUserName" label="Imię"
+                                    wire:model="replyUserName" />
                             </div>
 
                             <div>
-                                <label for="replyContent"
-                                    class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Treść
-                                    odpowiedzi</label>
-                                <textarea id="replyContent" rows="3" wire:model="replyContent"
-                                    class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25"></textarea>
-                                @error('replyContent')
-                                    <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                                @enderror
+                                <x-ui.textarea id="replyContent" name="replyContent" label="Treść odpowiedzi"
+                                    rows="3" wire:model="replyContent" />
                             </div>
 
                             <div class="flex gap-2">
-                                <button type="submit"
-                                    class="inline-flex items-center rounded-lg bg-[#3498db] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#2d83bd]">
+                                <button type="submit" class="btn-primary px-4 py-2 text-xs">
                                     Wyślij odpowiedź
                                 </button>
                                 <button type="button" wire:click="toggleReplyForm({{ $comment->id }})"
-                                    class="inline-flex items-center rounded-lg border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
+                                    class="btn-secondary px-4 py-2 text-xs">
                                     Anuluj
                                 </button>
                             </div>
@@ -115,40 +103,40 @@
                 @endif
 
                 @if ($comment->replies->isNotEmpty())
-                    <div class="mt-4 space-y-3 border-l border-slate-200 pl-4 dark:border-slate-700 sm:ml-4">
+                    <div class="mt-5 space-y-3 border-l border-ink/10 pl-4 dark:border-paper/10 sm:ml-4 sm:pl-6">
                         @foreach ($comment->replies as $reply)
                             <article
-                                class="rounded-lg border p-3 {{ $reply->is_approved ? 'border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-950' : 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-900/20' }}">
+                                class="rounded-2xl border p-4 {{ $reply->is_approved ? 'border-ink/10 bg-paper/80 dark:border-paper/10 dark:bg-paper/5' : 'border-sage-300/50 bg-sage-100/40 dark:border-sage-500/35 dark:bg-sage-900/20' }}">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="flex items-center gap-2">
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                                        <p class="text-base font-semibold text-ink dark:text-paper">
                                             {{ $reply->user_name }}</p>
                                         @if (!$reply->is_approved)
                                             <span
-                                                class="inline-flex items-center rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-600 dark:bg-amber-900/50 dark:text-amber-200">
+                                                class="inline-flex items-center rounded-full border border-sage-300/70 bg-sage-100 px-2 py-0.5 text-[11px] font-semibold text-sage-800 dark:border-sage-500/40 dark:bg-sage-900/30 dark:text-sage-200">
                                                 Oczekuje na zatwierdzenie
                                             </span>
                                         @endif
                                     </div>
-                                    <time class="text-xs text-slate-500 dark:text-slate-400"
+                                    <time class="text-xs text-ink/55 dark:text-paper/55"
                                         datetime="{{ $reply->created_at->toDateString() }}">
                                         {{ $reply->created_at->translatedFormat('d.m.Y H:i') }}
                                     </time>
                                 </div>
                                 <p
-                                    class="mt-2 whitespace-pre-line text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                                    class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/80 dark:text-paper/80">
                                     {{ $reply->content }}
                                 </p>
-                                <div class="mt-3">
+                                <div class="mt-4 flex flex-wrap items-center gap-2">
                                     <button type="button" wire:click="toggleLike({{ $reply->id }})"
-                                        class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-rose-700 dark:hover:text-rose-400">
+                                        class="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                                         <span
-                                            class="{{ $this->userLikedComment($reply) ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500' }}">♥</span>
+                                            class="{{ $this->userLikedComment($reply) ? 'text-sage-600 dark:text-sage-200' : 'text-ink/35 dark:text-paper/45' }}">♥</span>
                                         <span>Lubię to ({{ $reply->likes_count + $reply->guest_likes_count }})</span>
                                     </button>
 
                                     <button type="button" wire:click="reportComment({{ $reply->id }})"
-                                        class="ml-2 inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-amber-700 dark:hover:text-amber-300">
+                                        class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                                         Zgłoś
                                     </button>
                                 </div>
@@ -158,44 +146,32 @@
                 @endif
             </article>
         @empty
-            <p class="text-sm text-slate-600 dark:text-slate-300">Brak zatwierdzonych komentarzy. Bądź pierwszą osobą,
+            <p class="text-sm leading-7 text-ink/70 dark:text-paper/70">Brak zatwierdzonych komentarzy. Bądź pierwszą osobą,
                 która doda opinię.</p>
         @endforelse
     </div>
 
-    <div class="mt-8 border-t border-slate-100 pt-6 dark:border-slate-800">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dodaj komentarz</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+    <div class="mt-10 border-t border-ink/10 pt-8 dark:border-paper/10">
+        <h3 class="text-ink dark:text-paper">Dodaj komentarz</h3>
+        <p class="mt-2 text-sm leading-7 text-ink/70 dark:text-paper/70">
             Zasady moderacji: nie publikujemy treści obraźliwych, reklamowych i niezgodnych z tematem. Użyj opcji
             „Zgłoś”, jeśli komentarz narusza zasady.
         </p>
 
-        <form wire:submit="addComment" class="mt-4 space-y-4">
+        <form wire:submit="addComment" class="mt-6 space-y-4 rounded-2xl border border-ink/10 bg-paper/70 p-5 dark:border-paper/10 dark:bg-paper/5 sm:p-6">
             <input type="text" wire:model="website" tabindex="-1" autocomplete="off" class="hidden"
                 aria-hidden="true">
 
             <div>
-                <label for="userName" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Imię</label>
-                <input id="userName" type="text" wire:model="userName"
-                    class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25"
-                    required>
-                @error('userName')
-                    <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                @enderror
+                <x-ui.input id="userName" name="userName" label="Imię" wire:model="userName" required />
             </div>
 
             <div>
-                <label for="content" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Treść</label>
-                <textarea id="content" rows="4" wire:model="content"
-                    class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#3498db] focus:outline-none focus:ring-2 focus:ring-[#3498db]/25 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400/25"
-                    required></textarea>
-                @error('content')
-                    <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
-                @enderror
+                <x-ui.textarea id="content" name="content" label="Treść" rows="4" wire:model="content"
+                    required />
             </div>
 
-            <button type="submit"
-                class="inline-flex items-center rounded-lg bg-[#3498db] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2d83bd]">
+            <button type="submit" class="btn-primary px-5 py-2.5">
                 Wyślij komentarz
             </button>
         </form>
