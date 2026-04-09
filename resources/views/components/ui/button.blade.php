@@ -16,9 +16,9 @@
 
     $variants = [
         'primary' =>
-            'bg-brand-600 text-white shadow-sm hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-lg focus-visible:ring-brand-300/40',
+            'bg-ink text-paper shadow-sm hover:-translate-y-0.5 hover:bg-ink/90 hover:shadow-lg focus-visible:ring-sage/30',
         'secondary' =>
-            'border border-slate-300 bg-white/90 text-slate-700 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 focus-visible:ring-brand-300/30 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:border-brand-400 dark:hover:text-brand-200',
+            'border border-ink/15 bg-paper/80 text-ink hover:-translate-y-0.5 hover:border-sage/50 focus-visible:ring-sage/25 dark:border-paper/15 dark:bg-paper/5 dark:text-paper',
     ];
 @endphp
 

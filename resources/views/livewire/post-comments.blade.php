@@ -1,5 +1,5 @@
-<section class="mt-10 rounded-2xl border border-slate-100 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-950">
-    <h2 class="text-2xl font-bold tracking-[-0.015em] text-slate-900 dark:text-white">Komentarze</h2>
+<section class="surface-glass mt-10 p-6 sm:p-8">
+    <h2 class="text-2xl font-semibold tracking-[-0.02em] text-ink dark:text-paper">Komentarze</h2>
 
     @if (session('comment_status'))
         <div

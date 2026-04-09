@@ -8,7 +8,7 @@
 ])
 
 <!DOCTYPE html>
-<html lang="pl" class="h-full bg-slate-50 dark:bg-slate-950">
+<html lang="pl" class="h-full bg-paper text-ink dark:bg-ink dark:text-paper">
 
 <head>
     <meta charset="UTF-8">
@@ -35,7 +35,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:opsz,wght@5..120,500;5..120,600;5..120,700&display=swap"
         rel="stylesheet">
 
     <script>
@@ -54,15 +54,15 @@
 </head>
 
 <body x-data="themeController"
-    class="min-h-full bg-slate-50 text-slate-900 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+    class="min-h-full bg-paper text-ink antialiased transition-colors duration-300 dark:bg-ink dark:text-paper">
     @include('partials.navigation')
 
     <div class="relative isolate">
         <div
-            class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.18),transparent_62%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(68,110,241,0.26),transparent_58%)]">
+            class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(ellipse_at_top,rgba(125,157,133,0.18),transparent_62%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(125,157,133,0.22),transparent_58%)]">
         </div>
         <div
-            class="pointer-events-none absolute inset-x-0 top-32 -z-10 h-72 bg-[radial-gradient(ellipse_at_center,rgba(14,165,164,0.13),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(14,165,164,0.18),transparent_68%)]">
+            class="pointer-events-none absolute inset-x-0 top-32 -z-10 h-72 bg-[radial-gradient(ellipse_at_center,rgba(26,26,26,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(249,247,242,0.06),transparent_68%)]">
         </div>
         {{ $slot }}
     </div>

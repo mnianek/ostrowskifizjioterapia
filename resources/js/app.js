@@ -32,3 +32,48 @@ Alpine.data('themeController', () => ({
 }));
 
 Livewire.start();
+
+let scrollRevealObserver = null;
+
+function initScrollReveal() {
+    if (scrollRevealObserver) {
+        scrollRevealObserver.disconnect();
+    }
+
+    scrollRevealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add('reveal-in');
+
+                const once = entry.target.getAttribute('data-reveal-once') === 'true';
+
+                if (once && scrollRevealObserver) {
+                    scrollRevealObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            root: null,
+            rootMargin: '0px 0px -6% 0px',
+            threshold: 0.08,
+        },
+    );
+
+    document.querySelectorAll('[data-reveal]').forEach((element) => {
+        if (!element.classList.contains('reveal-in')) {
+            scrollRevealObserver.observe(element);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
+});
+
+document.addEventListener('livewire:navigated', () => {
+    initScrollReveal();
+});

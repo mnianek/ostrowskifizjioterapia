@@ -1,37 +1,37 @@
 @if ($paginator->hasPages())
     <nav class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between" aria-label="Paginacja">
-        <div class="text-sm text-slate-500 dark:text-slate-400">
+        <div class="text-sm text-ink/55 dark:text-paper/55">
             Strona {{ $paginator->currentPage() }} z {{ $paginator->lastPage() }}
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
             @if ($paginator->onFirstPage())
                 <span
-                    class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-500">
+                    class="inline-flex items-center rounded-2xl border border-ink/10 bg-paper/60 px-4 py-2 text-sm font-semibold text-ink/35 dark:border-paper/10 dark:bg-paper/5 dark:text-paper/35">
                     Poprzednia
                 </span>
             @else
                 <a href="{{ $paginator->previousPageUrl() }}" rel="prev"
-                    class="inline-flex items-center rounded-xl border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:border-sky-300 hover:bg-sky-100 dark:border-sky-900/60 dark:bg-sky-950/40 dark:text-sky-300 dark:hover:border-sky-700 dark:hover:bg-slate-800">
+                    class="inline-flex items-center rounded-2xl border border-ink/10 bg-paper/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-sage/50 dark:border-paper/10 dark:bg-paper/5 dark:text-paper">
                     Poprzednia
                 </a>
             @endif
 
             @foreach ($elements as $element)
                 @if (is_string($element))
-                    <span class="px-2 text-sm text-slate-400 dark:text-slate-500">{{ $element }}</span>
+                    <span class="px-2 text-sm text-ink/40 dark:text-paper/40">{{ $element }}</span>
                 @endif
 
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
                             <span
-                                class="inline-flex min-w-10 items-center justify-center rounded-xl border border-sky-200 bg-sky-50 px-3.5 py-2 text-sm font-semibold text-sky-700 dark:border-sky-400 dark:bg-sky-400 dark:text-slate-950">
+                                class="inline-flex min-w-10 items-center justify-center rounded-2xl border border-sage/40 bg-sage/15 px-3.5 py-2 text-sm font-semibold text-sage-900 dark:border-sage/30 dark:bg-sage/20 dark:text-sage-100">
                                 {{ $page }}
                             </span>
                         @else
                             <a href="{{ $url }}"
-                                class="inline-flex min-w-10 items-center justify-center rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-semibold text-sky-600 transition hover:border-sky-300 hover:bg-sky-50 dark:border-slate-700 dark:bg-slate-900 dark:text-sky-300 dark:hover:border-sky-700 dark:hover:bg-slate-800">
+                                class="inline-flex min-w-10 items-center justify-center rounded-2xl border border-ink/10 bg-paper/70 px-3.5 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/40 dark:border-paper/10 dark:bg-paper/5 dark:text-paper/80">
                                 {{ $page }}
                             </a>
                         @endif
@@ -41,12 +41,12 @@
 
             @if ($paginator->hasMorePages())
                 <a href="{{ $paginator->nextPageUrl() }}" rel="next"
-                    class="inline-flex items-center rounded-xl border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:border-sky-300 hover:bg-sky-100 dark:border-sky-900/60 dark:bg-sky-950/40 dark:text-sky-300 dark:hover:border-sky-700 dark:hover:bg-slate-800">
+                    class="inline-flex items-center rounded-2xl border border-ink/10 bg-paper/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-sage/50 dark:border-paper/10 dark:bg-paper/5 dark:text-paper">
                     Następna
                 </a>
             @else
                 <span
-                    class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-500">
+                    class="inline-flex items-center rounded-2xl border border-ink/10 bg-paper/60 px-4 py-2 text-sm font-semibold text-ink/35 dark:border-paper/10 dark:bg-paper/5 dark:text-paper/35">
                     Następna
                 </span>
             @endif

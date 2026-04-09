@@ -17,16 +17,16 @@
                 </p>
                 <div class="mt-4 grid gap-2 text-sm">
                     <a href="{{ route('home') }}"
-                        class="text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-300">Start</a>
+                        class="text-ink/70 transition hover:text-sage-700 dark:text-paper/70 dark:hover:text-sage-200">Start</a>
                     <a href="{{ route('posts.index') }}"
-                        class="text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-300">Blog</a>
+                        class="text-ink/70 transition hover:text-sage-700 dark:text-paper/70 dark:hover:text-sage-200">Blog</a>
                     <a href="{{ route('pages.about') }}"
-                        class="text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-300">O
+                        class="text-ink/70 transition hover:text-sage-700 dark:text-paper/70 dark:hover:text-sage-200">O
                         mnie</a>
                     <a href="{{ route('pages.youtube') }}"
-                        class="text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-300">YouTube</a>
+                        class="text-ink/70 transition hover:text-sage-700 dark:text-paper/70 dark:hover:text-sage-200">YouTube</a>
                     <a href="{{ route('pages.contact') }}"
-                        class="text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-300">Kontakt</a>
+                        class="text-ink/70 transition hover:text-sage-700 dark:text-paper/70 dark:hover:text-sage-200">Kontakt</a>
                 </div>
             </div>
 
