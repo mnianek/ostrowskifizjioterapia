@@ -32,6 +32,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('')
+            ->brandLogo(asset('images/LOGO%20BLACK.png'))
+            ->darkModeBrandLogo(asset('images/LOGO%20WHITE.png'))
             ->colors([
                 'primary' => Color::Sky,
             ])

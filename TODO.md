@@ -91,3 +91,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Dostosowanie sekcji komentarzy (`resources/views/livewire/post-comments.blade.php`) do nowego UI: spójne karty, przyciski akcji, formularze i komunikaty.
 - [x] Dostosowanie strony `/o-mnie` (`resources/views/pages/about.blade.php`) do nowego design systemu: hero, sekcje procesu terapii i końcowe CTA.
 - [x] Dostosowanie stron prawnych `/polityka-prywatnosci`, `/cookies` i `/regulamin` do nowego design systemu (spójne surface, typografia i CTA).
+- [x] Branding Filament: zamiana napisu Laravel na logo (light/dark) w panelu administratora.
