@@ -1,5 +1,27 @@
+@php
+    $seoQuery = array_filter([
+        'category' => $selectedCategory ?: null,
+        'search' => filled($search) ? $search : null,
+        'sort' => $sort !== 'latest' ? $sort : null,
+        'direction' => $direction !== 'desc' ? $direction : null,
+    ], fn ($value) => filled($value));
+
+    $currentPage = $posts->currentPage();
+
+    $canonicalParams = $seoQuery;
+    if ($currentPage > 1) {
+        $canonicalParams['page'] = $currentPage;
+    }
+
+    $canonicalUrl = route('posts.index', $canonicalParams);
+    $prevUrl = $posts->onFirstPage() ? null : route('posts.index', array_merge($seoQuery, ['page' => $currentPage - 1]));
+    $nextUrl = $posts->hasMorePages() ? route('posts.index', array_merge($seoQuery, ['page' => $currentPage + 1])) : null;
+    $robots = $currentPage > 1 ? 'noindex,follow' : 'index,follow';
+@endphp
+
 <x-layout meta-title="Blog | {{ config('app.name') }}"
-    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu." :canonical="route('posts.index')">
+    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu." :canonical="$canonicalUrl" :robots="$robots"
+    :prev-url="$prevUrl" :next-url="$nextUrl">
     <main class="bg-paper text-ink dark:bg-ink dark:text-paper">
         <section class="relative overflow-hidden border-b border-ink/10 dark:border-paper/10">
             <div

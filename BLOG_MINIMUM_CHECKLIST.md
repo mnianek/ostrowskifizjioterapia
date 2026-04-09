@@ -46,7 +46,7 @@ Data: 2026-04-07
 - [x] `sitemap.xml` dla wpisow i stron statycznych.
 - [x] Poprawny `robots.txt` dla produkcji.
 - [x] Dane strukturalne JSON-LD (`BlogPosting`).
-- [ ] Strategia SEO dla paginacji listy wpisow.
+- [x] Strategia SEO dla paginacji listy wpisow.
 
 ## 6. Performance i dostepnosc
 - [ ] Obrazy maja poprawne rozmiary i lazy loading.

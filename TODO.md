@@ -95,3 +95,9 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Zmiana ścieżki panelu Filament z `/admin` na `/panel` wraz z aktualizacją testów odwołujących się do panelu.
 - [x] Korekta strony `/o-mnie`: odejście od układu landingowego na rzecz klasycznej strony profilowej (biogram, styl pracy, specjalizacje, CTA).
 - [x] Wyrównanie przycisków `Filtruj` i `Wyczyść` w formularzu filtrów bloga (`resources/views/posts/index.blade.php`) do reszty kontrolek.
+
+## Faza 14: SEO paginacji listy bloga
+- [x] Strategia canonical dla listy wpisów: strona 1 bez parametru `page`, kolejne strony z własnym canonical.
+- [x] Meta robots dla paginacji: `index,follow` na stronie 1 oraz `noindex,follow` na stronach 2+.
+- [x] Linki `rel="prev"` i `rel="next"` w sekcji `<head>` dla stron paginowanych.
+- [x] Test feature potwierdzający canonical/robots/prev dla paginacji.

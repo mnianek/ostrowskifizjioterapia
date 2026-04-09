@@ -5,6 +5,8 @@
     'ogImage' => asset('images/LOGO%20BLACK.png'),
     'ogType' => 'website',
     'robots' => 'index,follow',
+    'prevUrl' => null,
+    'nextUrl' => null,
 ])
 
 <!DOCTYPE html>
@@ -17,6 +19,12 @@
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="robots" content="{{ $robots }}">
     <link rel="canonical" href="{{ $canonical }}">
+    @if ($prevUrl)
+        <link rel="prev" href="{{ $prevUrl }}">
+    @endif
+    @if ($nextUrl)
+        <link rel="next" href="{{ $nextUrl }}">
+    @endif
 
     <meta property="og:type" content="{{ $ogType }}">
     <meta property="og:site_name" content="{{ config('app.name') }}">

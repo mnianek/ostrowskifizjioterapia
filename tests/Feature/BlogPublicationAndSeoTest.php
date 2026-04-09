@@ -125,3 +125,32 @@ it('renders canonical and og tags on post page', function () {
     $response->assertSee('<meta property="og:type" content="article">', false);
     $response->assertSee('application/ld+json', false);
 });
+
+it('applies seo pagination strategy on blog index', function () {
+    foreach (range(1, 12) as $index) {
+        Post::query()->create([
+            'title' => 'SEO paginacja '.$index,
+            'slug' => 'seo-paginacja-'.$index,
+            'lead' => 'Lead '.$index,
+            'content' => 'Tresc wpisu seo paginacja '.$index,
+            'author' => 'Admin',
+            'status' => 'published',
+            'is_published' => true,
+            'published_at' => now()->subMinutes($index),
+        ]);
+    }
+
+    $pageOne = get(route('posts.index'));
+
+    $pageOne->assertOk();
+    $pageOne->assertSee('<link rel="canonical" href="'.route('posts.index').'">', false);
+    $pageOne->assertSee('<meta name="robots" content="index,follow">', false);
+
+    $pageTwo = get(route('posts.index', ['page' => 2]));
+
+    $pageTwo->assertOk();
+    $pageTwo->assertSee('<link rel="canonical" href="'.route('posts.index', ['page' => 2]).'">', false);
+    $pageTwo->assertSee('<meta name="robots" content="noindex,follow">', false);
+    $pageTwo->assertSee('<link rel="prev" href="', false);
+    $pageTwo->assertDontSee('rel="next"', false);
+});
