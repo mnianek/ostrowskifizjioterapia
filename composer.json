@@ -65,6 +65,15 @@
         "lint": [
             "@php vendor/bin/pint --test"
         ],
+        "lint:changed": [
+            "bash scripts/lint-changed.sh branch"
+        ],
+        "lint:staged": [
+            "bash scripts/lint-changed.sh staged"
+        ],
+        "hooks:install": [
+            "git config core.hooksPath .githooks"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",

@@ -45,3 +45,18 @@ php artisan test
 ```bash
 vendor/bin/pint
 ```
+
+## Quality Automation
+
+Run full lint locally:
+
+```bash
+composer lint
+```
+
+Enable optional local pre-commit hook (checks staged PHP files with Pint):
+
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit
+```

@@ -1,6 +1,7 @@
 <x-layout metaTitle="Polityka prywatności" metaDescription="Informacje o przetwarzaniu danych osobowych w serwisie.">
     <main class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-8">
+        <article
+            class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-8">
             <h1 class="text-3xl font-bold tracking-[-0.02em] text-slate-900 dark:text-white">Polityka prywatności</h1>
             <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
                 Administratorem danych jest właściciel serwisu. Dane podane w formularzu kontaktowym i newsletterze

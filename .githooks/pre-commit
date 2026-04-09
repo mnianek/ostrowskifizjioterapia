@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+set -eu
+
+if ! command -v php >/dev/null 2>&1; then
+    echo "php is not installed; skipping Pint pre-commit check."
+    exit 0
+fi
+
+STAGED_PHP_FILES="$(git diff --cached --name-only --diff-filter=ACMR -- '*.php')"
+
+if [ -z "$STAGED_PHP_FILES" ]; then
+    echo "No staged PHP files."
+    exit 0
+fi
+
+echo "Running Pint on staged PHP files..."
+# shellcheck disable=SC2086
+php vendor/bin/pint --test $STAGED_PHP_FILES
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ! -f composer.json ]]; then
+    exit 0
+fi
+
+composer lint:staged

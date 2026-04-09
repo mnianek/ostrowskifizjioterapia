@@ -89,10 +89,10 @@ Data: 2026-04-07
 
 ## 12. Laravel Pint (jakosc kodu)
 - [x] Konfiguracja projektu w `pint.json`.
-- [ ] `vendor/bin/pint` uruchamiany w CI przed merge.
-- [ ] Hook pre-commit (opcjonalnie) wymusza formatowanie.
-- [ ] Sprawdzanie tylko zmienionych plikow w szybkiej sciezce.
-- [ ] Blokada merge przy bledach formatu.
+- [x] `vendor/bin/pint` uruchamiany w CI przed merge.
+- [x] Hook pre-commit (opcjonalnie) wymusza formatowanie.
+- [x] Sprawdzanie tylko zmienionych plikow w szybkiej sciezce.
+- [x] Blokada merge przy bledach formatu.
 
 ## 13. SEO zaawansowane
 - [ ] Dynamiczne OG image per wpis.
@@ -110,7 +110,7 @@ Data: 2026-04-07
 - [x] Filtrowanie po modelu, uzytkowniku, akcji i zakresie dat.
 - [x] Widok szczegolow zmiany (diff) dla pojedynczego wpisu.
 - [x] Polityki dostepu: logi tylko dla admin/moderator/audytor.
-- [ ] Retencja logow i archiwizacja.
+- [x] Retencja logow i archiwizacja.
 - [x] Testy Pest potwierdzajace zapis logu po kazdej akcji admina.
 
 ## Status implementacji (2026-04-07)

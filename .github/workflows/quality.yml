@@ -6,7 +6,39 @@ on:
   pull_request:
 
 jobs:
-  pest-and-pint:
+  pint-pr-changed:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Detect changed PHP files
+        id: changed-php
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.php
+
+      - name: Run Pint on changed files
+        if: steps.changed-php.outputs.any_changed == 'true'
+        run: vendor/bin/pint --test ${{ steps.changed-php.outputs.all_changed_files }}
+
+      - name: No PHP changes
+        if: steps.changed-php.outputs.any_changed != 'true'
+        run: echo "No PHP files changed. Skipping Pint changed-files check."
+
+  pest-and-pint-full:
     runs-on: ubuntu-latest
 
     steps:

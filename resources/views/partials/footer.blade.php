@@ -51,8 +51,10 @@
                         <x-ui.input type="email" name="email" label="Adres e-mail" required
                             placeholder="twoj@email.com" value="{{ old('email') }}" />
 
-                        <label class="mt-2 inline-flex items-start gap-2 text-xs leading-5 text-slate-600 dark:text-slate-300">
-                            <input type="checkbox" name="privacy_consent" value="1" required @checked(old('privacy_consent'))
+                        <label
+                            class="mt-2 inline-flex items-start gap-2 text-xs leading-5 text-slate-600 dark:text-slate-300">
+                            <input type="checkbox" name="privacy_consent" value="1" required
+                                @checked(old('privacy_consent'))
                                 class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#3498db] focus:ring-[#3498db]/30 dark:border-slate-700 dark:bg-slate-900 dark:text-sky-400">
                             <span>
                                 Zgadzam się na przetwarzanie danych zgodnie z
@@ -83,7 +85,8 @@
             © 2026. Wszelkie prawa zastrzeżone.
         </p>
         <div class="mt-3 flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400">
-            <a href="{{ route('pages.privacy-policy') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Polityka
+            <a href="{{ route('pages.privacy-policy') }}"
+                class="hover:text-slate-700 dark:hover:text-slate-200">Polityka
                 prywatności</a>
             <a href="{{ route('pages.cookies') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Cookies</a>
             <a href="{{ route('pages.terms') }}" class="hover:text-slate-700 dark:hover:text-slate-200">Regulamin</a>

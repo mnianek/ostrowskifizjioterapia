@@ -11,11 +11,14 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Schema;
 
 class CommentsTable
 {
     public static function configure(Table $table): Table
     {
+        $hasReportsTable = Schema::hasTable('comment_reports');
+
         return $table
             ->columns([
                 TextColumn::make('content')
@@ -41,7 +44,8 @@ class CommentsTable
                     ]),
                 TextColumn::make('reports_count')
                     ->label('Zgłoszenia')
-                    ->counts('reports')
+                    ->state(fn () => 0)
+                    ->when($hasReportsTable, fn (TextColumn $column): TextColumn => $column->counts('reports'))
                     ->badge()
                     ->color(fn (int $state): string => $state > 0 ? 'warning' : 'gray')
                     ->sortable(),
@@ -54,7 +58,7 @@ class CommentsTable
                     ->falseLabel('Do zatwierdzenia'),
                 Filter::make('reported')
                     ->label('Tylko zgłoszone')
-                    ->query(fn ($query) => $query->whereHas('reports')),
+                    ->query(fn ($query) => $hasReportsTable ? $query->whereHas('reports') : $query),
             ])
             ->recordActions([
                 EditAction::make(),
