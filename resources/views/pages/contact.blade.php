@@ -102,36 +102,5 @@
                 </aside>
             </div>
         </section>
-
-        <section class="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
-            <div class="reveal surface-glass overflow-hidden" data-reveal>
-                <div class="border-b border-ink/10 px-6 py-6 dark:border-paper/10 sm:px-8">
-                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/60 dark:text-paper/60">
-                        Dojazd i godziny
-                    </p>
-                    <h2 class="mt-2 text-ink dark:text-paper">Zobacz, gdzie przyjmujemy pacjentów</h2>
-                </div>
-
-                <div class="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
-                    @forelse ($locations as $location)
-                        <article class="surface-card overflow-hidden">
-                            <div class="p-5">
-                                <h3 class="text-ink dark:text-paper">{{ $location->name }}</h3>
-                                <p class="mt-2 text-sm leading-6 text-ink/70 dark:text-paper/70">
-                                    {{ $location->address }}</p>
-                                <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/70 dark:text-paper/70">
-                                    {{ $location->hours }}
-                                </p>
-                            </div>
-                            <iframe class="h-72 w-full border-t border-ink/10 dark:border-paper/10"
-                                src="{{ $location->map_link }}" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-                        </article>
-                    @empty
-                        <p class="text-sm text-ink/70 dark:text-paper/70">Brak zdefiniowanych lokalizacji.</p>
-                    @endforelse
-                </div>
-            </div>
-        </section>
     </main>
 </x-layout>
