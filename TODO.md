@@ -87,3 +87,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 ## Faza 13: Spójność strony YouTube
 - [x] Dostosowanie sekcji hero i kart wideo na `/youtube` do design systemu (palette ink/paper/sage, surface-glass/surface-card, przyciski `btn-primary` i `btn-secondary`).
 - [x] Przebudowa całej strony `/kontakt` do nowego design systemu (spójne surface, formularz na komponentach UI, sekcja lokalizacji i mapy w estetyce ink/paper/sage).
+- [x] Dostosowanie stopki (`resources/views/partials/footer.blade.php`) do nowego design systemu, wraz ze spójnym formularzem newslettera i linkami pomocniczymi.
