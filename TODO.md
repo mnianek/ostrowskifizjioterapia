@@ -89,3 +89,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Przebudowa całej strony `/kontakt` do nowego design systemu (spójne surface, formularz na komponentach UI, sekcja lokalizacji i mapy w estetyce ink/paper/sage).
 - [x] Dostosowanie stopki (`resources/views/partials/footer.blade.php`) do nowego design systemu, wraz ze spójnym formularzem newslettera i linkami pomocniczymi.
 - [x] Dostosowanie sekcji komentarzy (`resources/views/livewire/post-comments.blade.php`) do nowego UI: spójne karty, przyciski akcji, formularze i komunikaty.
+- [x] Dostosowanie strony `/o-mnie` (`resources/views/pages/about.blade.php`) do nowego design systemu: hero, sekcje procesu terapii i końcowe CTA.
