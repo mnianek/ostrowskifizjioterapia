@@ -238,6 +238,7 @@ it('allows authenticated access to basic filament resource pages', function () {
         });
     });
 
+    /** @var User $user */
     $user = User::factory()->create();
     $user->assignRole('super_admin');
 
@@ -342,6 +343,7 @@ it('exposes unique patients and pending comments stats on the dashboard widget',
 it('does not count admin visits toward unique sessions', function () {
     Role::query()->firstOrCreate(['name' => 'panel_user']);
 
+    /** @var User $user */
     $user = User::factory()->create();
     $user->assignRole('panel_user');
 
