@@ -69,13 +69,17 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3 lg:justify-end">
-                        <button type="submit" class="btn-primary">
-                            Filtruj
-                        </button>
-                        <a href="{{ route('posts.index') }}" class="btn-secondary">
-                            Wyczyść
-                        </a>
+                    <div class="block lg:self-end">
+                        <span
+                            class="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/55">Akcje</span>
+                        <div class="flex flex-wrap gap-3 lg:justify-end">
+                            <button type="submit" class="btn-primary h-12.5 whitespace-nowrap">
+                                Filtruj
+                            </button>
+                            <a href="{{ route('posts.index') }}" class="btn-secondary h-12.5 whitespace-nowrap">
+                                Wyczyść
+                            </a>
+                        </div>
                     </div>
                 </div>
             </form>
