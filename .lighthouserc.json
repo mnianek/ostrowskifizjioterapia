@@ -1,0 +1,40 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 2,
+      "url": [
+        "http://127.0.0.1:8000/",
+        "http://127.0.0.1:8000/blog"
+      ],
+      "startServerCommand": "php artisan serve --host=127.0.0.1 --port=8000",
+      "startServerReadyPattern": "Server running on",
+      "startServerReadyTimeout": 120000
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": [
+          "warn",
+          {
+            "minScore": 0.8
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

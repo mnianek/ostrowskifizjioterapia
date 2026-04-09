@@ -1,7 +1,7 @@
 <x-layout :meta-title="$post->title . ' | Blog'" :meta-description="$post->excerpt ?: ($post->lead ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 160))" :canonical="route('posts.show', $post->slug)" :og-image="$post->getFirstMediaUrl('featured_image') ?:
     ($post->image_path
         ? asset('storage/' . ltrim($post->image_path, '/'))
-        : asset('images/LOGO%20BLACK.png'))" og-type="article">
+        : route('posts.og-image', $post->slug))" og-type="article">
     @push('structured-data')
         <script type="application/ld+json">
             {!! json_encode([
@@ -109,6 +109,34 @@
                     <div class="article-body mt-10 max-w-none text-base">
                         {!! $post->content !!}
                     </div>
+
+                    <section
+                        class="reveal mt-10 rounded-2xl border border-ink/10 bg-paper/70 p-5 dark:border-paper/10 dark:bg-paper/5"
+                        data-reveal>
+                        <h2 class="text-xl text-ink dark:text-paper">Przydatne linki</h2>
+                        <ul class="mt-3 space-y-2 text-sm leading-7 text-ink/75 dark:text-paper/75">
+                            <li>
+                                <a href="{{ route('posts.index') }}"
+                                    class="font-semibold text-sage-700 underline decoration-sage/35 underline-offset-4 transition hover:text-sage-600 dark:text-sage-200 dark:hover:text-sage-100">
+                                    Zobacz wszystkie artykuly bloga
+                                </a>
+                            </li>
+                            @if ($post->category)
+                                <li>
+                                    <a href="{{ route('posts.index', ['category' => $post->category->id]) }}"
+                                        class="font-semibold text-sage-700 underline decoration-sage/35 underline-offset-4 transition hover:text-sage-600 dark:text-sage-200 dark:hover:text-sage-100">
+                                        Wiecej wpisow z kategorii: {{ $post->category->name }}
+                                    </a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="{{ route('pages.contact') }}"
+                                    class="font-semibold text-sage-700 underline decoration-sage/35 underline-offset-4 transition hover:text-sage-600 dark:text-sage-200 dark:hover:text-sage-100">
+                                    Umow konsultacje fizjoterapeutyczna
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
 
                     <section
                         class="reveal relative mt-14 overflow-hidden rounded-3xl border border-sage/25 bg-ink p-8 text-paper shadow-[0_28px_90px_rgba(26,26,26,0.25)] sm:p-10"

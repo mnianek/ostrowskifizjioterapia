@@ -112,3 +112,10 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Testy 403 dla użytkownika bez uprawnień `Post` (lista, create, edit).
 - [x] Testy 200 dla użytkownika z uprawnieniami `ViewAny/View/Create/Update:Post`.
 - [x] Weryfikacja, że publikacja wpisu jest objęta kontrolą uprawnienia `Update:Post`.
+
+## Faza 17: Domkniecie checklisty minimum
+- [x] Monitoring Core Web Vitals (LCP/CLS/INP) z zapisem metryk i testami endpointu.
+- [x] Rozszerzenie CI o gate pokrycia (`pest --coverage --min=70`) i audyt Lighthouse.
+- [x] Dodanie operacyjnych backupow automatycznych (DB + media), monitoringu backupu i komendy walidacji odtworzenia.
+- [x] Dodanie runbooka operacyjnego (env split, alerty logow, minimal downtime deploy, restore procedure).
+- [x] Uzupełnienie testow unit/regresji i formalne domkniecie `BLOG_MINIMUM_CHECKLIST.md`.

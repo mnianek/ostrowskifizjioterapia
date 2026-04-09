@@ -10,9 +10,10 @@
     );
 
     $currentPage = $posts->currentPage();
+    $hasDuplicateFilterState = ! empty($seoQuery);
 
-    $canonicalParams = $seoQuery;
-    if ($currentPage > 1) {
+    $canonicalParams = [];
+    if (! $hasDuplicateFilterState && $currentPage > 1) {
         $canonicalParams['page'] = $currentPage;
     }
 
@@ -23,7 +24,7 @@
     $nextUrl = $posts->hasMorePages()
         ? route('posts.index', array_merge($seoQuery, ['page' => $currentPage + 1]))
         : null;
-    $robots = $currentPage > 1 ? 'noindex,follow' : 'index,follow';
+    $robots = ($currentPage > 1 || $hasDuplicateFilterState) ? 'noindex,follow' : 'index,follow';
 @endphp
 
 <x-layout meta-title="Blog | {{ config('app.name') }}"

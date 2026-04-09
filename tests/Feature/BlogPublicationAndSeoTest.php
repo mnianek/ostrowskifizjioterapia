@@ -154,3 +154,39 @@ it('applies seo pagination strategy on blog index', function () {
     $pageTwo->assertSee('<link rel="prev" href="', false);
     $pageTwo->assertDontSee('rel="next"', false);
 });
+
+it('uses duplicate-content strategy for filtered blog listing', function () {
+    $post = Post::query()->create([
+        'title' => 'SEO filtr',
+        'slug' => 'seo-filtr',
+        'content' => 'Tresc do filtrowania',
+        'author' => 'Admin',
+        'status' => 'published',
+        'is_published' => true,
+        'published_at' => now()->subHour(),
+    ]);
+
+    $response = get(route('posts.index', ['search' => 'SEO']));
+
+    $response->assertOk();
+    $response->assertSee($post->title);
+    $response->assertSee('<link rel="canonical" href="'.route('posts.index').'">', false);
+    $response->assertSee('<meta name="robots" content="noindex,follow">', false);
+});
+
+it('renders dynamic og image endpoint for published post', function () {
+    $post = Post::query()->create([
+        'title' => 'OG grafika wpisu',
+        'slug' => 'og-grafika-wpisu',
+        'content' => 'Tresc wpisu dla OG',
+        'author' => 'Admin',
+        'status' => 'published',
+        'is_published' => true,
+        'published_at' => now()->subHour(),
+    ]);
+
+    get(route('posts.og-image', $post->slug))
+        ->assertOk()
+        ->assertHeader('Content-Type', 'image/svg+xml; charset=UTF-8')
+        ->assertSee('OG grafika wpisu', false);
+});

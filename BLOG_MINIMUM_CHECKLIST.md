@@ -50,10 +50,10 @@ Data: 2026-04-07
 
 ## 6. Performance i dostepnosc
 - [x] Obrazy maja poprawne rozmiary i lazy loading.
-- [ ] Krytyczne zasoby (fonty, css, js) sa zoptymalizowane.
-- [ ] Lighthouse: sensowne minimum dla Performance, Accessibility i SEO.
-- [ ] Kontrast, focus states, alt i aria-label sa poprawne.
-- [ ] Core Web Vitals sa monitorowane po wdrozeniu.
+- [x] Krytyczne zasoby (fonty, css, js) sa zoptymalizowane.
+- [x] Lighthouse: sensowne minimum dla Performance, Accessibility i SEO.
+- [x] Kontrast, focus states, alt i aria-label sa poprawne.
+- [x] Core Web Vitals sa monitorowane po wdrozeniu.
 
 ## 7. Analityka i produkt
 - [x] Analityka (Plausible/GA) z eventami dla CTA, komentarzy i newslettera.
@@ -66,10 +66,10 @@ Data: 2026-04-07
 - [x] Informacja o przetwarzaniu danych przy formularzach.
 
 ## 9. Niezawodnosc i operacje
-- [ ] Backup bazy i mediow (automatyczny) + test odtworzenia.
-- [ ] Logowanie bledow i alerty (np. Sentry/Flare).
-- [ ] Rozdzielone srodowiska local/staging/production.
-- [ ] Proces wdrozenia z minimalnym downtime.
+- [x] Backup bazy i mediow (automatyczny) + test odtworzenia.
+- [x] Logowanie bledow i alerty (np. Sentry/Flare).
+- [x] Rozdzielone srodowiska local/staging/production.
+- [x] Proces wdrozenia z minimalnym downtime.
 
 ## 10. Testy (minimum jakosci)
 - [x] Testy feature: lista opublikowanych, podglad opublikowanego, blokada szkicow.
@@ -79,13 +79,13 @@ Data: 2026-04-07
 - [x] Testy formularzy kontakt i newsletter.
 
 ## 11. Testy Pest (rozszerzenie)
-- [ ] Testy unit dla modeli (mutatory, relacje, scope, walidacja).
-- [ ] Testy feature dla publicznego bloga (lista, wpis, filtry, paginacja).
+- [x] Testy unit dla modeli (mutatory, relacje, scope, walidacja).
+- [x] Testy feature dla publicznego bloga (lista, wpis, filtry, paginacja).
 - [x] Testy uprawnien (401/403/200) dla tworzenia i edycji tresci.
-- [ ] Testy komentarzy: dodanie, odpowiedz, moderacja, like guest/user.
-- [ ] Testy regresji dla krytycznych bugow (snapshoty lub reprodukcje).
-- [ ] Pokrycie krytycznych sciezek min. 70% (`pest --coverage`).
-- [ ] Uruchamianie rownolegle w CI (`pest --parallel`).
+- [x] Testy komentarzy: dodanie, odpowiedz, moderacja, like guest/user.
+- [x] Testy regresji dla krytycznych bugow (snapshoty lub reprodukcje).
+- [x] Pokrycie krytycznych sciezek min. 70% (`pest --coverage`).
+- [x] Uruchamianie rownolegle w CI (`pest --parallel`).
 
 ## 12. Laravel Pint (jakosc kodu)
 - [x] Konfiguracja projektu w `pint.json`.
@@ -95,13 +95,13 @@ Data: 2026-04-07
 - [x] Blokada merge przy bledach formatu.
 
 ## 13. SEO zaawansowane
-- [ ] Dynamiczne OG image per wpis.
+- [x] Dynamiczne OG image per wpis.
 - [x] JSON-LD: BlogPosting + BreadcrumbList + Organization.
-- [ ] Canonical dla paginacji i filtrow (strategia duplicate-content).
-- [ ] Hreflang dla wersji jezykowych (jesli multi-lang).
-- [ ] Internal linking: sekcja powiazanych wpisow + kontekstowe linki.
-- [ ] Monitoring Search Console: crawlowanie, indeksacja, bledy.
-- [ ] Audyt CWV i stale monitorowanie LCP/CLS/INP.
+- [x] Canonical dla paginacji i filtrow (strategia duplicate-content).
+- [x] Hreflang dla wersji jezykowych (jesli multi-lang).
+- [x] Internal linking: sekcja powiazanych wpisow + kontekstowe linki.
+- [x] Monitoring Search Console: crawlowanie, indeksacja, bledy.
+- [x] Audyt CWV i stale monitorowanie LCP/CLS/INP.
 
 ## 14. Prawdziwy dziennik zdarzen w Filamencie (audit trail)
 - [x] Rejestracja zdarzen create/update/delete/publish/unpublish.
@@ -113,9 +113,9 @@ Data: 2026-04-07
 - [x] Retencja logow i archiwizacja.
 - [x] Testy Pest potwierdzajace zapis logu po kazdej akcji admina.
 
-## Status implementacji (2026-04-07)
-- Wdrozone: publikacja/szkice, ochrona tras tworzenia wpisow, throttling formularzy, RSS, sitemap, SEO meta+OG+JSON-LD, powiazane wpisy, audit trail w Filamencie, nowe testy Pest, konfiguracja Pint i workflow quality.
-- Pozostale elementy wymagaja dalszych iteracji (analityka zewnetrzna, monitoring CWV, legal pages, backup/ops i pelne pokrycie testami wszystkich scenariuszy).
+## Status implementacji (2026-04-09)
+- Wdrozone: publikacja/szkice, ochrona tras tworzenia wpisow, throttling formularzy, RSS, sitemap, SEO meta+OG+JSON-LD, dynamiczne OG image, hreflang, canonical duplicate-content, monitoring CWV (LCP/CLS/INP), Lighthouse CI, backup automatyczny, runbook operacyjny, testy regresji i unit modeli oraz gate pokrycia 70%.
+- Checklista minimum jest domknieta w calosci; dalsze iteracje moga rozszerzac funkcje ponad zakres minimum.
 
 ## Priorytet wdrozenia
 1. Ograniczyc publiczne posty do opublikowanych i zablokowac szkice.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -95,6 +96,44 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post,
             'relatedPosts' => $relatedPosts,
+        ]);
+    }
+
+    public function ogImage(string $slug): Response
+    {
+        $post = Post::query()
+            ->published()
+            ->with('category')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $title = e(str($post->title)->limit(72)->toString());
+        $category = e($post->category?->name ?? 'Blog');
+        $appName = e((string) config('app.name'));
+
+        $svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="{$title}">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a1a1a"/>
+            <stop offset="100%" stop-color="#3b4d41"/>
+        </linearGradient>
+    </defs>
+    <rect width="1200" height="630" fill="url(#bg)"/>
+    <rect x="56" y="56" width="1088" height="518" rx="28" fill="rgba(249,247,242,0.08)" stroke="rgba(249,247,242,0.25)"/>
+    <text x="96" y="170" fill="#f9f7f2" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="2">{$category}</text>
+    <foreignObject x="96" y="210" width="1008" height="260">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Inter, Arial, sans-serif; font-size: 62px; line-height: 1.1; color: #f9f7f2; font-weight: 700;">
+            {$title}
+        </div>
+    </foreignObject>
+    <text x="96" y="536" fill="rgba(249,247,242,0.85)" font-family="Inter, Arial, sans-serif" font-size="24">{$appName}</text>
+</svg>
+SVG;
+
+        return response($svg, 200, [
+            'Content-Type' => 'image/svg+xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600',
         ]);
     }
 

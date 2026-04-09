@@ -48,6 +48,7 @@
 
                 <div class="mt-4 flex flex-wrap items-center gap-3">
                     <button type="button" wire:click="toggleLike({{ $comment->id }})"
+                        aria-label="Polub komentarz {{ $comment->user_name }}"
                         class="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         <span
                             class="{{ $this->userLikedComment($comment) ? 'text-sage-600 dark:text-sage-200' : 'text-ink/35 dark:text-paper/45' }}">♥</span>
@@ -55,17 +56,20 @@
                     </button>
 
                     <button type="button" wire:click="toggleReplyForm({{ $comment->id }})"
+                        aria-label="Odpowiedz na komentarz {{ $comment->user_name }}"
                         class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         Odpowiedz
                     </button>
 
                     <button type="button" wire:click="reportComment({{ $comment->id }})"
+                        aria-label="Zglos komentarz {{ $comment->user_name }}"
                         class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-4 py-2 text-sm font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                         Zgłoś
                     </button>
 
                     @if ($this->canPinComments())
                         <button type="button" wire:click="pinComment({{ $comment->id }})"
+                            aria-label="Przypnij komentarz {{ $comment->user_name }}"
                             class="inline-flex items-center rounded-xl border border-sage-400/60 bg-sage-100 px-4 py-2 text-sm font-semibold text-sage-800 transition hover:bg-sage-200/80 dark:border-sage-500/40 dark:bg-sage-900/35 dark:text-sage-200 dark:hover:bg-sage-900/50">
                             Przypnij
                         </button>
@@ -128,6 +132,7 @@
                                 </p>
                                 <div class="mt-4 flex flex-wrap items-center gap-2">
                                     <button type="button" wire:click="toggleLike({{ $reply->id }})"
+                                        aria-label="Polub odpowiedz {{ $reply->user_name }}"
                                         class="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                                         <span
                                             class="{{ $this->userLikedComment($reply) ? 'text-sage-600 dark:text-sage-200' : 'text-ink/35 dark:text-paper/45' }}">♥</span>
@@ -135,6 +140,7 @@
                                     </button>
 
                                     <button type="button" wire:click="reportComment({{ $reply->id }})"
+                                        aria-label="Zglos odpowiedz {{ $reply->user_name }}"
                                         class="inline-flex items-center rounded-xl border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 transition hover:border-sage/55 hover:text-sage-700 dark:border-paper/15 dark:bg-paper/5 dark:text-paper/80 dark:hover:border-sage/55 dark:hover:text-sage-200">
                                         Zgłoś
                                     </button>

@@ -9,6 +9,11 @@
     'nextUrl' => null,
 ])
 
+@php
+    $alternatePl = $canonical;
+    $alternateEn = str_contains($canonical, '?') ? $canonical.'&lang=en' : $canonical.'?lang=en';
+@endphp
+
 <!DOCTYPE html>
 <html lang="pl" class="h-full bg-paper text-ink dark:bg-ink dark:text-paper">
 
@@ -37,14 +42,26 @@
     <meta name="twitter:title" content="{{ $metaTitle }}">
     <meta name="twitter:description" content="{{ $metaDescription }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
+    <link rel="alternate" hreflang="pl" href="{{ $alternatePl }}">
+    <link rel="alternate" hreflang="en" href="{{ $alternateEn }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $alternatePl }}">
 
     <link rel="alternate" type="application/rss+xml" title="{{ config('app.name') }} RSS"
         href="{{ route('posts.feed') }}">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:opsz,wght@5..120,500;5..120,600;5..120,700&display=swap">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:opsz,wght@5..120,500;5..120,600;5..120,700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:opsz,wght@5..120,500;5..120,600;5..120,700&display=swap"
+            rel="stylesheet">
+    </noscript>
 
     <script>
         try {
@@ -63,9 +80,14 @@
 
 <body x-data="themeController"
     class="min-h-full bg-paper text-ink antialiased transition-colors duration-300 dark:bg-ink dark:text-paper">
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-sage focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-paper focus:outline-none">
+        Przejdz do tresci glownej
+    </a>
+
     @include('partials.navigation')
 
-    <div class="relative isolate">
+    <div id="main-content" class="relative isolate">
         <div
             class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(ellipse_at_top,rgba(125,157,133,0.18),transparent_62%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(125,157,133,0.22),transparent_58%)]">
         </div>

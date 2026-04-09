@@ -4,9 +4,11 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test:lighthouse": "lhci autorun --config=.lighthouserc.json"
     },
     "devDependencies": {
+        "@lhci/cli": "^0.15.1",
         "@tailwindcss/forms": "^0.5.11",
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.11.0",
@@ -16,6 +18,7 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
-        "alpinejs": "^3.15.11"
+        "alpinejs": "^3.15.11",
+        "web-vitals": "^5.1.0"
     }
 }

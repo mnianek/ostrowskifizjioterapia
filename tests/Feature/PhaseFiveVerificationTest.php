@@ -323,13 +323,13 @@ it('exposes unique patients and pending comments stats on the dashboard widget',
     ]);
 
     $widget = app(StatsOverview::class);
-    $reflection = new \ReflectionClass($widget);
+    $reflection = new ReflectionClass($widget);
     $method = $reflection->getMethod('getStats');
     $method->setAccessible(true);
 
     $stats = $method->invoke($widget);
 
-    expect($stats)->toHaveCount(4);
+    expect($stats)->toHaveCount(8);
     expect($stats[0]->getLabel())->toBe('Unikalni Pacjenci');
     expect($stats[0]->getValue())->toBe('7');
     expect($stats[1]->getLabel())->toBe('Opublikowane wpisy');
