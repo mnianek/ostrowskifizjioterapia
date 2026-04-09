@@ -47,7 +47,8 @@
                         <div class="relative overflow-hidden rounded-3xl">
                             <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80"
                                 alt="Trening medyczny i fizjoterapia"
-                                class="h-[44svh] w-full rounded-3xl object-cover sm:h-[54svh] lg:h-[62svh]">
+                                class="h-[44svh] w-full rounded-3xl object-cover sm:h-[54svh] lg:h-[62svh]"
+                                loading="eager" fetchpriority="high" decoding="async" width="900" height="1200">
                             <div
                                 class="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/35 via-ink/0 to-transparent dark:from-ink/55">
                             </div>

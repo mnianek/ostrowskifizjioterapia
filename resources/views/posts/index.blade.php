@@ -1,10 +1,13 @@
 @php
-    $seoQuery = array_filter([
-        'category' => $selectedCategory ?: null,
-        'search' => filled($search) ? $search : null,
-        'sort' => $sort !== 'latest' ? $sort : null,
-        'direction' => $direction !== 'desc' ? $direction : null,
-    ], fn ($value) => filled($value));
+    $seoQuery = array_filter(
+        [
+            'category' => $selectedCategory ?: null,
+            'search' => filled($search) ? $search : null,
+            'sort' => $sort !== 'latest' ? $sort : null,
+            'direction' => $direction !== 'desc' ? $direction : null,
+        ],
+        fn($value) => filled($value),
+    );
 
     $currentPage = $posts->currentPage();
 
@@ -14,14 +17,18 @@
     }
 
     $canonicalUrl = route('posts.index', $canonicalParams);
-    $prevUrl = $posts->onFirstPage() ? null : route('posts.index', array_merge($seoQuery, ['page' => $currentPage - 1]));
-    $nextUrl = $posts->hasMorePages() ? route('posts.index', array_merge($seoQuery, ['page' => $currentPage + 1])) : null;
+    $prevUrl = $posts->onFirstPage()
+        ? null
+        : route('posts.index', array_merge($seoQuery, ['page' => $currentPage - 1]));
+    $nextUrl = $posts->hasMorePages()
+        ? route('posts.index', array_merge($seoQuery, ['page' => $currentPage + 1]))
+        : null;
     $robots = $currentPage > 1 ? 'noindex,follow' : 'index,follow';
 @endphp
 
 <x-layout meta-title="Blog | {{ config('app.name') }}"
-    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu." :canonical="$canonicalUrl" :robots="$robots"
-    :prev-url="$prevUrl" :next-url="$nextUrl">
+    meta-description="Artykuly o fizjoterapii, prewencji urazow i bezpiecznym powrocie do ruchu." :canonical="$canonicalUrl"
+    :robots="$robots" :prev-url="$prevUrl" :next-url="$nextUrl">
     <main class="bg-paper text-ink dark:bg-ink dark:text-paper">
         <section class="relative overflow-hidden border-b border-ink/10 dark:border-paper/10">
             <div
@@ -142,7 +149,9 @@
                                 class="relative block aspect-[4/3] overflow-hidden bg-paper-200 lg:min-h-[420px] lg:aspect-auto dark:bg-paper/10">
                                 @if ($featuredImageUrl)
                                     <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}"
-                                        class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]">
+                                        class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
+                                        loading="eager" fetchpriority="high" decoding="async" width="1600"
+                                        height="900">
                                 @else
                                     <div
                                         class="flex h-full min-h-[280px] items-center justify-center bg-linear-to-br from-paper-200 to-paper-400 dark:from-paper/10 dark:to-paper/5">
@@ -199,7 +208,8 @@
                             class="relative block aspect-[16/11] overflow-hidden bg-paper-200 dark:bg-paper/10">
                             @if ($featuredImageUrl)
                                 <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}"
-                                    class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                                    class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                    loading="lazy" decoding="async" width="1200" height="825">
                             @else
                                 <div
                                     class="flex h-full items-center justify-center bg-linear-to-br from-paper-200 to-paper-400 dark:from-paper/10 dark:to-paper/5">

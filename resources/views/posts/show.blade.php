@@ -23,7 +23,9 @@
     @php
         $featuredImageUrl =
             $post->getFirstMediaUrl('featured_image') ?:
-            ($post->image_path || $post->photo ? asset('storage/' . ltrim($post->image_path ?? $post->photo, '/')) : null);
+            ($post->image_path || $post->photo
+                ? asset('storage/' . ltrim($post->image_path ?? $post->photo, '/'))
+                : null);
     @endphp
 
     <main class="bg-paper text-ink dark:bg-ink dark:text-paper">
@@ -35,11 +37,14 @@
                 Powrót do listy
             </a>
 
-            <article class="reveal mt-8 overflow-hidden rounded-3xl border border-ink/10 bg-paper/70 dark:border-paper/10 dark:bg-paper/5"
+            <article
+                class="reveal mt-8 overflow-hidden rounded-3xl border border-ink/10 bg-paper/70 dark:border-paper/10 dark:bg-paper/5"
                 data-reveal>
-                <div class="relative h-[42svh] min-h-[220px] w-full overflow-hidden bg-paper-200 sm:h-[48svh] dark:bg-paper/10">
+                <div
+                    class="relative h-[42svh] min-h-[220px] w-full overflow-hidden bg-paper-200 sm:h-[48svh] dark:bg-paper/10">
                     @if ($featuredImageUrl)
-                        <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" class="h-full w-full object-cover">
+                        <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" class="h-full w-full object-cover"
+                            loading="eager" fetchpriority="high" decoding="async" width="1600" height="900">
                     @else
                         <div
                             class="flex h-full items-center justify-center bg-linear-to-br from-paper-200 to-paper-400 dark:from-paper/10 dark:to-paper/5">
@@ -55,12 +60,14 @@
                     <nav class="reveal mb-8 flex flex-wrap items-center gap-2 text-sm text-ink/55 dark:text-paper/55"
                         aria-label="Breadcrumb" data-reveal>
                         <a href="{{ route('home') }}"
-                            class="font-medium transition hover:text-sage-700 dark:hover:text-sage-200">Strona główna</a>
+                            class="font-medium transition hover:text-sage-700 dark:hover:text-sage-200">Strona
+                            główna</a>
                         <span aria-hidden="true" class="text-ink/35 dark:text-paper/35">/</span>
                         <a href="{{ route('posts.index') }}"
                             class="font-medium transition hover:text-sage-700 dark:hover:text-sage-200">Blog</a>
                         <span aria-hidden="true" class="text-ink/35 dark:text-paper/35">/</span>
-                        <span class="font-medium text-ink/80 dark:text-paper/80">{{ \Illuminate\Support\Str::limit($post->title, 48) }}</span>
+                        <span
+                            class="font-medium text-ink/80 dark:text-paper/80">{{ \Illuminate\Support\Str::limit($post->title, 48) }}</span>
                     </nav>
 
                     <div class="reveal mb-10 flex flex-wrap items-center gap-3 border-b border-ink/10 pb-8 text-sm dark:border-paper/10"
@@ -77,14 +84,16 @@
                             {{ $post->published_at?->translatedFormat('d F Y') ?? ($post->created_at?->translatedFormat('d F Y') ?? 'Brak daty publikacji') }}
                         </time>
                         <span class="h-1 w-1 rounded-full bg-sage/70"></span>
-                        <span class="font-medium text-sage-700 dark:text-sage-200">{{ $post->reading_time }} min czytania</span>
+                        <span class="font-medium text-sage-700 dark:text-sage-200">{{ $post->reading_time }} min
+                            czytania</span>
                         <span class="h-1 w-1 rounded-full bg-sage/70"></span>
                         <span class="text-ink/60 dark:text-paper/60">Aktualizacja:
                             {{ $post->updated_at?->translatedFormat('d F Y') }}</span>
                     </div>
 
                     <header class="reveal" data-reveal>
-                        <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-sage-700 dark:text-sage-200">
+                        <p
+                            class="text-[11px] font-semibold uppercase tracking-[0.22em] text-sage-700 dark:text-sage-200">
                             {{ $post->category?->name ?? 'Bez kategorii' }}
                         </p>
                         <h1 class="mt-4 text-ink dark:text-paper">
@@ -104,7 +113,8 @@
                     <section
                         class="reveal relative mt-14 overflow-hidden rounded-3xl border border-sage/25 bg-ink p-8 text-paper shadow-[0_28px_90px_rgba(26,26,26,0.25)] sm:p-10"
                         data-reveal>
-                        <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sage/20 blur-3xl">
+                        <div
+                            class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sage/20 blur-3xl">
                         </div>
                         <h2 class="text-2xl text-paper sm:text-3xl">Umów się na wizytę</h2>
                         <p class="mt-4 max-w-2xl text-sm leading-7 text-paper/75">

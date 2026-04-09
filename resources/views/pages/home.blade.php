@@ -2,15 +2,14 @@
     <main class="relative">
         <section class="relative min-h-[100svh] overflow-hidden">
             <div class="pointer-events-none absolute inset-0">
-                <div
-                    class="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl dark:bg-sage/15">
+                <div class="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl dark:bg-sage/15">
                 </div>
-                <div
-                    class="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-ink/10 blur-3xl dark:bg-paper/10">
+                <div class="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-ink/10 blur-3xl dark:bg-paper/10">
                 </div>
             </div>
 
-            <div class="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-10 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:px-8 lg:pb-16 lg:pt-14">
+            <div
+                class="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-10 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:px-8 lg:pb-16 lg:pt-14">
                 <div class="relative">
                     <div class="reveal" data-reveal>
                         <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/65 dark:text-paper/70">
@@ -40,19 +39,22 @@
                     <div class="reveal mt-10 grid max-w-xl grid-cols-3 gap-3" data-reveal>
                         <div class="surface-glass p-4 text-center">
                             <p class="text-lg font-semibold text-ink dark:text-paper">400+</p>
-                            <p class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
+                            <p
+                                class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
                                 Pacjentów rocznie
                             </p>
                         </div>
                         <div class="surface-glass p-4 text-center">
                             <p class="text-lg font-semibold text-ink dark:text-paper">12 lat</p>
-                            <p class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
+                            <p
+                                class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
                                 Doświadczenia
                             </p>
                         </div>
                         <div class="surface-glass p-4 text-center">
                             <p class="text-lg font-semibold text-ink dark:text-paper">4.9/5</p>
-                            <p class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
+                            <p
+                                class="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
                                 Średnia opinii
                             </p>
                         </div>
@@ -64,14 +66,15 @@
                         <div class="relative overflow-hidden rounded-3xl">
                             <img src="{{ asset('images/LOGO%20BLACK.png') }}" alt=""
                                 class="hero-logo pointer-events-none absolute left-6 top-6 h-10 w-auto dark:hidden"
-                                data-hero-logo>
+                                data-hero-logo loading="eager" decoding="async" width="640" height="220">
                             <img src="{{ asset('images/LOGO%20WHITE.png') }}" alt=""
                                 class="hero-logo pointer-events-none absolute left-6 top-6 hidden h-10 w-auto dark:block"
-                                data-hero-logo>
+                                data-hero-logo loading="eager" decoding="async" width="640" height="220">
 
                             <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=80"
                                 alt="Fizjoterapia w spokojnym, profesjonalnym środowisku"
-                                class="h-[56svh] w-full rounded-3xl object-cover sm:h-[62svh] lg:h-[72svh]">
+                                class="h-[56svh] w-full rounded-3xl object-cover sm:h-[62svh] lg:h-[72svh]"
+                                loading="eager" fetchpriority="high" decoding="async" width="1400" height="1050">
                             <div
                                 class="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/35 via-ink/0 to-ink/0 dark:from-ink/55">
                             </div>
@@ -108,7 +111,8 @@
                     Usługi w układzie bento — konkretnie, luksusowo, bez hałasu
                 </h2>
                 <p class="lead mt-4 text-ink/70 dark:text-paper/70">
-                    Każda usługa jest częścią jednego systemu: diagnoza → precyzyjna terapia → ruch, który utrzymuje efekt.
+                    Każda usługa jest częścią jednego systemu: diagnoza → precyzyjna terapia → ruch, który utrzymuje
+                    efekt.
                 </p>
             </div>
 
@@ -121,15 +125,18 @@
                         </p>
                         <h3 class="mt-4 text-ink dark:text-paper">Diagnoza funkcjonalna</h3>
                         <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
-                            Analiza ruchu, testy, rozmowa o obciążeniach i celu terapii — bez zgadywania, z jasnym planem od
+                            Analiza ruchu, testy, rozmowa o obciążeniach i celu terapii — bez zgadywania, z jasnym
+                            planem od
                             pierwszej wizyty.
                         </p>
                         <div class="mt-6 flex items-center gap-3">
-                            <span class="text-xs font-semibold uppercase tracking-[0.18em] text-sage-700 dark:text-sage-200">
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.18em] text-sage-700 dark:text-sage-200">
                                 45–60 min
                             </span>
                             <span class="h-1 w-1 rounded-full bg-sage/60"></span>
-                            <span class="text-xs font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/60">
                                 Plan działań
                             </span>
                         </div>
@@ -144,7 +151,8 @@
                         </p>
                         <h3 class="mt-4 text-ink dark:text-paper">Przywracanie mobilności</h3>
                         <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
-                            Praca tkankowa i stawowa dobrana do diagnostyki — w tempie, które uspokaja układ nerwowy i daje
+                            Praca tkankowa i stawowa dobrana do diagnostyki — w tempie, które uspokaja układ nerwowy i
+                            daje
                             odczuwalną ulgę.
                         </p>
                     </div>
@@ -171,22 +179,29 @@
                         </p>
                         <h3 class="mt-4 text-ink dark:text-paper">Powrót do sportu i pracy</h3>
                         <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
-                            Strategia powrotu do aktywności oparta na tolerancji obciążenia, monitoringu objawów i budowaniu
+                            Strategia powrotu do aktywności oparta na tolerancji obciążenia, monitoringu objawów i
+                            budowaniu
                             pewności w ruchu.
                         </p>
                         <div class="mt-6 grid gap-3 sm:grid-cols-3">
-                            <div class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
+                            <div
+                                class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
+                                <p
+                                    class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
                                     Kręgosłup
                                 </p>
                             </div>
-                            <div class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
+                            <div
+                                class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
+                                <p
+                                    class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
                                     Kolano / bark
                                 </p>
                             </div>
-                            <div class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
+                            <div
+                                class="rounded-2xl border border-ink/10 bg-paper/50 px-4 py-3 dark:border-paper/10 dark:bg-paper/5">
+                                <p
+                                    class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60 dark:text-paper/60">
                                     Bóle przeciążeniowe
                                 </p>
                             </div>
@@ -206,7 +221,8 @@
                         Prosty proces. Spokojne tempo. Realny efekt.
                     </h2>
                     <p class="lead mt-4 text-ink/70 dark:text-paper/70">
-                        Nie dokładamy „więcej” — wybieramy to, co działa. Dzięki temu terapia jest przewidywalna i łatwa do
+                        Nie dokładamy „więcej” — wybieramy to, co działa. Dzięki temu terapia jest przewidywalna i łatwa
+                        do
                         utrzymania.
                     </p>
                 </div>
@@ -214,21 +230,27 @@
                 <div class="lg:col-span-7">
                     <div class="grid gap-4 sm:grid-cols-3">
                         <div class="reveal surface-glass p-7" data-reveal>
-                            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">01</p>
+                            <p
+                                class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">
+                                01</p>
                             <h3 class="mt-3 text-ink dark:text-paper">Diagnoza</h3>
                             <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
                                 Rozumiemy przyczynę, nie tylko objaw.
                             </p>
                         </div>
                         <div class="reveal surface-glass p-7" data-reveal>
-                            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">02</p>
+                            <p
+                                class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">
+                                02</p>
                             <h3 class="mt-3 text-ink dark:text-paper">Plan</h3>
                             <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
                                 Konkretny program na gabinet i dom.
                             </p>
                         </div>
                         <div class="reveal surface-glass p-7" data-reveal>
-                            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">03</p>
+                            <p
+                                class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/60">
+                                03</p>
                             <h3 class="mt-3 text-ink dark:text-paper">Powrót</h3>
                             <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
                                 Stabilny progres bez przeciążenia.
@@ -287,7 +309,9 @@
                     @php
                         $featuredImageUrl =
                             $post->getFirstMediaUrl('featured_image') ?:
-                            ($post->image_path || $post->photo ? asset('storage/' . ltrim($post->image_path ?? $post->photo, '/')) : null);
+                            ($post->image_path || $post->photo
+                                ? asset('storage/' . ltrim($post->image_path ?? $post->photo, '/'))
+                                : null);
                     @endphp
 
                     <article class="reveal md:col-span-4" data-reveal>
@@ -296,7 +320,8 @@
                             <div class="relative h-56 overflow-hidden bg-paper-200 dark:bg-paper/10">
                                 @if ($featuredImageUrl)
                                     <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}"
-                                        class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                                        class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                        loading="lazy" decoding="async" width="1200" height="900">
                                 @else
                                     <div
                                         class="flex h-full items-center justify-center bg-linear-to-br from-paper-200 to-paper-400 text-xs font-semibold uppercase tracking-[0.22em] text-ink/60 dark:from-paper/10 dark:to-paper/5 dark:text-paper/60">
@@ -309,10 +334,12 @@
                             </div>
 
                             <div class="p-7">
-                                <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-sage-700 dark:text-sage-200">
+                                <p
+                                    class="text-[11px] font-semibold uppercase tracking-[0.22em] text-sage-700 dark:text-sage-200">
                                     {{ $post->category?->name ?? 'Bez kategorii' }}
                                 </p>
-                                <h3 class="mt-3 text-ink transition group-hover:text-ink/85 dark:text-paper dark:group-hover:text-paper/85">
+                                <h3
+                                    class="mt-3 text-ink transition group-hover:text-ink/85 dark:text-paper dark:group-hover:text-paper/85">
                                     {{ $post->title }}
                                 </h3>
                                 <p class="mt-3 line-clamp-3 text-sm leading-7 text-ink/70 dark:text-paper/70">
@@ -335,7 +362,8 @@
                     </p>
                     <h2 class="mt-3 text-ink dark:text-paper">Spokojne odpowiedzi przed pierwszą wizytą</h2>
                     <p class="lead mt-4 text-ink/70 dark:text-paper/70">
-                        Najczęściej pacjenci pytają o przebieg konsultacji, czas terapii i to, co robić pomiędzy wizytami.
+                        Najczęściej pacjenci pytają o przebieg konsultacji, czas terapii i to, co robić pomiędzy
+                        wizytami.
                     </p>
                 </div>
 

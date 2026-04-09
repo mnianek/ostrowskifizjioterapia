@@ -101,3 +101,14 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Meta robots dla paginacji: `index,follow` na stronie 1 oraz `noindex,follow` na stronach 2+.
 - [x] Linki `rel="prev"` i `rel="next"` w sekcji `<head>` dla stron paginowanych.
 - [x] Test feature potwierdzający canonical/robots/prev dla paginacji.
+
+## Faza 15: Performance obrazów
+- [x] Dodany `loading`/`fetchpriority` dla obrazów hero (strona główna, o mnie, wpis).
+- [x] Dodany `loading="lazy"` dla obrazów list i kart wpisów poniżej pierwszego widoku.
+- [x] Uzupełnione atrybuty `width` i `height` w kluczowych obrazach dla ograniczenia CLS.
+
+## Faza 16: Testy uprawnień treści
+- [x] Testy 401 dla niezalogowanego użytkownika na stronach tworzenia/edycji wpisu w panelu.
+- [x] Testy 403 dla użytkownika bez uprawnień `Post` (lista, create, edit).
+- [x] Testy 200 dla użytkownika z uprawnieniami `ViewAny/View/Create/Update:Post`.
+- [x] Weryfikacja, że publikacja wpisu jest objęta kontrolą uprawnienia `Update:Post`.

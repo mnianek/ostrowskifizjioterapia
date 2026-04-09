@@ -49,7 +49,7 @@ Data: 2026-04-07
 - [x] Strategia SEO dla paginacji listy wpisow.
 
 ## 6. Performance i dostepnosc
-- [ ] Obrazy maja poprawne rozmiary i lazy loading.
+- [x] Obrazy maja poprawne rozmiary i lazy loading.
 - [ ] Krytyczne zasoby (fonty, css, js) sa zoptymalizowane.
 - [ ] Lighthouse: sensowne minimum dla Performance, Accessibility i SEO.
 - [ ] Kontrast, focus states, alt i aria-label sa poprawne.
@@ -73,7 +73,7 @@ Data: 2026-04-07
 
 ## 10. Testy (minimum jakosci)
 - [x] Testy feature: lista opublikowanych, podglad opublikowanego, blokada szkicow.
-- [ ] Testy uprawnien dla tworzenia/edycji/publikacji.
+- [x] Testy uprawnien dla tworzenia/edycji/publikacji.
 - [x] Testy komentarzy i lajkow sa juz obecne.
 - [x] Testy SEO smoke (status, meta, canonical).
 - [x] Testy formularzy kontakt i newsletter.
@@ -81,7 +81,7 @@ Data: 2026-04-07
 ## 11. Testy Pest (rozszerzenie)
 - [ ] Testy unit dla modeli (mutatory, relacje, scope, walidacja).
 - [ ] Testy feature dla publicznego bloga (lista, wpis, filtry, paginacja).
-- [ ] Testy uprawnien (401/403/200) dla tworzenia i edycji tresci.
+- [x] Testy uprawnien (401/403/200) dla tworzenia i edycji tresci.
 - [ ] Testy komentarzy: dodanie, odpowiedz, moderacja, like guest/user.
 - [ ] Testy regresji dla krytycznych bugow (snapshoty lub reprodukcje).
 - [ ] Pokrycie krytycznych sciezek min. 70% (`pest --coverage`).
