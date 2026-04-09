@@ -3,8 +3,11 @@
         <section class="reveal" data-reveal>
             <div class="surface-glass relative overflow-hidden p-8 sm:p-10">
                 <div class="pointer-events-none absolute inset-0 -z-10">
-                    <div class="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-sage/20 blur-3xl dark:bg-sage/15"></div>
-                    <div class="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-ink/10 blur-3xl dark:bg-paper/10"></div>
+                    <div class="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-sage/20 blur-3xl dark:bg-sage/15">
+                    </div>
+                    <div
+                        class="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-ink/10 blur-3xl dark:bg-paper/10">
+                    </div>
                 </div>
 
                 <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/60 dark:text-paper/60">
@@ -18,8 +21,7 @@
                 </p>
 
                 <div class="mt-8 flex flex-wrap gap-4">
-                    <a href="{{ route('analytics.youtube-channel') }}"
-                        class="btn-primary">
+                    <a href="{{ route('analytics.youtube-channel') }}" class="btn-primary">
                         {{ $settings->cta_label }}
                     </a>
                     <a href="#videos" class="btn-secondary">

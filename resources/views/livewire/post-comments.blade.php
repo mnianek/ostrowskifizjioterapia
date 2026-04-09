@@ -123,8 +123,7 @@
                                         {{ $reply->created_at->translatedFormat('d.m.Y H:i') }}
                                     </time>
                                 </div>
-                                <p
-                                    class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/80 dark:text-paper/80">
+                                <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/80 dark:text-paper/80">
                                     {{ $reply->content }}
                                 </p>
                                 <div class="mt-4 flex flex-wrap items-center gap-2">
@@ -146,7 +145,8 @@
                 @endif
             </article>
         @empty
-            <p class="text-sm leading-7 text-ink/70 dark:text-paper/70">Brak zatwierdzonych komentarzy. Bądź pierwszą osobą,
+            <p class="text-sm leading-7 text-ink/70 dark:text-paper/70">Brak zatwierdzonych komentarzy. Bądź pierwszą
+                osobą,
                 która doda opinię.</p>
         @endforelse
     </div>
@@ -158,7 +158,8 @@
             „Zgłoś”, jeśli komentarz narusza zasady.
         </p>
 
-        <form wire:submit="addComment" class="mt-6 space-y-4 rounded-2xl border border-ink/10 bg-paper/70 p-5 dark:border-paper/10 dark:bg-paper/5 sm:p-6">
+        <form wire:submit="addComment"
+            class="mt-6 space-y-4 rounded-2xl border border-ink/10 bg-paper/70 p-5 dark:border-paper/10 dark:bg-paper/5 sm:p-6">
             <input type="text" wire:model="website" tabindex="-1" autocomplete="off" class="hidden"
                 aria-hidden="true">
 

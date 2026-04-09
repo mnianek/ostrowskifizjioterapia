@@ -13,7 +13,8 @@
                     Baza wiedzy fizjoterapeutycznej
                 </h1>
                 <p class="lead mt-6 max-w-3xl text-ink/70 dark:text-paper/70">
-                    Praktyczne materiały o zdrowiu, ruchu i terapii — aby wracać do sprawności spokojniej, bezpieczniej i
+                    Praktyczne materiały o zdrowiu, ruchu i terapii — aby wracać do sprawności spokojniej, bezpieczniej
+                    i
                     bardziej świadomie.
                 </p>
             </div>
@@ -23,7 +24,7 @@
             <form method="GET" action="{{ route('posts.index') }}"
                 class="reveal mb-10 rounded-3xl border border-ink/10 bg-paper/70 p-4 shadow-[0_18px_50px_rgba(26,26,26,0.06)] backdrop-blur sm:p-6 dark:border-paper/10 dark:bg-paper/5 dark:shadow-none"
                 data-reveal>
-                <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px_180px_auto] lg:items-end">
+                <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px_180px_auto] lg:items-start">
                     @if ($selectedCategory)
                         <input type="hidden" name="category" value="{{ $selectedCategory }}">
                     @endif
@@ -69,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="block lg:self-end">
+                    <div class="block">
                         <span
                             class="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-ink/55 dark:text-paper/55">Akcje</span>
                         <div class="flex flex-wrap gap-3 lg:justify-end">
@@ -111,7 +112,8 @@
                 @endphp
 
                 @if ($loop->first)
-                    <article class="reveal group mb-10 overflow-hidden rounded-3xl border border-ink/10 bg-paper/70 dark:border-paper/10 dark:bg-paper/5"
+                    <article
+                        class="reveal group mb-10 overflow-hidden rounded-3xl border border-ink/10 bg-paper/70 dark:border-paper/10 dark:bg-paper/5"
                         data-reveal>
                         <div class="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
                             <a href="{{ route('posts.show', $post->slug) }}"
@@ -222,8 +224,7 @@
                     @endif
                 @endif
             @empty
-                <div
-                    class="reveal rounded-3xl border border-dashed border-ink/20 bg-paper/50 p-14 text-center dark:border-paper/15 dark:bg-paper/5"
+                <div class="reveal rounded-3xl border border-dashed border-ink/20 bg-paper/50 p-14 text-center dark:border-paper/15 dark:bg-paper/5"
                     data-reveal>
                     <p class="text-lg text-ink/70 dark:text-paper/70">Brak artykułów do wyświetlenia.</p>
                     @if (Route::has('posts.create'))

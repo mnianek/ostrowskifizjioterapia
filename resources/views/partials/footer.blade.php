@@ -32,7 +32,8 @@
             <div class="reveal" data-reveal>
                 <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/55 dark:text-paper/55">
                     Newsletter</p>
-                <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">Raz w tygodniu: praktyczne wskazówki i nowe
+                <p class="mt-3 text-sm leading-7 text-ink/70 dark:text-paper/70">Raz w tygodniu: praktyczne wskazówki i
+                    nowe
                     wpisy o zdrowym ruchu.</p>
 
                 @if (session('newsletter_status'))
@@ -86,9 +87,12 @@
             <a href="{{ route('pages.privacy-policy') }}"
                 class="transition hover:text-sage-700 dark:hover:text-sage-200">Polityka
                 prywatności</a>
-            <a href="{{ route('pages.cookies') }}" class="transition hover:text-sage-700 dark:hover:text-sage-200">Cookies</a>
-            <a href="{{ route('pages.terms') }}" class="transition hover:text-sage-700 dark:hover:text-sage-200">Regulamin</a>
-            <a href="{{ route('pages.contact') }}" class="transition hover:text-sage-700 dark:hover:text-sage-200">Kontakt</a>
+            <a href="{{ route('pages.cookies') }}"
+                class="transition hover:text-sage-700 dark:hover:text-sage-200">Cookies</a>
+            <a href="{{ route('pages.terms') }}"
+                class="transition hover:text-sage-700 dark:hover:text-sage-200">Regulamin</a>
+            <a href="{{ route('pages.contact') }}"
+                class="transition hover:text-sage-700 dark:hover:text-sage-200">Kontakt</a>
         </div>
     </div>
 </footer>

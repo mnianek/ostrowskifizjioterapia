@@ -34,11 +34,13 @@
                             </div>
 
                             <div class="sm:col-span-2">
-                                <x-ui.input name="phone" label="Telefon" :value="old('phone')" placeholder="Opcjonalnie" />
+                                <x-ui.input name="phone" label="Telefon" :value="old('phone')"
+                                    placeholder="Opcjonalnie" />
                             </div>
 
                             <div class="sm:col-span-2">
-                                <x-ui.textarea name="content" label="Wiadomość" rows="6" required>{{ old('content') }}</x-ui.textarea>
+                                <x-ui.textarea name="content" label="Wiadomość" rows="6"
+                                    required>{{ old('content') }}</x-ui.textarea>
                             </div>
 
                             <label class="block sm:col-span-2">
@@ -69,7 +71,8 @@
 
                         <div class="mt-6 flex flex-wrap items-center gap-3">
                             <button type="submit" class="btn-primary">Wyślij wiadomość</button>
-                            <p class="text-xs text-ink/55 dark:text-paper/55">Odpowiadamy najszybciej jak to możliwe.</p>
+                            <p class="text-xs text-ink/55 dark:text-paper/55">Odpowiadamy najszybciej jak to możliwe.
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -83,7 +86,8 @@
                     @forelse ($locations as $location)
                         <div class="surface-card p-5">
                             <h3 class="text-ink dark:text-paper">{{ $location->name }}</h3>
-                            <p class="mt-2 text-sm leading-6 text-ink/70 dark:text-paper/70">{{ $location->address }}</p>
+                            <p class="mt-2 text-sm leading-6 text-ink/70 dark:text-paper/70">{{ $location->address }}
+                            </p>
                             <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/70 dark:text-paper/70">
                                 {{ $location->hours }}
                             </p>
@@ -113,7 +117,8 @@
                         <article class="surface-card overflow-hidden">
                             <div class="p-5">
                                 <h3 class="text-ink dark:text-paper">{{ $location->name }}</h3>
-                                <p class="mt-2 text-sm leading-6 text-ink/70 dark:text-paper/70">{{ $location->address }}</p>
+                                <p class="mt-2 text-sm leading-6 text-ink/70 dark:text-paper/70">
+                                    {{ $location->address }}</p>
                                 <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/70 dark:text-paper/70">
                                     {{ $location->hours }}
                                 </p>
