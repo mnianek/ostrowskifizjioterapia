@@ -1,6 +1,6 @@
 <x-layout>
     <main class="relative">
-        <section class="relative min-h-[100svh] overflow-hidden">
+        <section class="relative min-h-[100svh] overflow-hidden bg-paper dark:bg-ink">
             <div class="pointer-events-none absolute inset-0">
                 <div class="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl dark:bg-sage/15">
                 </div>
@@ -9,7 +9,7 @@
             </div>
 
             <div
-                class="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-10 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:px-8 lg:pb-16 lg:pt-14">
+                class="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:px-8 lg:pb-16 lg:pt-24">
                 <div class="relative">
                     <div class="reveal" data-reveal>
                         <p class="text-xs font-semibold uppercase tracking-[0.22em] text-ink/65 dark:text-paper/70">
