@@ -141,3 +141,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Hotfix Railway build: `composer install` uruchamiany z `--no-scripts` przed `COPY . .`, a po skopiowaniu projektu `composer dump-autoload --optimize --no-dev` (naprawa błędu `Could not open input file: artisan`).
 - [x] Hotfix Railway/Vite: wymuszone usuwanie `public/hot` w Docker build oraz dodany `.dockerignore`, aby style były ładowane z `public/build` zamiast z dev-serwera Vite.
 - [x] Hotfix Railway build: tworzenie `bootstrap/cache` i `storage/framework/*` przed `composer dump-autoload` oraz jawne `php artisan package:discover --ansi` (naprawa błędu `Please provide a valid cache path`).
+- [x] Hotfix mixed-content na Railway: zaufanie proxy (`trustProxies('*')`) oraz wymuszenie `https` w produkcji (`URL::forceScheme('https')`) dla poprawnego ładowania assetów.
