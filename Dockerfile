@@ -18,7 +18,12 @@ RUN composer install --no-dev --no-interaction --no-scripts --optimize-autoloade
 
 COPY . .
 
-RUN composer dump-autoload --optimize --no-dev
+RUN mkdir -p bootstrap/cache \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    && composer dump-autoload --optimize --no-dev --no-scripts \
+    && php artisan package:discover --ansi
 
 RUN rm -f public/hot && npm install && npm run build
 
