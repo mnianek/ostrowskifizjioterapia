@@ -121,6 +121,7 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
 - [x] Uzupełnienie testow unit/regresji i formalne domkniecie `BLOG_MINIMUM_CHECKLIST.md`.
 
 ## Bieżące prace (Quality Assurance & Polish)
+- [x] Hotfix Railway deployment: usunięcie Apache z Dockerfile i przejście na `php artisan serve`, aby wyeliminować błąd `AH00534: More than one MPM loaded`.
 - [x] Naprawienie type hint'ów w testach Feature (`$user` pokazywany jako Collection|Model zamiast User)
   - [x] Dodanie namespace `Tests\Feature` do PhaseFiveVerificationTest.php i PostAuthorizationTest.php
   - [x] Dodanie `@var \App\Models\User $user` docblocks przed factory()->create() dla IDE recognition
