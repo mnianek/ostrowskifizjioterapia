@@ -20,7 +20,7 @@ COPY . .
 
 RUN composer dump-autoload --optimize --no-dev
 
-RUN npm install && npm run build
+RUN rm -f public/hot && npm install && npm run build
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 

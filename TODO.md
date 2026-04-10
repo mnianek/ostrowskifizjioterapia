@@ -139,3 +139,4 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
   - [ ] Optymalizacja zdjęć (konwersja do WebP, lazy loading)
 
 - [x] Hotfix Railway build: `composer install` uruchamiany z `--no-scripts` przed `COPY . .`, a po skopiowaniu projektu `composer dump-autoload --optimize --no-dev` (naprawa błędu `Could not open input file: artisan`).
+- [x] Hotfix Railway/Vite: wymuszone usuwanie `public/hot` w Docker build oraz dodany `.dockerignore`, aby style były ładowane z `public/build` zamiast z dev-serwera Vite.
