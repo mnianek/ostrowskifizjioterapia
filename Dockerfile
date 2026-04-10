@@ -14,9 +14,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY composer.json composer.lock package.json package-lock.json* ./
 
-RUN composer install --no-dev --no-interaction --optimize-autoloader
+RUN composer install --no-dev --no-interaction --no-scripts --optimize-autoloader
 
 COPY . .
+
+RUN composer dump-autoload --optimize --no-dev
 
 RUN npm install && npm run build
 

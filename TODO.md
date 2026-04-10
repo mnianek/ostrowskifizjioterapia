@@ -137,3 +137,5 @@ com# TODO - Przebudowa bloga do strony gabinetu fizjoterapii
   - [ ] Przeglądnięcie responsywności mobile na wszystkich stronach
   - [ ] Dodanie testimonialów/opinii pacjentów
   - [ ] Optymalizacja zdjęć (konwersja do WebP, lazy loading)
+
+- [x] Hotfix Railway build: `composer install` uruchamiany z `--no-scripts` przed `COPY . .`, a po skopiowaniu projektu `composer dump-autoload --optimize --no-dev` (naprawa błędu `Could not open input file: artisan`).
