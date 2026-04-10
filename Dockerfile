@@ -25,8 +25,11 @@ RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/g' /etc/apache2/sites-
 
 # 6. Composer i kod
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
 WORKDIR /var/www/html
 COPY . .
+RUN npm install && npm run build
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN chown -R www-data:www-data storage bootstrap/cache
 
